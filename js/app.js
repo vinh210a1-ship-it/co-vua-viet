@@ -5,6 +5,11 @@ const VN = {K:'Vua',Q:'Hậu',R:'Xe',B:'Tượng',N:'Mã',P:'Tốt'};
 const FILES = 'abcdefgh';
 const stage = document.getElementById('stage');
 const crumbs = document.getElementById('crumbs');
+const REDUCE = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+/* Việc cần dọn khi rời trang (bàn cờ tương tác, bộ hẹn giờ). */
+let leaveJobs = [];
+function onLeave(f){ leaveJobs.push(f); }
+function cleanup(){ leaveJobs.forEach(f=>{ try { f(); } catch(e){} }); leaveJobs = []; }
 
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function norm(s){ return String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase(); }
@@ -29,9 +34,9 @@ function describe(fen){
   }
   return 'Trắng: '+w.join(', ')+'. Đen: '+b.join(', ')+'.';
 }
-function boardHTML(fen, flip, hl, moved){
+function boardHTML(fen, flip, hl, moved, cls){
   const g = parseBoard(fen);
-  let h = '<div class="board" role="img" aria-label="'+esc(describe(fen))+'">';
+  let h = '<div class="board'+(cls?' '+cls:'')+'" '+(cls==='mini' ? 'aria-hidden="true"' : 'role="img" aria-label="'+esc(describe(fen))+'"')+'>';
   for (let r=0;r<8;r++) for (let c=0;c<8;c++){
     const rank = flip ? r : 7-r, file = flip ? 7-c : c;
     const name = FILES[file]+(rank+1);
@@ -55,7 +60,7 @@ function replay(sans){
   for (const s of sans){
     const m = c.move(s);
     if (!m) break;
-    out.push({fen:c.fen(), from:m.from, to:m.to, san:m.san});
+    out.push({fen:c.fen(), from:m.from, to:m.to, san:m.san, promo:m.promotion||''});
   }
   return out;
 }
@@ -78,6 +83,7 @@ function go(h){
   route();
 }
 function route(){
+  cleanup();
   document.getElementById('dots').hidden = true;
   stepperGo = stepperKey = null;
   const h = CUR.slice(2).split('/').filter(Boolean);
@@ -95,6 +101,7 @@ function route(){
         const list = PUZ.filter(p=>p.var===v.id);
         return startQuiz(list, '#/o/'+OP.opening.id+'/'+v.id, 'Luyện biến thể '+v.name_vi);
       }
+      if (h[3]==='practice') return viewPractice(v);
       return viewVariation(v);
     }
   }
@@ -132,8 +139,10 @@ function lessonMatches(q){
   return t.split(/\s+/).every(w=>hay.includes(w) || (ALIAS[w] && hay.includes(ALIAS[w])));
 }
 function lessonCard(){
-  const o = OP.opening;
-  return '<a class="lesson" href="#/o/'+o.id+'"><div><span class="badge">Có bài học đầy đủ</span>'+
+  const o = OP.opening, f = replay(o.first_moves.replace(/\d+\.\s*/g,'').split(/\s+/).filter(Boolean));
+  const last = f[f.length-1];
+  return '<a class="lesson" href="#/o/'+o.id+'"><span class="thumb">'+boardHTML(last.fen, o.side==='b', [last.from,last.to], false, 'mini')+'</span>'+
+    '<div><span class="badge">Có bài học đầy đủ</span>'+
     '<h2>'+esc(o.name_vi)+'</h2><p class="muted">'+esc(o.name_en)+' · '+esc(o.eco)+' · '+esc(o.first_moves)+'</p>'+
     '<p>'+esc(o.tagline)+'</p></div><span class="go" aria-hidden="true">›</span></a>';
 }
@@ -141,12 +150,34 @@ function resultItem(i){
   const r = ALL[i], sans = r[2].split(' ');
   return '<li><a class="item" href="#/line/'+i+'"><b>'+esc(r[1])+'</b><span class="muted">'+esc(r[0])+' · '+esc(movesText(sans, Math.min(sans.length,8)))+(sans.length>8?' …':'')+'</span></a></li>';
 }
+/* Bàn cờ minh hoạ ở trang chủ: tự đi mấy nước đầu của bài học, rồi lặp lại. */
+function animateHero(host){
+  const o = OP.opening, pos = replay(OP.variations[0].moves.split(' ').slice(0,10));
+  const b = new Board(host, {fen:pos[0].fen, flip:o.side==='b'});
+  b.root.setAttribute('aria-label','Minh hoạ: các nước đầu của '+o.name_vi);
+  let k = 0, t = null, alive = true;
+  onLeave(()=>{ alive = false; clearTimeout(t); b.destroy(); });
+  const lastP = pos[pos.length-1];
+  if (REDUCE){ b.setFen(lastP.fen, {last:[lastP.from,lastP.to]}); return; }
+  function tick(){
+    if (!alive) return;
+    if (k >= pos.length-1){ k = 0; t = setTimeout(()=>{ if (!alive) return; b.setFen(pos[0].fen); t = setTimeout(tick, 700); }, 2200); return; }
+    k++; const p = pos[k]; b.play(p.from, p.to, p.promo, true); t = setTimeout(tick, 950);
+  }
+  t = setTimeout(tick, 600);
+}
 function viewHome(){
   setCrumbs([['Trang chủ']]);
   const fam = {};
   ALL.forEach(r=>{ const f = r[1].split(':')[0]; fam[f] = (fam[f]||0)+1; });
   const chips = POPULAR.filter(f=>fam[f]).map(f=>'<button type="button" class="chip" data-q="'+esc(f)+'">'+esc(f)+' <small>'+fam[f]+'</small></button>').join('');
   stage.innerHTML =
+    '<section class="hero"><div><h2>Học khai cuộc từng bước, có người chỉ từng nước đi</h2>'+
+      '<p>Tìm một khai cuộc, xem mục đích của từng nước, tự đi lại trên bàn cờ, rồi luyện puzzle.</p>'+
+      '<ol class="steps3"><li><b>1</b>Tìm</li><li><b>2</b>Học</li><li><b>3</b>Luyện</li></ol>'+
+      '<div class="stats"><span><strong>'+ALL.length.toLocaleString('vi-VN')+'</strong>dòng khai cuộc</span>'+
+      '<span><strong>'+OP.variations.length+'</strong>biến thể có bài</span><span><strong>'+PUZ.length+'</strong>puzzle</span></div></div>'+
+      '<div class="boardbox" id="heroBoard"></div></section>'+
     '<section class="card">'+
       '<label class="lbl" for="q">Tìm khai cuộc</label>'+
       '<input id="q" class="search" type="search" inputmode="search" autocomplete="off" placeholder="Ví dụ: Sicilian, Caro-Kann, Ruy Lopez, B12" value="'+esc(searchState.q)+'">'+
@@ -171,6 +202,7 @@ function viewHome(){
     document.getElementById('results').innerHTML = h;
   }
   q.addEventListener('input', draw);
+  animateHero(document.getElementById('heroBoard'));
   document.getElementById('chips').addEventListener('click', e=>{
     const b = e.target.closest('.chip'); if (!b) return;
     q.value = b.dataset.q; draw(); q.focus();
@@ -192,44 +224,62 @@ function viewLine(i){
 }
 
 /* ---------- Bộ điều khiển xem từng nước ---------- */
+let stepperGo = null, stepperKey = null;
 function mountStepper(el, sans, steps, opt){
   const pos = replay(sans);
   let i = opt.start || 0, flip = !!opt.flip;
-  function draw(){
+  el.innerHTML =
+    '<div class="boardbox"></div>'+
+    '<div class="ctl"><button class="btn ghost small" data-a="first" aria-label="Về đầu">⏮</button>'+
+    '<button class="btn small" data-a="prev" aria-label="Lùi một nước">◀</button>'+
+    '<span class="cnt"></span>'+
+    '<button class="btn small" data-a="next" aria-label="Đi tiếp một nước">▶</button>'+
+    '<button class="btn ghost small" data-a="last" aria-label="Đến cuối">⏭</button>'+
+    '<button class="btn ghost small" data-a="flip">Xoay bàn</button></div>'+
+    '<div class="stepinfo" aria-live="polite"></div>';
+  const board = new Board(el.querySelector('.boardbox'), {fen:pos[i].fen, flip});
+  onLeave(()=>board.destroy());
+  const btn = a => el.querySelector('[data-a="'+a+'"]');
+  const last = pos.length-1;
+  function ui(){
     const p = pos[i];
-    const hl = p.from ? [p.from, p.to] : null;
+    board.root.setAttribute('aria-label', describe(p.fen));
+    btn('first').disabled = btn('prev').disabled = i===0;
+    btn('next').disabled = btn('last').disabled = i===last;
+    el.querySelector('.cnt').textContent = i+'/'+last;
     let info = '';
     if (i===0) info = '<p class="curmove muted">Thế ban đầu. Bấm ▶ để đi nước đầu tiên.</p>';
     else {
       const st = steps ? steps[i-1] : null;
-      info = '<p class="curmove"><b>'+esc(plyLabel(i-1, pos[i].san))+'</b>'+(st?' <span class="who '+(st.who==='Trắng'?'w':'b')+'">'+st.who+'</span>':'')+'</p>'+
+      info = '<p class="curmove"><b>'+esc(plyLabel(i-1, p.san))+'</b>'+(st?' <span class="who '+(st.who==='Trắng'?'w':'b')+'">'+st.who+'</span>':'')+'</p>'+
         (st?'<p class="why">'+esc(st.purpose)+'</p>':'');
     }
-    el.innerHTML =
-      '<div class="boardbox">'+boardHTML(p.fen, flip, hl, i>0)+'</div>'+
-      '<div class="ctl"><button class="btn ghost small" data-a="first" aria-label="Về đầu" '+(i===0?'disabled':'')+'>⏮</button>'+
-      '<button class="btn small" data-a="prev" aria-label="Lùi một nước" '+(i===0?'disabled':'')+'>◀</button>'+
-      '<span class="cnt">'+i+'/'+(pos.length-1)+'</span>'+
-      '<button class="btn small" data-a="next" aria-label="Đi tiếp một nước" '+(i===pos.length-1?'disabled':'')+'>▶</button>'+
-      '<button class="btn ghost small" data-a="last" aria-label="Đến cuối" '+(i===pos.length-1?'disabled':'')+'>⏭</button>'+
-      '<button class="btn ghost small" data-a="flip">Xoay bàn</button></div>'+
-      '<div class="stepinfo" aria-live="polite">'+info+'</div>';
+    el.querySelector('.stepinfo').innerHTML = info;
     const tbl = document.getElementById('steptable');
     if (tbl) tbl.querySelectorAll('tr[data-i]').forEach(tr=>tr.classList.toggle('cur', +tr.dataset.i===i));
   }
+  /* Đi tới nước n: lùi hoặc nhảy xa thì dựng lại thế cờ; đi tiếp đúng một nước thì cho quân trượt. */
+  function goTo(n){
+    n = Math.max(0, Math.min(last, n));
+    if (n === i) return;
+    const prev = i; i = n;
+    const p = pos[i];
+    if (i === prev+1 && !REDUCE) board.play(p.from, p.to, p.promo, true);
+    else board.setFen(p.fen, {last: p.from ? [p.from, p.to] : null});
+    ui();
+  }
+  if (pos[i].from) board.setLast(pos[i].from, pos[i].to);
   el.onclick = e=>{
     const b = e.target.closest('button'); if (!b || b.disabled) return;
     const a = b.dataset.a;
-    if (a==='first') i = 0; else if (a==='prev') i = Math.max(0,i-1);
-    else if (a==='next') i = Math.min(pos.length-1,i+1); else if (a==='last') i = pos.length-1;
-    else if (a==='flip') flip = !flip;
-    draw();
+    if (a==='first') goTo(0); else if (a==='prev') goTo(i-1);
+    else if (a==='next') goTo(i+1); else if (a==='last') goTo(last);
+    else if (a==='flip'){ flip = !flip; board.setFlip(flip); }
   };
-  stepperGo = n=>{ i = Math.max(0,Math.min(pos.length-1,n)); draw(); };
-  stepperKey = k=>{ if (k==='ArrowRight') { i = Math.min(pos.length-1,i+1); draw(); } else if (k==='ArrowLeft'){ i = Math.max(0,i-1); draw(); } };
-  draw();
+  stepperGo = goTo;
+  stepperKey = k=>{ if (k==='ArrowRight') goTo(i+1); else if (k==='ArrowLeft') goTo(i-1); };
+  ui();
 }
-let stepperGo = null, stepperKey = null;
 document.addEventListener('keydown', e=>{
   if (!stepperKey || /INPUT|TEXTAREA/.test((e.target||{}).tagName||'')) return;
   if (e.key==='ArrowRight'||e.key==='ArrowLeft'){ stepperKey(e.key); }
@@ -246,8 +296,9 @@ function viewOpening(){
   setCrumbs([['Trang chủ','#/'],[o.name_vi]]);
   const first = replay(['e4','c6']);
   let cards = '';
-  OP.variations.forEach(v=>{
-    cards += '<a class="vcard" href="#/o/'+o.id+'/'+v.id+'"><div><span class="tag">'+esc(v.eco)+' · '+esc(v.name_en)+'</span>'+
+  OP.variations.forEach((v,vi)=>{
+    const rp = replay(v.moves.split(' ')), lp = rp[rp.length-1];
+    cards += '<a class="vcard" href="#/o/'+o.id+'/'+v.id+'"><span class="thumb">'+boardHTML(lp.fen, o.side==='b', [lp.from,lp.to], false, 'mini')+'</span><div><span class="tag">'+esc(v.eco)+' · '+esc(v.name_en)+'</span>'+
       '<h3>'+esc(v.name_vi)+'</h3><p class="muted">'+esc(movesText(v.moves.split(' '), 8))+' …</p><p>'+esc(v.idea)+'</p></div><span class="go" aria-hidden="true">›</span></a>';
   });
   stage.innerHTML =
@@ -284,7 +335,8 @@ function viewVariation(v){
   const evalNote = Math.abs(v.eval_cp)<=50 ? 'cân bằng' : (v.eval_cp>0?'Trắng nhỉnh hơn':'Đen nhỉnh hơn');
   stage.innerHTML =
     '<section class="card"><div class="meta"><span class="tag">'+esc(v.eco)+' · '+esc(v.lichess_name)+'</span></div>'+
-    '<h2>'+esc(v.name_vi)+'</h2><p>'+esc(v.idea)+'</p><div id="stepper"></div></section>'+
+    '<h2>'+esc(v.name_vi)+'</h2><p>'+esc(v.idea)+'</p><div id="stepper"></div>'+
+    '<div class="actions"><a class="btn" href="#/o/'+o.id+'/'+v.id+'/practice">Tự đi lại bên '+(o.side==='b'?'Đen':'Trắng')+'</a>'+(n?'<a class="btn alt" href="#/o/'+o.id+'/'+v.id+'/quiz">Làm '+n+' puzzle</a>':'')+'</div></section>'+
     '<section class="card"><h2>Bảng chỉ dẫn từng nước</h2><p class="muted small">Bấm vào một dòng để xem thế cờ lúc đó.</p>'+
     '<div class="tablewrap"><table class="steps" id="steptable"><thead><tr><th>Nước</th><th>Bên</th><th>Mục đích</th></tr></thead><tbody>'+rows+'</tbody></table></div></section>'+
     '<section class="card"><h2>Điểm mạnh và điểm yếu</h2>'+proCon(v.strengths, v.weaknesses)+
@@ -301,13 +353,106 @@ function viewVariation(v){
   });
 }
 
-/* ---------- Puzzle ---------- */
+/* ---------- Tự đi lại biến thể ---------- */
+function viewPractice(v){
+  const o = OP.opening, sans = v.moves.split(' '), pos = replay(sans), n = sans.length;
+  const me = o.side, meName = me==='b' ? 'Đen' : 'Trắng';
+  setCrumbs([['Trang chủ','#/'],[o.name_vi,'#/o/'+o.id],[v.name_vi,'#/o/'+o.id+'/'+v.id],['Tự đi lại']]);
+  stage.innerHTML =
+    '<section class="card"><div class="meta"><span class="tag">Tự đi lại · '+esc(v.eco)+'</span>'+
+    '<span class="turn"><i class="'+me+'"></i>Bạn cầm '+meName+'</span></div>'+
+    '<h2>'+esc(v.name_vi)+'</h2>'+
+    '<p>Hãy tự đi các nước của '+meName+' trong biến thể này. Chạm quân rồi chạm ô đến, hoặc kéo quân. Máy sẽ đi các nước của bên kia.</p>'+
+    '<div class="progress" aria-hidden="true"><i id="bar"></i></div>'+
+    '<div class="boardbox" id="pbox"></div>'+
+    '<div class="boardtools"><button class="btn ghost small" id="pHint" type="button">Gợi ý</button>'+
+    '<button class="btn ghost small" id="pFlip" type="button">Xoay bàn</button>'+
+    '<button class="btn ghost small" id="pAgain" type="button">Làm lại từ đầu</button><span class="cnt" id="pCnt"></span></div>'+
+    '<div class="status info" id="pSay" aria-live="polite"></div>'+
+    '<div class="actions" id="pEnd"></div>'+
+    '</section>';
+  const $ = id => document.getElementById(id);
+  let k = 0, wrong = 0, hintLvl = 0, done = false, alive = true, timer = null;
+  const board = new Board($('pbox'), {fen:pos[0].fen, flip:me==='b', interactive:true, canMove:c=>c===me, onMove});
+  onLeave(()=>{ alive = false; clearTimeout(timer); board.destroy(); });
+  const mover = i => i%2===0 ? 'w' : 'b';
+  const lastOf = i => pos[i].from ? [pos[i].from, pos[i].to] : null;
+  function say(kind, ico, html){
+    const el = $('pSay'); el.className = 'status '+kind;
+    el.innerHTML = '<span class="ico" aria-hidden="true">'+ico+'</span><div>'+html+'</div>';
+  }
+  function prog(){ $('bar').style.width = (k/n*100)+'%'; $('pCnt').textContent = 'Đã đi '+k+'/'+n+' nước (cả hai bên)'; $('pHint').disabled = done || mover(k)!==me; }
+  function setHint(lvl){
+    hintLvl = lvl; const e = pos[k+1];
+    if (!e || lvl===0) board.setHint(null); else board.setHint(e.from, lvl>=2 ? e.to : null);
+  }
+  function opponent(){
+    if (k >= n) return finish();
+    prog();
+    if (mover(k) === me){ board.lock(false); return; }
+    board.lock(true);
+    timer = setTimeout(()=>{
+      if (!alive) return;
+      const p = pos[k+1]; board.play(p.from, p.to, p.promo, !REDUCE); k++;
+      const st = v.steps[k-1];
+      say('info','♟','<p><b>'+esc(plyLabel(k-1,p.san))+'</b> <span class="who '+(st.who==='Trắng'?'w':'b')+'">'+st.who+'</span> '+esc(st.purpose)+'</p>'+(k<n?'<p>Đến lượt bạn.</p>':''));
+      wrong = 0; setHint(0); opponent();
+    }, k===0 ? 450 : 800);
+  }
+  function finish(){
+    done = true; prog(); board.lock(true); board.setHint(null);
+    say('ok','★','<p><b>Hoàn thành!</b> Bạn đã đi đúng cả '+Math.ceil(n/2)+' nước của '+meName+' trong biến thể này.</p><p>Thử lại một lần nữa mà không cần gợi ý, hoặc sang phần puzzle.</p>');
+    const q = PUZ.filter(p=>p.var===v.id).length;
+    $('pEnd').innerHTML = '<button class="btn" id="pAgain2" type="button">Làm lại</button>'+
+      (q?'<a class="btn alt" href="#/o/'+o.id+'/'+v.id+'/quiz">Làm '+q+' puzzle</a>':'')+
+      '<a class="btn ghost" href="#/o/'+o.id+'/'+v.id+'">Về bảng chỉ dẫn</a>';
+    $('pAgain2').addEventListener('click', restart);
+    $('pSay').classList.add('celebrate');
+  }
+  function onMove(m){
+    const e = pos[k+1];
+    if (m.from===e.from && m.to===e.to && m.promotion===(e.promo||undefined)){
+      k++; wrong = 0; setHint(0); board.setFlash(m.to,'ok',700);
+      const st = v.steps[k-1];
+      say('ok','✓','<p><b>'+esc(plyLabel(k-1,m.san))+'</b> đúng rồi.</p><p>'+esc(st.purpose)+'</p>');
+      opponent();
+    } else {
+      wrong++; board.lock(true); board.setFlash(m.to,'no',700);
+      say('no','✗','<p><b>'+esc(m.san)+'</b> chưa phải nước trong biến thể này.</p><p>'+(wrong>=2 ? 'Quân cần đi đã được tô xanh.' : 'Thử nước khác nhé, hoặc bấm Gợi ý.')+'</p>');
+      timer = setTimeout(()=>{
+        if (!alive) return;
+        board.setFen(pos[k].fen, {last:lastOf(k)});
+        setHint(wrong>=3 ? 2 : wrong>=2 ? 1 : hintLvl);
+        board.lock(false);
+      }, 700);
+    }
+  }
+  function restart(){
+    clearTimeout(timer); k = 0; wrong = 0; done = false; $('pEnd').innerHTML = '';
+    board.setFen(pos[0].fen); setHint(0);
+    say('info','♟','<p>Làm lại từ đầu.</p>'); opponent();
+  }
+  $('pHint').addEventListener('click', ()=>{
+    if (done || mover(k)!==me) return;
+    setHint(Math.min(2, hintLvl+1));
+    say('info','?','<p>'+(hintLvl===1?'Hãy nhìn quân đang được tô xanh. Đó là quân cần đi.':'Quân tô xanh đi tới ô được tô xanh.')+'</p>');
+  });
+  $('pFlip').addEventListener('click', ()=>board.setFlip(!board.flip));
+  $('pAgain').addEventListener('click', restart);
+  say('info','♟','<p>Bàn cờ sẵn sàng. '+(me==='b'?'Máy (Trắng) đi trước.':'Bạn đi trước.')+'</p>');
+  opponent();
+}
+
+/* ---------- Puzzle: đi quân thật trên bàn cờ ---------- */
 function startQuiz(list, backHref, title){
   if (!list.length){ go(backHref); return; }
   stepperGo = stepperKey = null;
   setCrumbs([['Trang chủ','#/'],[OP.opening.name_vi,'#/o/'+OP.opening.id],[title]]);
-  let idx = 0, answers = [], locked = false, showAfter = false;
+  let idx = 0, answers = [], board = null;
+  onLeave(()=>{ if (board) board.destroy(); });
   const dotsEl = document.getElementById('dots');
+  const $ = id => document.getElementById(id);
+  const tenth = cp => (cp/100).toFixed(1).replace('.',',');
   function renderDots(){
     let h = '';
     for (let i=0;i<list.length;i++){
@@ -320,63 +465,91 @@ function startQuiz(list, backHref, title){
   }
   function show(){
     const pz = list[idx];
-    locked = false; showAfter = false;
+    if (board){ board.destroy(); board = null; }
     renderDots();
     stage.innerHTML =
-      '<section class="card" aria-live="polite">'+
+      '<section class="card">'+
         '<div class="meta"><span class="tag">Câu '+(idx+1)+'/'+list.length+' · '+esc(pz.tag)+'</span>'+
         '<span class="turn"><i class="'+pz.turn+'"></i>'+(pz.turn==='w'?'Trắng':'Đen')+' đi</span></div>'+
         '<h2>'+esc(pz.q)+'</h2>'+
-        '<div class="boardbox" id="boardbox">'+boardHTML(pz.board,pz.turn==='b',null,false)+'</div>'+
-        '<div class="boardtools" id="tools"><button class="btn ghost small" id="hintBtn" type="button">Gợi ý</button></div>'+
-        '<div id="hint"></div><div class="opts" id="opts"></div><div id="fb"></div><div class="next" id="next"></div>'+
+        '<div class="boardbox" id="qbox"></div>'+
+        '<div class="boardtools" id="tools"><button class="btn ghost small" id="hintBtn" type="button">Gợi ý</button>'+
+        '<button class="btn ghost small" id="showBtn" type="button">Xem đáp án</button></div>'+
+        '<div id="hint" aria-live="polite"></div>'+
+        '<div class="status info" id="fb" aria-live="polite"><span class="ico" aria-hidden="true">♟</span><div><p>Chạm quân muốn đi, rồi chạm ô đến. Hoặc kéo quân tới ô đó.</p></div></div>'+
+        '<div class="next" id="next"></div>'+
         '<details class="legend"><summary>Cách đọc nước đi</summary>'+
         '<p>K = Vua, Q = Hậu, R = Xe, B = Tượng, N = Mã, không có chữ = Tốt. x là ăn quân, + là chiếu, # là chiếu hết.</p></details>'+
       '</section>';
-    const opts = document.getElementById('opts');
-    pz.opts.forEach((o,i)=>{
-      const b = document.createElement('button');
-      b.type = 'button'; b.className = 'opt'; b.innerHTML = '<span>'+esc(o.label)+'</span>';
-      b.addEventListener('click',()=>choose(i));
-      opts.appendChild(b);
+    let attempts = 0, solved = false, hintLvl = 0, afterShown = false;
+    const promoFor = pz.uci.length>4 ? pz.uci[4] : undefined;
+    const fb = (kind, ico, html)=>{ const el = $('fb'); el.className = 'status '+kind; el.innerHTML = '<span class="ico" aria-hidden="true">'+ico+'</span><div>'+html+'</div>'; };
+    const b = new Board($('qbox'), {fen:pz.fen, flip:pz.turn==='b', interactive:true, canMove:c=>c===pz.turn, onMove});
+    board = b;
+    function wrongText(m, uci){
+      const o = pz.opts.find(x=>x.uci===uci), loss = pz.ev[uci];
+      if (pz.var==='trap') return o && o.why ? o.why : 'Chưa chiếu hết: Đen vẫn còn nước đi.';
+      if (o && !o.correct && o.why) return o.why;
+      if (loss===undefined) return 'Chưa phải nước theo bài.';
+      if (loss<=40) return 'Nước này cũng ổn: máy chấm chỉ kém nước theo bài khoảng '+tenth(loss)+' Tốt. Nhưng bài này đang hỏi một nước khác, hãy thử nước khác.';
+      if (loss<120) return 'Chơi được nhưng kém nước theo bài khoảng '+tenth(loss)+' Tốt (máy chấm).';
+      return 'Nước này kém nước theo bài khoảng '+tenth(loss)+' Tốt (máy chấm).';
+    }
+    function finishSolved(kind){
+      solved = true; afterShown = true;
+      const afterFen = b.game.fen();
+      b.lock(true); b.setHint(null); $('hint').innerHTML = '';
+      const title = kind==='first' ? PRAISE[idx % PRAISE.length] : kind==='retry' ? 'Đúng rồi! Lần này bạn đã tìm ra.' : 'Đáp án: '+pz.san;
+      fb(kind==='show' ? 'info' : 'ok', kind==='show' ? '→' : '✓',
+        '<p><b>'+esc(title)+'</b></p>'+'<p>'+esc(pz.explain)+'</p><p class="tip">Mẹo: '+esc(pz.tip)+'</p>');
+      if (kind!=='show') $('fb').classList.add('celebrate');
+      $('tools').innerHTML = '<button class="btn ghost small" id="toggle" type="button">Xem lại thế ban đầu</button>';
+      $('toggle').addEventListener('click', ()=>{
+        afterShown = !afterShown;
+        if (afterShown) b.play(pz.from, pz.to, promoFor, !REDUCE); else b.setFen(pz.fen);
+        $('toggle').textContent = afterShown ? 'Xem lại thế ban đầu' : 'Xem sau nước đúng';
+      });
+      const lastQ = idx === list.length-1;
+      $('next').innerHTML = '<button class="btn" id="nextBtn" type="button">'+(lastQ?'Xem kết quả':'Câu tiếp theo')+'</button>';
+      $('nextBtn').addEventListener('click', ()=>{ idx++; idx<list.length ? show() : end(); window.scrollTo({top:0}); });
+      $('nextBtn').focus({preventScroll:true});
+    }
+    function onMove(m){
+      if (solved || board !== b) return;
+      const uci = m.from+m.to+(m.promotion||'');
+      const correct = pz.var==='trap' ? b.game.in_checkmate() : uci===pz.uci;
+      if (correct){
+        if (answers[idx]===undefined) answers[idx] = true;
+        renderDots(); b.setFlash(m.to,'ok',900);
+        finishSolved(attempts===0 ? 'first' : 'retry');
+      } else {
+        attempts++;
+        if (answers[idx]===undefined){ answers[idx] = false; renderDots(); }
+        b.lock(true); b.setFlash(m.to,'no',700);
+        fb('no','✗','<p><b>'+esc(m.san)+'</b></p><p>'+esc(wrongText(m, uci))+'</p><p>'+(attempts>=2?'Bí rồi? Bấm Gợi ý hoặc Xem đáp án.':'Hãy thử nước khác.')+'</p>');
+        setTimeout(()=>{
+          if (board !== b || solved) return;
+          b.setFen(pz.fen); if (hintLvl>=2) b.setHint(pz.from, null);
+          b.lock(false);
+        }, 800);
+      }
+    }
+    $('hintBtn').addEventListener('click', ()=>{
+      if (solved) return;
+      hintLvl++;
+      if (hintLvl===1){
+        $('hint').innerHTML = '<div class="hint">'+esc(pz.hint)+'</div>';
+        $('hintBtn').textContent = 'Chỉ cho tôi quân cần đi';
+      } else {
+        b.setHint(pz.from, null); $('hintBtn').hidden = true;
+      }
     });
-    document.getElementById('hintBtn').addEventListener('click',()=>{
-      document.getElementById('hint').innerHTML = '<div class="hint">'+esc(pz.hint)+'</div>';
-      document.getElementById('hintBtn').hidden = true;
+    $('showBtn').addEventListener('click', ()=>{
+      if (solved) return;
+      if (answers[idx]===undefined){ answers[idx] = false; renderDots(); }
+      b.setFen(pz.fen); b.play(pz.from, pz.to, promoFor, !REDUCE);
+      finishSolved('show');
     });
-  }
-  function drawBoard(animate){
-    const pz = list[idx];
-    document.getElementById('boardbox').innerHTML =
-      boardHTML(showAfter ? pz.after : pz.board, pz.turn==='b', showAfter ? [pz.from, pz.to] : null, animate);
-    const t = document.getElementById('toggle');
-    if (t) t.textContent = showAfter ? 'Xem lại thế ban đầu' : 'Xem sau nước đúng';
-  }
-  function choose(i){
-    if (locked) return; locked = true;
-    const pz = list[idx], pick = pz.opts[i], ok = pick.correct;
-    answers[idx] = ok; renderDots();
-    document.querySelectorAll('#opts .opt').forEach((b,j)=>{
-      b.disabled = true; const o = pz.opts[j];
-      if (o.correct){ b.classList.add('right'); b.innerHTML = '<span>'+esc(o.label)+'</span><span aria-hidden="true">&#10003;</span>'; }
-      else if (j===i){ b.classList.add('wrong'); b.innerHTML = '<span>'+esc(o.label)+'</span><span aria-hidden="true">&#10007;</span>'; }
-      else b.classList.add('dim');
-    });
-    const right = pz.opts.find(o=>o.correct);
-    const title = ok ? PRAISE[idx % PRAISE.length] : OOPS[idx % OOPS.length];
-    document.getElementById('hint').innerHTML = '';
-    document.getElementById('fb').innerHTML =
-      '<div class="fb '+(ok?'ok':'no')+'"><h3>'+title+'</h3>'+
-      (ok ? '' : '<p>'+esc(pick.label)+': '+esc(pick.why)+'</p><p><b>Đáp án đúng: '+esc(right.label)+'</b></p>')+
-      '<p>'+esc(pz.explain)+'</p><p class="tip">Mẹo: '+esc(pz.tip)+'</p></div>';
-    showAfter = true; drawBoard(true);
-    document.getElementById('tools').innerHTML = '<button class="btn ghost small" id="toggle" type="button">Xem lại thế ban đầu</button>';
-    document.getElementById('toggle').addEventListener('click',()=>{ showAfter = !showAfter; drawBoard(false); });
-    const last = idx === list.length-1;
-    document.getElementById('next').innerHTML = '<button class="btn" id="nextBtn" type="button">'+(last?'Xem kết quả':'Câu tiếp theo')+'</button>';
-    const nb = document.getElementById('nextBtn');
-    nb.addEventListener('click',()=>{ idx++; idx<list.length ? show() : end(); window.scrollTo({top:0}); });
-    nb.focus({preventScroll:true});
   }
   function end(){
     renderDots();
@@ -387,16 +560,19 @@ function startQuiz(list, backHref, title){
     let rev = '', key = '';
     list.forEach((pz,i)=>{
       rev += '<li class="'+(answers[i]?'ok':'no')+'"><b>'+(answers[i]?'✓':'✗')+'</b><span>Câu '+(i+1)+': '+esc(pz.tag)+'</span></li>';
-      key += '<tr><td>'+(i+1)+'</td><td>'+esc(pz.tag)+'</td><td class="m">'+esc(pz.opts.find(o=>o.correct).label)+'</td></tr>';
+      key += '<tr><td>'+(i+1)+'</td><td>'+esc(pz.tag)+'</td><td class="m">'+esc(pz.san)+'</td></tr>';
     });
+    let st = '';
+    for (let i=0;i<3;i++) st += '<span'+(i<stars?'':' style="opacity:.3"')+'>★</span>';
     stage.innerHTML =
       '<section class="card end"><h2>'+msg+'</h2><div class="big">'+pts+'/'+n+'</div>'+
-      '<div class="stars" aria-hidden="true">'+'★'.repeat(stars)+'<span style="opacity:.3">'+'★'.repeat(3-stars)+'</span></div>'+
+      '<div class="stars" aria-hidden="true">'+st+'</div>'+
+      '<p class="muted small">Điểm chỉ tính khi bạn đi đúng ngay lần đầu.</p>'+
       '<ul class="review">'+rev+'</ul>'+
-      '<button class="btn" id="again" type="button">Chơi lại</button> <a class="btn ghost" href="'+backHref+'">Về bài học</a>'+
+      '<div class="actions"><button class="btn" id="again" type="button">Chơi lại</button> <a class="btn ghost" href="'+backHref+'">Về bài học</a></div>'+
       '<details class="legend key"><summary>Đáp án cho giáo viên</summary><div class="tablewrap"><table><tr><th>Câu</th><th>Chủ đề</th><th>Nước đúng</th></tr>'+key+'</table></div></details>'+
       '</section>';
-    document.getElementById('again').addEventListener('click',()=>{ idx = 0; answers = []; show(); window.scrollTo({top:0}); });
+    $('again').addEventListener('click',()=>{ idx = 0; answers = []; show(); window.scrollTo({top:0}); });
   }
   show();
 }
