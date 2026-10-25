@@ -266,3 +266,30 @@ a.btn.ghost{color:var(--ink)}
 @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.board.live .pc.slide{transition:none}.sq.hint::before{animation:none}}
 @media (max-width:480px){h1{font-size:1.6rem}.logo{width:44px;height:44px}}
+
+/* ================= Ảnh động ================= */
+.board.live.intro .pc{animation:pieceIn .5s cubic-bezier(.3,1.5,.5,1) backwards}
+@keyframes pieceIn{from{opacity:0;transform:translateY(-40%) scale(.5)}to{opacity:1;transform:none}}
+.board.live.mini{box-shadow:0 0 0 2px var(--ink);border-radius:4px;pointer-events:none}
+.board.live.mini .pc{filter:none}
+.herobox{width:100%;max-width:230px;margin:0 auto;z-index:1;display:flex;flex-direction:column;gap:10px}
+.herocap{display:block;text-align:center;text-decoration:none;color:var(--ink);line-height:1.25}
+.herocap b{display:block;font:800 1rem var(--font-display);text-wrap:balance}
+.herocap span{display:block;font-size:.85rem;color:var(--muted);min-height:1.3em;font-weight:600}
+.hero .herocap{color:#fff} .hero .herocap span{color:#dcebc8}
+.herocap:hover b{text-decoration:underline}
+.tour{max-width:360px}
+.item{flex-direction:row;align-items:center;gap:12px}
+.item .txt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.thumb.s{flex:none;width:54px;display:block}
+.logo svg{transform-origin:50% 90%}
+@media (prefers-reduced-motion:no-preference){
+  .logo svg{animation:hop 6s ease-in-out infinite}
+  .chip:hover{transform:translateY(-1px)}
+}
+@keyframes hop{0%,86%,100%{transform:none}90%{transform:translateY(-4px) rotate(-8deg)}94%{transform:translateY(0) rotate(4deg)}97%{transform:rotate(-2deg)}}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.confetti span{position:absolute;top:-40px;color:var(--accent);opacity:0;animation:fall 3s ease-in forwards}
+.confetti span:nth-child(3n){color:var(--sun)} .confetti span:nth-child(3n+1){color:var(--ink)}
+@keyframes fall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(540deg);opacity:.9}}
+@media (max-width:520px){.hero .herobox{order:-1;max-width:210px}.hero .stats{gap:12px 22px}}

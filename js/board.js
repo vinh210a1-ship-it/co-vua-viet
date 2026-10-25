@@ -10,6 +10,7 @@ class Board {
     this.onMove = opts.onMove || null;
     this.onIllegal = opts.onIllegal || null;
     this.locked = false;
+    this.intro = !!opts.intro;
     this.game = new Chess(opts.fen || undefined);
     this.sel = null; this.targets = new Map();
     this.last = null; this.hint = null; this.flash = null;
@@ -22,9 +23,14 @@ class Board {
     this.sqsEl = this.root.querySelector('.sqs');
     this.pcsEl = this.root.querySelector('.pcs');
     this.promoEl = this.root.querySelector('.promo');
+    if (opts.mini) this.root.classList.add('mini');
     this.buildSquares();
     this.buildPieces();
     this.paint();
+    if (this.intro) {   // quân cờ lần lượt "rơi" vào bàn
+      this.root.classList.add('intro');
+      setTimeout(() => this.root.classList.remove('intro'), 1200);
+    }
     this._down = e => this.pointerDown(e);
     this._move = e => this.pointerMove(e);
     this._up = e => this.pointerUp(e);
@@ -86,6 +92,7 @@ class Board {
       if (!p) continue;
       const sq = BFILES[f] + (r + 1);
       const el = this.pieceSVG(p); el.dataset.sq = sq;
+      if (this.intro) el.style.animationDelay = (Object.keys(this.pieces).length * 16) + 'ms';
       this.place(el, sq); this.pcsEl.appendChild(el); this.pieces[sq] = el;
     }
   }

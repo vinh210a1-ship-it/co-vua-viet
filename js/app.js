@@ -70,6 +70,59 @@ function movesText(sans, n){
   return parts.join(' ');
 }
 function plyLabel(i, san){ return (Math.floor(i/2)+1)+(i%2===0?'. ':'... ')+san; }
+/* Vài nước cuối của dòng, ví dụ "… 5. O-O b5 6. Bb3 d6" (dùng cho chú thích ảnh động). */
+function tailText(sans, k){
+  if (k<=0) return '';
+  const from = Math.max(0, k-4), parts = [];
+  for (let i=from;i<k;i++) parts.push(i%2===0 ? (Math.floor(i/2)+1)+'. '+sans[i] : (i===from ? (Math.floor(i/2)+1)+'... ' : '')+sans[i]);
+  return (from>0?'… ':'')+parts.join(' ');
+}
+/* Bàn cờ tự chạy: lần lượt đi hết các nước của từng thế cờ, dừng một lúc, rồi sang thế tiếp theo.
+   scenes: [{sans:[...], flip}]. Dừng khi cuộn khỏi màn hình. Trả về {stop}. */
+function autoBoard(host, scenes, o){
+  o = o || {};
+  const delay = o.delay || 950, hold = o.hold || 2200;
+  let si = 0, k = 0, t = null, alive = true, visible = true, b = null, pos = null, sc = null;
+  let io = null;
+  if ('IntersectionObserver' in window){ io = new IntersectionObserver(es=>{ visible = es[es.length-1].isIntersecting; }); io.observe(host); }
+  function load(){
+    sc = scenes[si % scenes.length]; pos = replay(sc.sans); k = 0;
+    if (!b) b = new Board(host, {fen:pos[0].fen, flip:!!sc.flip, mini:!!o.mini});
+    else { b.setFlip(!!sc.flip); b.setFen(pos[0].fen); }
+    if (o.label) b.root.setAttribute('aria-label', o.label(sc));
+    if (o.onScene) o.onScene(sc, si % scenes.length);
+    if (REDUCE){ const p = pos[pos.length-1]; b.setFen(p.fen, {last:[p.from,p.to]}); if (o.onMove) o.onMove(sc, pos.length-1, p); return; }
+    t = setTimeout(step, o.start || 700);
+  }
+  function step(){
+    if (!alive) return;
+    if (!visible){ t = setTimeout(step, 400); return; }
+    if (k >= pos.length-1){ t = setTimeout(()=>{ si++; load(); }, hold); return; }
+    k++; const p = pos[k];
+    b.play(p.from, p.to, p.promo, true);
+    if (o.onMove) o.onMove(sc, k, p);
+    t = setTimeout(step, delay);
+  }
+  load();
+  return { stop(){ alive = false; clearTimeout(t); if (io) io.disconnect(); if (b) b.destroy(); } };
+}
+/* Ảnh nhỏ tự đi nước trong các thẻ: <span class="thumb" data-sans="e4 c6 ..." data-flip="1">. */
+function mountThumbs(root){
+  const stops = [];
+  root.querySelectorAll('.thumb[data-sans]').forEach((el,n)=>{
+    stops.push(autoBoard(el, [{sans:el.dataset.sans.split(' '), flip:el.dataset.flip==='1'}], {delay:800, hold:1500, start:500+n*350, mini:true}).stop);
+  });
+  return ()=>stops.forEach(f=>f());
+}
+/* Pháo hoa quân cờ khi làm tốt. */
+function confetti(){
+  if (REDUCE) return;
+  const wrap = document.createElement('div'); wrap.className = 'confetti'; wrap.setAttribute('aria-hidden','true');
+  const g = ['♞','♜','♝','♛','♚','♟']; let h = '';
+  for (let i=0;i<26;i++) h += '<span style="left:'+(2+i*3.7)+'%;animation-delay:'+((i*97)%900)+'ms;animation-duration:'+(2200+(i*131)%1400)+'ms;font-size:'+(20+(i*7)%18)+'px">'+g[i%6]+'︎</span>';
+  wrap.innerHTML = h; document.body.appendChild(wrap);
+  const rm = ()=>wrap.remove(); setTimeout(rm, 4200); onLeave(rm);
+}
 
 /* ---------- Điều hướng ---------- */
 function setCrumbs(list){
@@ -139,32 +192,42 @@ function lessonMatches(q){
   return t.split(/\s+/).every(w=>hay.includes(w) || (ALIAS[w] && hay.includes(ALIAS[w])));
 }
 function lessonCard(){
-  const o = OP.opening, f = replay(o.first_moves.replace(/\d+\.\s*/g,'').split(/\s+/).filter(Boolean));
-  const last = f[f.length-1];
-  return '<a class="lesson" href="#/o/'+o.id+'"><span class="thumb">'+boardHTML(last.fen, o.side==='b', [last.from,last.to], false, 'mini')+'</span>'+
+  const o = OP.opening;
+  return '<a class="lesson" href="#/o/'+o.id+'"><span class="thumb" data-sans="'+esc(OP.variations[0].moves)+'" data-flip="'+(o.side==='b'?1:0)+'"></span>'+
     '<div><span class="badge">Có bài học đầy đủ</span>'+
     '<h2>'+esc(o.name_vi)+'</h2><p class="muted">'+esc(o.name_en)+' · '+esc(o.eco)+' · '+esc(o.first_moves)+'</p>'+
     '<p>'+esc(o.tagline)+'</p></div><span class="go" aria-hidden="true">›</span></a>';
 }
 function resultItem(i){
-  const r = ALL[i], sans = r[2].split(' ');
-  return '<li><a class="item" href="#/line/'+i+'"><b>'+esc(r[1])+'</b><span class="muted">'+esc(r[0])+' · '+esc(movesText(sans, Math.min(sans.length,8)))+(sans.length>8?' …':'')+'</span></a></li>';
+  const r = ALL[i], sans = r[2].split(' '), rp = replay(sans), lp = rp[rp.length-1];
+  return '<li><a class="item" href="#/line/'+i+'"><span class="thumb s">'+boardHTML(lp.fen, false, lp.from?[lp.from,lp.to]:null, false, 'mini')+'</span><span class="txt"><b>'+esc(r[1])+'</b><span class="muted">'+esc(r[0])+' · '+esc(movesText(sans, Math.min(sans.length,8)))+(sans.length>8?' …':'')+'</span></span></a></li>';
 }
-/* Bàn cờ minh hoạ ở trang chủ: tự đi mấy nước đầu của bài học, rồi lặp lại. */
+/* Bàn cờ minh hoạ ở trang chủ: lần lượt đi vài khai cuộc nổi tiếng và một cái bẫy chiếu hết. */
+const HERO_LINES = [
+  ['Sicilian Defense: Najdorf Variation','e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Bg5 e6'],
+  ['Ruy Lopez: Morphy Defense','e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O b5 Bb3 d6'],
+  ["Queen's Gambit Declined",'d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7'],
+  ['French Defense: Advance Variation','e4 e6 d4 d5 e5 c5 c3 Nc6']
+];
+function heroScenes(){
+  const o = OP.opening, out = [];
+  out.push({name:o.name_vi+': '+OP.variations[0].name_vi, sans:OP.variations[0].moves.split(' '), flip:o.side==='b', href:'#/o/'+o.id+'/'+OP.variations[0].id});
+  HERO_LINES.forEach(h=>{
+    const i = ALL.findIndex(r=>r[1]===h[0] && r[2]===h[1]);
+    if (i>=0) out.push({name:h[0], sans:h[1].split(' '), flip:false, href:'#/line/'+i});
+  });
+  out.push({name:OP.trap.name_vi, sans:OP.trap.moves.split(' ').concat(['Nd6#']), flip:false, href:'#/o/'+o.id+'/trap'});
+  return out;
+}
 function animateHero(host){
-  const o = OP.opening, pos = replay(OP.variations[0].moves.split(' ').slice(0,10));
-  const b = new Board(host, {fen:pos[0].fen, flip:o.side==='b'});
-  b.root.setAttribute('aria-label','Minh hoạ: các nước đầu của '+o.name_vi);
-  let k = 0, t = null, alive = true;
-  onLeave(()=>{ alive = false; clearTimeout(t); b.destroy(); });
-  const lastP = pos[pos.length-1];
-  if (REDUCE){ b.setFen(lastP.fen, {last:[lastP.from,lastP.to]}); return; }
-  function tick(){
-    if (!alive) return;
-    if (k >= pos.length-1){ k = 0; t = setTimeout(()=>{ if (!alive) return; b.setFen(pos[0].fen); t = setTimeout(tick, 700); }, 2200); return; }
-    k++; const p = pos[k]; b.play(p.from, p.to, p.promo, true); t = setTimeout(tick, 950);
-  }
-  t = setTimeout(tick, 600);
+  const cap = document.getElementById('heroCap'), nm = document.getElementById('heroName'), mv = document.getElementById('heroMoves');
+  const a = autoBoard(host, heroScenes(), {
+    delay:800, hold:2000,
+    label: sc=>'Minh hoạ: '+sc.name,
+    onScene: sc=>{ nm.textContent = sc.name; mv.textContent = ''; cap.setAttribute('href', sc.href); },
+    onMove: (sc,k)=>{ mv.textContent = tailText(sc.sans, k); }
+  });
+  onLeave(a.stop);
 }
 function viewHome(){
   setCrumbs([['Trang chủ']]);
@@ -177,7 +240,7 @@ function viewHome(){
       '<ol class="steps3"><li><b>1</b>Tìm</li><li><b>2</b>Học</li><li><b>3</b>Luyện</li></ol>'+
       '<div class="stats"><span><strong>'+ALL.length.toLocaleString('vi-VN')+'</strong>dòng khai cuộc</span>'+
       '<span><strong>'+OP.variations.length+'</strong>biến thể có bài</span><span><strong>'+PUZ.length+'</strong>puzzle</span></div></div>'+
-      '<div class="boardbox" id="heroBoard"></div></section>'+
+      '<div class="herobox"><div class="boardbox" id="heroBoard"></div><a class="herocap" id="heroCap" href="#/"><b id="heroName"></b><span id="heroMoves"></span></a></div></section>'+
     '<section class="card">'+
       '<label class="lbl" for="q">Tìm khai cuộc</label>'+
       '<input id="q" class="search" type="search" inputmode="search" autocomplete="off" placeholder="Ví dụ: Sicilian, Caro-Kann, Ruy Lopez, B12" value="'+esc(searchState.q)+'">'+
@@ -199,8 +262,11 @@ function viewHome(){
       if (!ids.length) h += '<p class="muted">Không tìm thấy. Thử gõ tên tiếng Anh, ví dụ Sicilian, French, Italian.</p>';
       else h += '<ul class="list">'+shown.map(resultItem).join('')+'</ul>'+(ids.length>shown.length?'<p class="muted">Đang hiện '+shown.length+' dòng đầu. Gõ thêm để lọc kỹ hơn.</p>':'');
     }
-    document.getElementById('results').innerHTML = h;
+    stopThumbs(); document.getElementById('results').innerHTML = h;
+    stopThumbs = mountThumbs(document.getElementById('results'));
   }
+  let stopThumbs = ()=>{};
+  onLeave(()=>stopThumbs());
   q.addEventListener('input', draw);
   animateHero(document.getElementById('heroBoard'));
   document.getElementById('chips').addEventListener('click', e=>{
@@ -220,7 +286,7 @@ function viewLine(i){
     '<p class="muted">'+esc(movesText(sans, sans.length))+'</p>'+
     '<div class="note">'+(inLesson ? 'Dòng này thuộc Caro-Kann. <a href="#/o/'+OP.opening.id+'">Xem bài học đầy đủ</a>.' : 'Dòng này mới có tên và nước đi (từ bảng khai cuộc Lichess). Chưa có bảng mục đích từng nước và puzzle.')+'</div>'+
     '<div id="stepper"></div></section>';
-  mountStepper(document.getElementById('stepper'), sans, null, {start:0});
+  mountStepper(document.getElementById('stepper'), sans, null, {start:0, autoplay:true});
 }
 
 /* ---------- Bộ điều khiển xem từng nước ---------- */
@@ -235,6 +301,7 @@ function mountStepper(el, sans, steps, opt){
     '<span class="cnt"></span>'+
     '<button class="btn small" data-a="next" aria-label="Đi tiếp một nước">▶</button>'+
     '<button class="btn ghost small" data-a="last" aria-label="Đến cuối">⏭</button>'+
+    '<button class="btn small" data-a="play">▶ Tự chạy</button>'+
     '<button class="btn ghost small" data-a="flip">Xoay bàn</button></div>'+
     '<div class="stepinfo" aria-live="polite"></div>';
   const board = new Board(el.querySelector('.boardbox'), {fen:pos[i].fen, flip});
@@ -269,16 +336,28 @@ function mountStepper(el, sans, steps, opt){
     ui();
   }
   if (pos[i].from) board.setLast(pos[i].from, pos[i].to);
+  /* Tự chạy: cứ mỗi nhịp đi một nước, bấm gì khác thì dừng. */
+  let timer = null, kick = null;
+  function stop(){ clearTimeout(kick); if (timer){ clearInterval(timer); timer = null; } btn('play').textContent = '▶ Tự chạy'; }
+  function start(){
+    stop(); if (i>=last) goTo(0);
+    btn('play').textContent = '⏸ Dừng';
+    timer = setInterval(()=>{ if (i>=last){ stop(); return; } goTo(i+1); if (i>=last) stop(); }, opt.speed || 1100);
+  }
+  onLeave(stop);
   el.onclick = e=>{
     const b = e.target.closest('button'); if (!b || b.disabled) return;
     const a = b.dataset.a;
+    if (a==='play'){ if (timer) stop(); else start(); return; }
+    stop();
     if (a==='first') goTo(0); else if (a==='prev') goTo(i-1);
     else if (a==='next') goTo(i+1); else if (a==='last') goTo(last);
     else if (a==='flip'){ flip = !flip; board.setFlip(flip); }
   };
-  stepperGo = goTo;
-  stepperKey = k=>{ if (k==='ArrowRight') goTo(i+1); else if (k==='ArrowLeft') goTo(i-1); };
+  stepperGo = n=>{ stop(); goTo(n); };
+  stepperKey = k=>{ stop(); if (k==='ArrowRight') goTo(i+1); else if (k==='ArrowLeft') goTo(i-1); };
   ui();
+  if (opt.autoplay && !REDUCE) kick = setTimeout(start, 900);
 }
 document.addEventListener('keydown', e=>{
   if (!stepperKey || /INPUT|TEXTAREA/.test((e.target||{}).tagName||'')) return;
@@ -294,24 +373,29 @@ function proCon(strengths, weaknesses){
 function viewOpening(){
   const o = OP.opening;
   setCrumbs([['Trang chủ','#/'],[o.name_vi]]);
-  const first = replay(['e4','c6']);
   let cards = '';
   OP.variations.forEach((v,vi)=>{
-    const rp = replay(v.moves.split(' ')), lp = rp[rp.length-1];
-    cards += '<a class="vcard" href="#/o/'+o.id+'/'+v.id+'"><span class="thumb">'+boardHTML(lp.fen, o.side==='b', [lp.from,lp.to], false, 'mini')+'</span><div><span class="tag">'+esc(v.eco)+' · '+esc(v.name_en)+'</span>'+
+    cards += '<a class="vcard" href="#/o/'+o.id+'/'+v.id+'"><span class="thumb" data-sans="'+esc(v.moves)+'" data-flip="'+(o.side==='b'?1:0)+'"></span><div><span class="tag">'+esc(v.eco)+' · '+esc(v.name_en)+'</span>'+
       '<h3>'+esc(v.name_vi)+'</h3><p class="muted">'+esc(movesText(v.moves.split(' '), 8))+' …</p><p>'+esc(v.idea)+'</p></div><span class="go" aria-hidden="true">›</span></a>';
   });
   stage.innerHTML =
     '<section class="card"><div class="meta"><span class="tag">'+esc(o.eco)+' · '+esc(o.name_en)+'</span></div>'+
     '<h2>'+esc(o.name_vi)+'</h2>'+
-    '<div class="boardbox">'+boardHTML(first[2].fen, true, [first[2].from, first[2].to], false)+'</div>'+
-    '<p class="muted center">'+esc(o.first_moves)+'. Đen đi sau nên bàn được xoay cho Đen ở dưới.</p>'+
+    '<div class="herobox tour"><div class="boardbox" id="tourBoard"></div><a class="herocap" id="tourCap" href="#/o/'+o.id+'"><b id="tourName"></b><span id="tourMoves"></span></a></div>'+
+    '<p class="muted center">'+esc(o.first_moves)+'. Đen đi sau nên bàn được xoay cho Đen ở dưới. Bàn cờ trên tự đi lần lượt từng biến thể, bấm tên bên dưới để vào học.</p>'+
     o.idea.map(t=>'<p>'+esc(t)+'</p>').join('')+
     proCon(o.strengths, o.weaknesses)+'</section>'+
     '<section class="card"><h2>Chọn một biến thể để học</h2><div class="vlist">'+cards+'</div></section>'+
     '<section class="card"><h2>Bẫy cần biết</h2><a class="vcard" href="#/o/'+o.id+'/trap"><div><h3>'+esc(OP.trap.name_vi)+'</h3><p>Một bẫy rất nhanh mà người mới hay mắc.</p></div><span class="go" aria-hidden="true">›</span></a></section>'+
     '<section class="card center"><h2>Luyện tập</h2><p>'+PUZ.length+' câu puzzle về '+esc(o.name_vi)+', từ dễ đến khó. Mỗi câu có gợi ý và giải thích.</p>'+
     '<a class="btn" href="#/o/'+o.id+'/quiz">Làm '+PUZ.length+' câu</a></section>';
+  const tour = autoBoard(document.getElementById('tourBoard'),
+    OP.variations.map(v=>({name:v.name_vi, sans:v.moves.split(' '), flip:o.side==='b', href:'#/o/'+o.id+'/'+v.id})),
+    {delay:850, hold:1800, label:sc=>'Minh hoạ: '+sc.name,
+     onScene:sc=>{ document.getElementById('tourName').textContent = sc.name; document.getElementById('tourMoves').textContent = ''; document.getElementById('tourCap').setAttribute('href', sc.href); },
+     onMove:(sc,k)=>{ document.getElementById('tourMoves').textContent = tailText(sc.sans, k); }});
+  const thumbs = mountThumbs(stage);
+  onLeave(()=>{ tour.stop(); thumbs(); });
 }
 function viewTrap(){
   const t = OP.trap, o = OP.opening, sans = t.moves.split(' ');
@@ -321,7 +405,7 @@ function viewTrap(){
     '<section class="card"><div class="meta"><span class="tag">Bẫy</span></div><h2>'+esc(t.name_vi)+'</h2>'+
     '<p class="muted">'+esc(movesText(sans, sans.length))+'</p><p>'+esc(t.text)+'</p><div id="stepper"></div>'+
     '<div class="center"><a class="btn" href="#/o/'+o.id+'/trap/quiz">Thử tìm nước chiếu hết</a></div></section>';
-  mountStepper(document.getElementById('stepper'), sans, null, {start:sans.length});
+  mountStepper(document.getElementById('stepper'), sans, null, {start:0, autoplay:true, speed:1300});
   // đường dẫn quiz riêng cho bẫy
   void tp;
 }
@@ -344,7 +428,7 @@ function viewVariation(v){
     '<p class="tipbox">Mẹo: '+esc(v.tip)+'</p>'+
     '<p class="muted small">Máy (Stockfish) chấm thế cuối dòng này: '+evalNote+'.</p></section>'+
     (n ? '<section class="card center"><h2>Làm quen bằng puzzle</h2><p>'+n+' câu về biến thể này.</p><a class="btn" href="#/o/'+o.id+'/'+v.id+'/quiz">Làm '+n+' câu</a></section>' : '');
-  mountStepper(document.getElementById('stepper'), sans, v.steps, {start:0, flip:o.side==='b'});
+  mountStepper(document.getElementById('stepper'), sans, v.steps, {start:0, flip:o.side==='b', autoplay:true, speed:1500});
   document.getElementById('steptable').addEventListener('click', e=>{
     const tr = e.target.closest('tr[data-i]'); if (tr) stepperGo(+tr.dataset.i);
   });
@@ -373,7 +457,7 @@ function viewPractice(v){
     '</section>';
   const $ = id => document.getElementById(id);
   let k = 0, wrong = 0, hintLvl = 0, done = false, alive = true, timer = null;
-  const board = new Board($('pbox'), {fen:pos[0].fen, flip:me==='b', interactive:true, canMove:c=>c===me, onMove});
+  const board = new Board($('pbox'), {fen:pos[0].fen, flip:me==='b', interactive:true, intro:true, canMove:c=>c===me, onMove});
   onLeave(()=>{ alive = false; clearTimeout(timer); board.destroy(); });
   const mover = i => i%2===0 ? 'w' : 'b';
   const lastOf = i => pos[i].from ? [pos[i].from, pos[i].to] : null;
@@ -407,7 +491,7 @@ function viewPractice(v){
       (q?'<a class="btn alt" href="#/o/'+o.id+'/'+v.id+'/quiz">Làm '+q+' puzzle</a>':'')+
       '<a class="btn ghost" href="#/o/'+o.id+'/'+v.id+'">Về bảng chỉ dẫn</a>';
     $('pAgain2').addEventListener('click', restart);
-    $('pSay').classList.add('celebrate');
+    $('pSay').classList.add('celebrate'); confetti();
   }
   function onMove(m){
     const e = pos[k+1];
@@ -484,7 +568,7 @@ function startQuiz(list, backHref, title){
     let attempts = 0, solved = false, hintLvl = 0, afterShown = false;
     const promoFor = pz.uci.length>4 ? pz.uci[4] : undefined;
     const fb = (kind, ico, html)=>{ const el = $('fb'); el.className = 'status '+kind; el.innerHTML = '<span class="ico" aria-hidden="true">'+ico+'</span><div>'+html+'</div>'; };
-    const b = new Board($('qbox'), {fen:pz.fen, flip:pz.turn==='b', interactive:true, canMove:c=>c===pz.turn, onMove});
+    const b = new Board($('qbox'), {fen:pz.fen, flip:pz.turn==='b', interactive:true, intro:true, canMove:c=>c===pz.turn, onMove});
     board = b;
     function wrongText(m, uci){
       const o = pz.opts.find(x=>x.uci===uci), loss = pz.ev[uci];
@@ -573,6 +657,7 @@ function startQuiz(list, backHref, title){
       '<details class="legend key"><summary>Đáp án cho giáo viên</summary><div class="tablewrap"><table><tr><th>Câu</th><th>Chủ đề</th><th>Nước đúng</th></tr>'+key+'</table></div></details>'+
       '</section>';
     $('again').addEventListener('click',()=>{ idx = 0; answers = []; show(); window.scrollTo({top:0}); });
+    if (ratio>=0.6) confetti();
   }
   show();
 }
