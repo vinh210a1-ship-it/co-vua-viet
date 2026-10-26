@@ -1,0 +1,2 @@
+/* Danh sách khai cuộc. Tạo bởi tools/content/build_lessons.py. Đừng sửa tay. */
+window.LESSON_INDEX=[{"id":"italian","name_vi":"Khai cuộc Ý","name_en":"Italian Game","eco":"C50-C54","side":"w","first_moves":"1. e4 e5 2. Nf3 Nc6 3. Bc4","tagline":"Phát triển quân tự nhiên, nhắm thẳng vào điểm yếu f7. Rất hợp để học nguyên lý khai cuộc.","group":"Trò chơi tốt e4","level":1,"variations":4,"puzzles":16,"reviewed":false}];
