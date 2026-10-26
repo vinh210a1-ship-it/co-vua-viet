@@ -120,7 +120,9 @@ for sp in SPEC:
         print(f'  P2: tượng c8 sau 3...e6 còn {mob} nước đi')
         if mob>1: err('tượng c8 sau e6 còn >1 nước')
     nb=b.copy(); nb.push(ok_mv)
-    out.append(dict(id=sp['id'],var=sp['var'],tag=sp['tag'],turn='w' if mover else 'b',q=sp['q'],hint=sp['hint'],
+    if len(sc)!=b.legal_moves.count(): err(f"P{sp['id']}: máy chỉ chấm {len(sc)}/{b.legal_moves.count()} nước hợp lệ")
+    ev={m.uci():int(min(best-v.score(mate_score=10000),9999)) for m,v in sc.items()}
+    out.append(dict(id=sp['id'],var=sp['var'],fen=b.fen(),uci=ok_mv.uci(),san=label_ok,ev=ev,tag=sp['tag'],turn='w' if mover else 'b',q=sp['q'],hint=sp['hint'],
         opts=opts,explain=sp['explain'],tip=sp['tip'],board=b.fen().split()[0],after=nb.fen().split()[0],
         **{'from':chess.square_name(ok_mv.from_square),'to':chess.square_name(ok_mv.to_square)}))
     print(f"P{sp['id']} {sp['ok']} (kém tốt nhất {ok_loss}cp):",[ (o['label'],o['correct']) for o in opts])

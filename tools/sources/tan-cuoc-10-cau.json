@@ -1,0 +1,403 @@
+[
+ {
+  "tag": "Đòn nĩa của hậu",
+  "q": "Trắng đi và thắng xe đen.",
+  "hint": "Tìm ô mà hậu đứng vừa chiếu vua b8, vừa nhìn thấy xe d3.",
+  "opts": [
+   {
+    "uci": "a1h8",
+    "label": "Qh8+",
+    "correct": false,
+    "why": "Có chiếu, nhưng vua đen chạy đi và xe d3 vẫn an toàn."
+   },
+   {
+    "uci": "a1a3",
+    "label": "Qa3",
+    "correct": false,
+    "why": "Xe đen ăn hậu: Rxa3."
+   },
+   {
+    "uci": "a1b1",
+    "label": "Qb1+",
+    "correct": true,
+    "why": ""
+   },
+   {
+    "uci": "a1a7",
+    "label": "Qa7+",
+    "correct": false,
+    "why": "Vua đen ăn hậu: Kxa7."
+   }
+  ],
+  "explain": "Qb1+ chiếu vua trên cột b và cùng lúc dọa xe d3 theo đường chéo. Vua đen phải lo cho mình, rồi hậu ăn xe. Nếu đen chắn bằng Rb3 thì Qxb3+ vẫn ăn xe.",
+  "tip": "Hậu đánh nĩa rất mạnh: chiếu vua và dọa một quân khác cùng lúc.",
+  "after": "1k6/8/8/8/6K1/3r4/8/1Q6",
+  "from": "a1",
+  "to": "b1",
+  "board": "1k6/8/8/8/6K1/3r4/8/Q7",
+  "turn": "w",
+  "id": 1
+ },
+ {
+  "tag": "Xiên hậu bằng xe",
+  "q": "Trắng đi và thắng hậu đen.",
+  "hint": "Vua đen và hậu đen cùng nằm trên cột a. Chiếu vua sao cho nó phải bước đi, rồi nhìn xem quân đứng sau.",
+  "opts": [
+   {
+    "uci": "b1b3",
+    "label": "Rb3+",
+    "correct": false,
+    "why": "Vua đen ăn xe: Kxb3."
+   },
+   {
+    "uci": "b1b6",
+    "label": "Rb6",
+    "correct": false,
+    "why": "Hậu đen ăn xe: Qxb6."
+   },
+   {
+    "uci": "b1b8",
+    "label": "Rb8",
+    "correct": false,
+    "why": "Không chiếu, không dọa gì. Hậu đen mạnh hơn xe."
+   },
+   {
+    "uci": "b1a1",
+    "label": "Ra1+",
+    "correct": true,
+    "why": ""
+   }
+  ],
+  "explain": "Ra1+ chiếu vua trên cột a. Vua phải rời cột, và hậu a6 đứng ngay sau lưng bị lộ ra: Rxa6. Xe ở a1 được bảo vệ khỏi vua đen vì Rxa6 đi ngay sau đó.",
+  "tip": "Quân quan trọng đứng trước, quân giá trị đứng sau, cùng một đường thẳng? Hãy xiên.",
+  "after": "8/8/q7/8/8/k7/6K1/R7",
+  "from": "b1",
+  "to": "a1",
+  "board": "8/8/q7/8/8/k7/6K1/1R6",
+  "turn": "w",
+  "id": 2
+ },
+ {
+  "tag": "Chiếu hết trong 2 nước",
+  "q": "Trắng đi và chiếu hết sau đúng 2 nước (dù đen đi thế nào).",
+  "hint": "Không cần chiếu ngay. Hãy tìm một nước đi yên lặng làm vua đen chỉ còn hai ô: a8 hoặc a6.",
+  "opts": [
+   {
+    "uci": "g4a4",
+    "label": "Qa4+",
+    "correct": false,
+    "why": "Có chiếu, nhưng vua đen chạy ra b6 hoặc b7, chưa chiếu hết kịp."
+   },
+   {
+    "uci": "g4g7",
+    "label": "Qg7+",
+    "correct": false,
+    "why": "Có chiếu, nhưng vua đen vẫn còn chỗ chạy, không chiếu hết kịp trong 2 nước."
+   },
+   {
+    "uci": "d8c7",
+    "label": "Kc7",
+    "correct": true,
+    "why": ""
+   },
+   {
+    "uci": "g4b4",
+    "label": "Qb4",
+    "correct": false,
+    "why": "Hợp lý nhưng chưa ép được chiếu hết trong 2 nước."
+   }
+  ],
+  "explain": "Kc7! là nước đợi: vua trắng canh b8, b7, b6, nên vua đen chỉ còn a8 hoặc a6. Sau cả hai nước đó, Qa4# chiếu hết.",
+  "tip": "Đôi khi nước mạnh nhất không phải là nước chiếu, mà là nước thu hẹp chỗ chạy của vua.",
+  "after": "8/k1K5/8/8/6Q1/8/8/8",
+  "from": "d8",
+  "to": "c7",
+  "board": "3K4/k7/8/8/6Q1/8/8/8",
+  "turn": "w",
+  "id": 3
+ },
+ {
+  "tag": "Hai xe chiếu hết",
+  "q": "Trắng đi và chiếu hết sau đúng 2 nước.",
+  "hint": "Dùng một xe làm 'tường' cắt cột b. Vua đen sẽ chỉ còn một nước đi duy nhất.",
+  "opts": [
+   {
+    "uci": "f3a3",
+    "label": "Ra3+",
+    "correct": false,
+    "why": "Có chiếu, nhưng vua đen chạy sang b6 hoặc b7."
+   },
+   {
+    "uci": "f3b3",
+    "label": "Rb3",
+    "correct": true,
+    "why": ""
+   },
+   {
+    "uci": "f3f6",
+    "label": "Rf6+",
+    "correct": false,
+    "why": "Có chiếu, nhưng vua đen thoát sang a7 hoặc b7."
+   },
+   {
+    "uci": "g5g7",
+    "label": "Rg7",
+    "correct": false,
+    "why": "Không chiếu, vua đen vẫn còn nhiều ô để đi."
+   }
+  ],
+  "explain": "Rb3! cắt cột b, và xe g5 canh hàng 5, nên vua đen chỉ còn Ka7. Sau đó Ra5# chiếu hết. Đây là kiểu chiếu hết bậc thang bằng hai xe.",
+  "tip": "Hai xe luân phiên chiếu từng hàng (hoặc cột), dồn vua ra mép bàn.",
+  "after": "8/8/k7/6R1/8/1R6/8/6K1",
+  "from": "f3",
+  "to": "b3",
+  "board": "8/8/k7/6R1/8/5R2/8/6K1",
+  "turn": "w",
+  "id": 4
+ },
+ {
+  "tag": "Đối vương",
+  "q": "Đen đi. Làm sao để giữ hòa?",
+  "hint": "Vua đen nên đứng ngay trước tốt, không để vua trắng đi qua.",
+  "opts": [
+   {
+    "uci": "e6f6",
+    "label": "Kf6",
+    "correct": false,
+    "why": "Vua rời khỏi mặt trước của tốt, trắng sẽ thắng."
+   },
+   {
+    "uci": "e6e7",
+    "label": "Ke7",
+    "correct": false,
+    "why": "Lùi xa tốt quá, trắng sẽ thắng."
+   },
+   {
+    "uci": "e6d6",
+    "label": "Kd6",
+    "correct": true,
+    "why": ""
+   },
+   {
+    "uci": "e6d7",
+    "label": "Kd7",
+    "correct": false,
+    "why": "Lùi xa tốt quá, trắng sẽ thắng."
+   }
+  ],
+  "explain": "Kd6! Vua đen đứng ngay trước tốt d4 nên vua trắng không thể ép vua đen nhường đường. Các nước khác cho trắng chiếm thế mạnh và thắng.",
+  "tip": "Phòng thủ tàn cuộc tốt: vua đứng trước tốt, giữ thế đối vương.",
+  "after": "8/8/3k4/8/3PK3/8/8/8",
+  "from": "e6",
+  "to": "d6",
+  "board": "8/8/4k3/8/3PK3/8/8/8",
+  "turn": "b",
+  "id": 5
+ },
+ {
+  "tag": "Tốt biên",
+  "q": "Đen đi. Tốt a5 là tốt biên. Làm sao để giữ hòa?",
+  "hint": "Tốt ở cột biên chỉ thắng nếu vua đen không về được góc a8. Hãy đưa vua về gần góc đó.",
+  "opts": [
+   {
+    "uci": "d7e7",
+    "label": "Ke7",
+    "correct": false,
+    "why": "Vua đen đi xa góc a8, trắng sẽ thắng."
+   },
+   {
+    "uci": "d7d6",
+    "label": "Kd6",
+    "correct": false,
+    "why": "Vua đen đi xa góc a8, trắng sẽ thắng."
+   },
+   {
+    "uci": "d7c8",
+    "label": "Kc8",
+    "correct": true,
+    "why": ""
+   },
+   {
+    "uci": "d7d8",
+    "label": "Kd8",
+    "correct": false,
+    "why": "Chưa đủ gần góc, trắng vẫn thắng."
+   }
+  ],
+  "explain": "Kc8! Vua đen hướng về góc a8. Với tốt biên, chỉ cần vua đen vào được góc (hoặc canh b8) là trắng không phong cấp được, ván cờ hòa.",
+  "tip": "Tốt biên là loại tốt khó thắng nhất: vua phòng thủ chỉ cần chạy về góc.",
+  "after": "2k5/8/1K6/P7/8/8/8/8",
+  "from": "d7",
+  "to": "c8",
+  "board": "8/3k4/1K6/P7/8/8/8/8",
+  "turn": "b",
+  "id": 6
+ },
+ {
+  "tag": "Quy tắc hình vuông",
+  "flip": true,
+  "overlay": [
+   0,
+   2,
+   5,
+   7
+  ],
+  "q": "Đen đi. Tốt a2 có thể đi hai ô. Làm sao bắt kịp?",
+  "hint": "Tốt ở hàng 2 được đi hai ô, nên coi như nó đang ở a3. Vẽ hình vuông từ a3 đến a8 rồi cho vua bước vào.",
+  "opts": [
+   {
+    "uci": "f2e2",
+    "label": "Ke2",
+    "correct": false,
+    "why": "Vua vẫn ở ngoài hình vuông, tốt sẽ chạy thoát."
+   },
+   {
+    "uci": "f2e3",
+    "label": "Ke3",
+    "correct": true,
+    "why": ""
+   },
+   {
+    "uci": "f2g2",
+    "label": "Kg2",
+    "correct": false,
+    "why": "Vua vẫn ở ngoài hình vuông, tốt sẽ chạy thoát."
+   },
+   {
+    "uci": "f2f1",
+    "label": "Kf1",
+    "correct": false,
+    "why": "Vua vẫn ở ngoài hình vuông, tốt sẽ chạy thoát."
+   }
+  ],
+  "explain": "Tốt a2 đi hai ô ngay nước đầu, nên hình vuông của nó gồm các ô từ a3 đến f8. Ke3 bước vào góc hình vuông nên vua đen đuổi kịp tốt.",
+  "tip": "Tốt ở hàng 2 được tính như đang ở hàng 3 khi vẽ hình vuông.",
+  "after": "8/8/8/8/6K1/4k3/P7/8",
+  "from": "f2",
+  "to": "e3",
+  "board": "8/8/8/8/6K1/8/P4k2/8",
+  "turn": "b",
+  "id": 7
+ },
+ {
+  "tag": "Đừng để pat",
+  "q": "Trắng đi và thắng. Cẩn thận với bẫy hòa!",
+  "hint": "Đẩy tốt quá sớm hoặc đưa vua vào sai ô đều dẫn đến hòa. Hãy tìm ô cho vua canh cả đường lên của tốt.",
+  "opts": [
+   {
+    "uci": "d6c7",
+    "label": "Kc7",
+    "correct": false,
+    "why": "Pat! Vua đen không bị chiếu mà cũng không còn nước đi: hòa."
+   },
+   {
+    "uci": "b6b7",
+    "label": "b7+",
+    "correct": false,
+    "why": "Vua đen ăn tốt: Kxb7. Hòa."
+   },
+   {
+    "uci": "d6c6",
+    "label": "Kc6",
+    "correct": true,
+    "why": ""
+   },
+   {
+    "uci": "d6d7",
+    "label": "Kd7",
+    "correct": false,
+    "why": "Chậm một nhịp: đen đi Kb8 và giữ được hòa."
+   }
+  ],
+  "explain": "Kc6! vua trắng đứng cạnh tốt, vua đen chỉ còn Kb8, sau đó tốt đi lên với sự bảo vệ của vua. Kc7 lại làm đen hết nước đi mà không bị chiếu: hòa.",
+  "tip": "Gần đích thắng, luôn đếm nước đi còn lại của vua đối phương để tránh pat.",
+  "after": "k7/8/1PK5/8/8/8/8/8",
+  "from": "d6",
+  "to": "c6",
+  "board": "k7/8/1P1K4/8/8/8/8/8",
+  "turn": "w",
+  "id": 8
+ },
+ {
+  "tag": "Ô then chốt",
+  "q": "Trắng đi và thắng. Nước nào đúng?",
+  "hint": "Vua trắng phải chiếm được một trong các ô then chốt b5, c5, d5 của tốt c3. Nước nào đưa vua tới đó mà không bị cản?",
+  "opts": [
+   {
+    "uci": "c3c4",
+    "label": "c4",
+    "correct": false,
+    "why": "Tốt đi trước vua, đen giữ được hòa."
+   },
+   {
+    "uci": "e3e4",
+    "label": "Ke4",
+    "correct": false,
+    "why": "Đi lệch hướng, đen giữ được hòa."
+   },
+   {
+    "uci": "e3d4",
+    "label": "Kd4",
+    "correct": true,
+    "why": ""
+   },
+   {
+    "uci": "e3d3",
+    "label": "Kd3",
+    "correct": false,
+    "why": "Đi chậm một nhịp, đen giữ được hòa."
+   }
+  ],
+  "explain": "Kd4! Vua trắng tiến lên để chiếm ô then chốt (b5, c5 hoặc d5) trước vua đen. Khi vua đã vào ô then chốt, tốt sẽ phong cấp bất kể ai đi trước.",
+  "tip": "Ô then chốt: vua tới đó thì thắng. Hãy tính xem vua mình tới đó nhanh hơn không.",
+  "after": "8/8/1k6/8/3K4/2P5/8/8",
+  "from": "e3",
+  "to": "d4",
+  "board": "8/8/1k6/8/8/2P1K3/8/8",
+  "turn": "w",
+  "id": 9
+ },
+ {
+  "tag": "Thế Saavedra",
+  "q": "Trắng đi và thắng. Tốt c7 sắp phong cấp, hãy chọn quân đúng.",
+  "hint": "Phong hậu sẽ gặp một bẫy hòa rất khéo: xe đen hy sinh bản thân. Còn quân nào khác nhìn được ô c1?",
+  "opts": [
+   {
+    "uci": "c7c8b",
+    "label": "c8=B",
+    "correct": false,
+    "why": "Xe đen chiếu Rc4+ rồi ăn quân vừa phong: đen thắng hoặc hòa."
+   },
+   {
+    "uci": "c7c8q",
+    "label": "c8=Q",
+    "correct": false,
+    "why": "Hòa! Rc4+ Qxc4, và vua đen không còn nước đi (pat)."
+   },
+   {
+    "uci": "c7c8n",
+    "label": "c8=N",
+    "correct": false,
+    "why": "Xe đen chiếu Rc4+ rồi ăn quân vừa phong: đen thắng hoặc hòa."
+   },
+   {
+    "uci": "c7c8r",
+    "label": "c8=R",
+    "correct": true,
+    "why": ""
+   }
+  ],
+  "explain": "c8=R!! Nếu phong hậu thì Rc4+ Qxc4 là pat. Phong xe thì đen chỉ còn Ra4 (không thì mất xe ngay), rồi Kb3 vừa dọa ăn xe a4 vừa dọa chiếu hết bằng Rc1#.",
+  "tip": "Thế Saavedra (1895) là ví dụ nổi tiếng nhất về phong cấp xuống xe để tránh pat.",
+  "src": [
+   "Saavedra position",
+   "https://en.wikipedia.org/wiki/Saavedra_position"
+  ],
+  "after": "2R5/8/8/8/3r4/8/2K5/k7",
+  "from": "c7",
+  "to": "c8",
+  "board": "8/2P5/8/8/3r4/8/2K5/k7",
+  "turn": "w",
+  "id": 10
+ }
+]
