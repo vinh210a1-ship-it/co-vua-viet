@@ -6,7 +6,7 @@
   if (typeof OP !== 'undefined' && !L['caro-kann']){
     const trap = Object.assign({finish:'Nd6#', by:'w'}, OP.trap);
     L['caro-kann'] = {
-      opening: Object.assign({group:'Đáp lại 1.e4', level:1, reviewed:false}, OP.opening),
+      opening: Object.assign({group:'Đáp lại 1.e4', level:1, reviewed:true}, OP.opening),
       variations: OP.variations, trap: trap, traps: [trap],
       puzzles: PUZ.map(p=>p.var==='trap' ? Object.assign({trap_id:OP.trap.id}, p) : p)
     };
@@ -15,7 +15,7 @@
   if (L['caro-kann']){
     const o = L['caro-kann'].opening;
     const meta = {id:o.id, name_vi:o.name_vi, name_en:o.name_en, eco:o.eco, side:o.side, first_moves:o.first_moves, tagline:o.tagline, group:o.group, level:o.level,
-      variations:L['caro-kann'].variations.length, puzzles:L['caro-kann'].puzzles.length, reviewed:false};
+      variations:L['caro-kann'].variations.length, puzzles:L['caro-kann'].puzzles.length, reviewed:true};
     const at = list.findIndex(m=>m.id==='scandinavian');
     list.splice(at>=0 ? at+1 : list.length, 0, meta);
   }
