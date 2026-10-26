@@ -301,6 +301,61 @@ function viewEndgameQuiz(){
 }
 
 /* ---------- Lộ trình 6 cấp ---------- */
+/* Bản đồ: mỗi cấp một nút tròn trên con đường quanh co. done = xong hết bài, now = cấp có bài kế tiếp, open = có bài làm được, soon = đang soạn. */
+function wrapWords(s, max){
+  const out = []; let line = '';
+  s.split(' ').forEach(w=>{ if (line && (line+' '+w).length > max){ out.push(line); line = w; } else line = line ? line+' '+w : w; });
+  if (line) out.push(line);
+  return out;
+}
+function roadmapMap(nx){
+  const n = LEVELS.length, H = 96, y0 = 58, W = 340, xs = [84, 256];
+  const st = LEVELS.map(lv=>{
+    const p = levelProgress(lv);
+    return {lv:lv, p:p, k: p.total && p.done===p.total ? 'done' : (nx && nx.lv===lv) ? 'now' : p.ready===0 ? 'soon' : 'open'};
+  });
+  let g = '<svg viewBox="0 0 '+W+' '+(y0+H*(n-1)+54)+'" role="group" aria-label="Bản đồ '+n+' cấp">';
+  for (let i=0;i<n-1;i++){
+    const x1 = xs[i%2], y1 = y0+H*i, x2 = xs[(i+1)%2], y2 = y0+H*(i+1);
+    const d = 'M'+x1+','+y1+' C'+x1+','+(y1+H*.6)+' '+x2+','+(y2-H*.6)+' '+x2+','+y2;
+    g += '<path d="'+d+'" class="mp-road'+(st[i].k==='done' ? ' done' : '')+'"/>';
+  }
+  st.forEach((s,i)=>{
+    const x = xs[i%2], y = y0+H*i, left = i%2===0, lx = left ? x+42 : x-42, anc = left ? 'start' : 'end';
+    const label = 'Cấp '+s.lv.n+': '+s.lv.name+'. '+(s.k==='done' ? 'Đã xong' : s.k==='now' ? 'Đang học' : s.k==='soon' ? 'Đang soạn' : 'Chưa học');
+    g += '<g class="mp-node '+s.k+'" role="link" tabindex="0" data-lv="'+s.lv.n+'" aria-label="'+esc(label)+'">';
+    if (s.k==='now') g += '<circle class="mp-ring" cx="'+x+'" cy="'+y+'" r="31"/>';
+    g += '<circle class="mp-dot" cx="'+x+'" cy="'+y+'" r="28"/>';
+    if (s.k==='done') g += '<path class="mp-tick" d="M'+(x-10)+','+y+' l7,8 l13,-16"/>';
+    else if (s.k==='soon') g += '<g class="mp-lock" transform="translate('+(x-9)+','+(y-11)+')"><rect x="0" y="9" width="18" height="13" rx="3"/><path d="M4 9V6a5 5 0 0 1 10 0v3"/></g>';
+    else g += '<text class="mp-num" x="'+x+'" y="'+(y+7)+'" text-anchor="middle">'+s.lv.n+'</text>';
+    g += '<text class="mp-t1" x="'+lx+'" y="'+(y-8)+'" text-anchor="'+anc+'">Cấp '+s.lv.n+'</text>';
+    const lines = wrapWords(s.lv.name, 17);
+    lines.forEach((ln,j)=>{ g += '<text class="mp-t2" x="'+lx+'" y="'+(y+8+j*15)+'" text-anchor="'+anc+'">'+esc(ln)+'</text>'; });
+    const sub = s.k==='soon' ? 'Đang soạn' : s.p.done+'/'+s.p.total+' bài';
+    g += '<text class="mp-t3'+(s.k==='now' ? ' now' : '')+'" x="'+lx+'" y="'+(y+8+lines.length*15)+'" text-anchor="'+anc+'">'+(s.k==='now' ? 'Bạn đang ở đây · ' : '')+sub+'</text>';
+    g += '</g>';
+  });
+  return '<section class="card mapcard"><h3>Bản đồ</h3><div class="mapbox" id="rmap">'+g+'</svg></div></section>';
+}
+function mountRoadmapMap(){
+  const m = document.getElementById('rmap'); if (!m) return;
+  const jump = el => { const t = document.getElementById('lv'+el.dataset.lv); if (t) t.scrollIntoView({behavior: REDUCE ? 'auto' : 'smooth', block:'start'}); };
+  m.addEventListener('click', e=>{ const nd = e.target.closest('.mp-node'); if (nd) jump(nd); });
+  m.addEventListener('keydown', e=>{ if (e.key==='Enter' || e.key===' '){ const nd = e.target.closest('.mp-node'); if (nd){ e.preventDefault(); jump(nd); } } });
+}
+/* Biểu tượng động cho từng bài trong danh sách: mỗi quân đi theo đúng kiểu của nó (css/theme.css, .uico). */
+const UNIT_PIECE = {tot:['wP','P'], xe:['wR','R'], tuong:['wB','B'], ma:['wN','N'], hau:['wQ','Q'], vua:['wK','K'], 'caro-kann':['bP','P'], 'tan-cuoc':['wK','K']};
+function unitIcon(u, st){
+  if (st.k==='done') return {cls:'is-done', html:'✓'};
+  if (st.k==='soon') return {cls:'is-soon', html:'·'};
+  if (st.k==='retry') return {cls:'is-retry', html:'↻'};
+  if (u.test) return {cls:'pic mv-star', html:'★'};
+  if (u.id==='ban-co') return {cls:'pic mv-board', html:'<i class="mb"><s></s><s></s><s></s><s></s></i>'};
+  if (u.id==='gia-tri') return {cls:'pic mv-nums', html:'<i class="nums"><b>1</b><b>3</b><b>9</b></i>'};
+  const pc = UNIT_PIECE[u.id] || ['wP','P'];
+  return {cls:'pic mv-'+pc[1], html:'<svg class="pc" viewBox="0 0 45 45"><use href="#'+pc[0]+'"/></svg>'};
+}
 function viewRoadmap(){
   setCrumbs([['Trang chủ','#/'],['Học theo cấp']]);
   const nx = nextUnit();
@@ -308,20 +363,22 @@ function viewRoadmap(){
     '<p>Đi từ cấp 0 lên cấp 5. Học xong bài nào, bài đó được đánh dấu ✓ (lưu ngay trên máy của bạn). Bài ghi "Đang soạn" sẽ có sau.</p>'+
     (nx ? '<a class="goon" href="'+nx.href+'"><span class="vnum" aria-hidden="true">▶</span><div><b>'+(anyProgress()?'Tiếp tục':'Bắt đầu')+'</b><span class="muted">Cấp '+nx.lv.n+' · '+esc(nx.u.title)+'</span></div><span class="go" aria-hidden="true">›</span></a>' : '')+
     '</section>';
+  h += roadmapMap(nx);
   LEVELS.forEach(lv=>{
     const p = levelProgress(lv), soonN = p.total-p.ready;
-    h += '<section class="card level"><div class="lvhead"><span class="lvnum" aria-hidden="true">'+lv.n+'</span><div><h2>Cấp '+lv.n+': '+esc(lv.name)+'</h2><p class="muted small">'+esc(lv.desc)+'</p></div></div>'+
+    h += '<section class="card level" id="lv'+lv.n+'"><div class="lvhead"><span class="lvnum" aria-hidden="true">'+lv.n+'</span><div><h2>Cấp '+lv.n+': '+esc(lv.name)+'</h2><p class="muted small">'+esc(lv.desc)+'</p></div></div>'+
       '<div class="progress" aria-hidden="true"><i style="width:'+(p.total ? p.done/p.total*100 : 0)+'%"></i></div>'+
       '<p class="muted small">'+p.done+'/'+p.total+' bài đã xong'+(soonN?' · '+soonN+' bài đang soạn':'')+'</p>'+
       '<ol class="units">'+lv.units.map(u=>{
         const st = unitState(u), href = unitHref(u), here = nx && nx.u===u;
-        const ico = st.k==='done' ? '✓' : st.k==='soon' ? '·' : st.k==='retry' ? '↻' : '●';
+        const ic = unitIcon(u, st);
         const note = st.k==='done' && st.note ? '<span class="pill ok">'+st.note+'</span>' : st.k==='retry' ? '<span class="pill">Làm lại ('+st.note+')</span>' : st.k==='soon' ? '<span class="pill soon">Đang soạn</span>' : here ? '<span class="pill here">Bạn đang ở đây</span>' : '';
-        const body = '<span class="uico" aria-hidden="true">'+ico+'</span><span class="ut">'+esc(u.title)+(u.test?' <small>(kiểm tra)</small>':'')+'</span>'+note;
+        const body = '<span class="uico '+ic.cls+'" aria-hidden="true">'+ic.html+'</span><span class="ut">'+esc(u.title)+(u.test?' <small>(kiểm tra)</small>':'')+'</span>'+note;
         return '<li class="unit st-'+st.k+(here?' here':'')+'">'+(href ? '<a href="'+href+'">'+body+'</a>' : '<div>'+body+'</div>')+'</li>';
       }).join('')+'</ol></section>';
   });
   stage.innerHTML = h;
+  mountRoadmapMap();
 }
 
 /* ---------- Trang "sắp có" ---------- */
