@@ -42,12 +42,9 @@ function levelProgress(lv){
 }
 function anyProgress(){ return LEVELS.some(lv=>levelProgress(lv).done>0); }
 
-/* Câu đố hôm nay: mỗi ngày một câu trong kho hiện có, ai mở cũng thấy cùng một câu. */
-function dailyPool(){ return PUZ.filter(p=>p.var!=='trap').concat(typeof PUZ_END !== 'undefined' ? PUZ_END : []); }
-function dailyPuzzle(){
-  const d = new Date(), n = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())/86400000), pool = dailyPool();
-  return pool[n % pool.length];
-}
+/* Câu đố hôm nay: mỗi ngày một chủ đề và một câu (trong nhóm Dễ và Vừa), ai mở cũng thấy cùng một câu. */
+function dayNumber(){ const d = new Date(); return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())/86400000); }
+function dailyPick(){ const n = dayNumber(), t = PUZ_THEMES[n % PUZ_THEMES.length]; return {theme:t, idx:Math.floor(n/PUZ_THEMES.length) % 40}; }
 
 /* ---------- Trang chủ ---------- */
 function tileHTML(t){
@@ -98,32 +95,204 @@ function hubCard(o){
 }
 function viewPuzzleHub(){
   setCrumbs([['Trang chủ','#/'],['Câu đố']]);
-  const ck = Prog.best('ck-all'), en = Prog.best('end'), today = Prog.doneToday(), d = dailyPuzzle(), st = Prog.streak();
-  const ckN = PUZ.filter(p=>p.var!=='trap').length;
+  const ck = Prog.best('ck-all'), en = Prog.best('end'), today = Prog.doneToday(), dp = dailyPick(), st = Prog.streak();
   stage.innerHTML =
-    '<section class="card"><h2>Câu đố</h2><p class="muted">Bạn đi quân thật trên bàn cờ. Mỗi câu có gợi ý và giải thích.</p></section>'+
+    '<section class="card"><h2>Câu đố</h2><p class="muted">Bạn đi quân thật trên bàn cờ. Mỗi câu có gợi ý, câu nhiều nước thì máy tự đi nước đáp của đối thủ.</p></section>'+
     '<section class="card"><h3 class="sec">Hôm nay</h3>'+
-      hubCard({href:'#/cau-do/hom-nay', tag:'Câu đố hôm nay', title:d.tag, desc:today ? 'Bạn đã xong hôm nay. Có thể làm lại.' : 'Mỗi ngày một câu, giữ chuỗi ngày liên tiếp.', note:st ? 'Chuỗi '+st+' ngày' : (today?'Đã xong':'Chưa làm'), ok:today, fen:d.fen, sans:d.san, flip:d.turn==='b'})+
+      hubCard({href:'#/cau-do/hom-nay', tag:'Câu đố hôm nay', title:dp.theme.name, desc:today ? 'Bạn đã xong hôm nay. Có thể làm lại.' : 'Mỗi ngày một câu, giữ chuỗi ngày liên tiếp.', note:st ? 'Chuỗi '+st+' ngày' : (today?'Đã xong':'Chưa làm'), ok:today, sans:'e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5', flip:0})+
+    '</section>'+
+    '<section class="card"><h3 class="sec">Theo chủ đề</h3>'+
+      hubCard({href:'#/cau-do/chu-de', tag:'Chiến thuật', title:'Đòn đôi, ghim, xiên, chiếu hết...', desc:PUZ_THEMES.length+' chủ đề, mỗi chủ đề 3 mức Dễ, Vừa, Khó. Lọc từ kho câu đố Lichess.', note:'Mới', ok:true, fen:'r1bqkb1r/pppp1ppp/2n2n2/4p2Q/2B1P3/8/PPPP1PPP/RNB1K1NR w KQkq - 4 4', sans:'Qxf7'})+
+      hubCard({href:'#/cau-do/tan-cuoc', tag:'Tàn cuộc', title:'Luyện '+PUZ_END.length+' câu tàn cuộc', desc:'Đòn nĩa, xiên, chiếu hết khi còn ít quân.', note:en?'Điểm cao nhất '+en.pts+'/'+en.n:'Chưa làm', ok:!!en, fen:'1k6/8/8/8/6K1/3r4/8/Q7 w - - 0 1', sans:'Qb1+ Kc7 Qxd3'})+
     '</section>'+
     '<section class="card"><h3 class="sec">Theo khai cuộc</h3>'+
       hubCard({href:'#/o/'+OP.opening.id+'/quiz', tag:OP.opening.eco, title:OP.opening.name_vi, desc:PUZ.length+' câu, từ dễ đến khó, kèm bẫy cần biết.', note:ck?'Điểm cao nhất '+ck.pts+'/'+ck.n:'Chưa làm', ok:!!ck, sans:OP.variations[0].moves, flip:OP.opening.side==='b'})+
       '<p class="muted small">Khai cuộc khác (Sicilian, Pháp, Ruy Lopez...) sẽ thêm cùng với bài học của chúng.</p>'+
-    '</section>'+
-    '<section class="card"><h3 class="sec">Theo chủ đề</h3>'+
-      hubCard({href:'#/cau-do/tan-cuoc', tag:'Tàn cuộc', title:'Luyện '+PUZ_END.length+' câu tàn cuộc', desc:'Đòn nĩa, xiên, chiếu hết khi còn ít quân.', note:en?'Điểm cao nhất '+en.pts+'/'+en.n:'Chưa làm', ok:!!en, fen:'1k6/8/8/8/6K1/3r4/8/Q7 w - - 0 1', sans:'Qb1+ Kc7 Qxd3'})+
-      hubCard({tag:'Chiến thuật', title:'Đòn đôi, ghim, xiên, chiếu hết 2 nước', desc:'Hàng trăm câu chia theo chủ đề. Đang chuẩn bị kho câu đố.', note:'Sắp có', soon:true, sans:'e4 e5 Qh5 Nc6 Bc4 Nf6 Qxf7', flip:0})+
     '</section>'+
     '<section class="card"><h3 class="sec">Thử thách</h3>'+
       hubCard({tag:'Chạy đua', title:'Câu đố tốc độ', desc:'Giải càng nhiều câu càng tốt trong ba phút.', note:'Sắp có', soon:true, fen:'4k3/8/8/8/8/8/8/R3K3 w - - 0 1', sans:'Ra8+ Kd7 Rh8 Ke7'})+
     '</section>';
   onLeave(mountThumbs(stage));
 }
+
+/* ---------- Câu đố theo chủ đề (kho Lichess, CC0) ---------- */
+const BAND_INFO = {de:{name:'Dễ', lo:0, hi:1100, d:'dưới 1100 điểm'}, vua:{name:'Vừa', lo:1100, hi:1600, d:'1100 đến 1600'}, kho:{name:'Khó', lo:1600, hi:9999, d:'trên 1600'}};
+function loadTheme(id, cb){
+  if (window.PUZT && PUZT[id]) return cb(PUZT[id]);
+  const sc = document.createElement('script'); sc.src = 'data/puz/'+id+'.js';
+  sc.onload = ()=>cb(window.PUZT && PUZT[id]); sc.onerror = ()=>cb(null);
+  document.head.appendChild(sc);
+}
+function bandOf(r){ return r < 1100 ? 'de' : r < 1600 ? 'vua' : 'kho'; }
+function viewThemes(){
+  setCrumbs([['Trang chủ','#/'],['Câu đố','#/cau-do'],['Theo chủ đề']]);
+  stage.innerHTML = '<section class="card"><h2>Câu đố theo chủ đề</h2><p class="muted">Chọn một chủ đề, rồi chọn mức. Điểm Dễ, Vừa, Khó theo độ khó do Lichess tính từ hàng triệu lượt giải.</p></section>'+
+    '<section class="card"><div class="vlist">'+PUZ_THEMES.map(t=>{
+      const best = ['de','vua','kho'].map(b=>Prog.best('th:'+t.id+':'+b)).filter(Boolean).length;
+      return '<a class="vcard" href="#/cau-do/chu-de/'+t.id+'"><div><h3>'+esc(t.name)+'</h3><p class="muted">'+esc(t.desc)+'</p><p><span class="pill'+(best?' ok':'')+'">'+(best?best+'/3 mức đã làm':'Chưa làm')+'</span></p></div><span class="go" aria-hidden="true">›</span></a>';
+    }).join('')+'</div></section>';
+}
+function viewTheme(id){
+  const t = PUZ_THEMES.find(x=>x.id===id);
+  if (!t){ go('#/cau-do/chu-de'); return; }
+  setCrumbs([['Trang chủ','#/'],['Câu đố','#/cau-do'],['Theo chủ đề','#/cau-do/chu-de'],[t.name]]);
+  stage.innerHTML = '<section class="card"><h2>'+esc(t.name)+'</h2><p>'+esc(t.desc)+'</p><p class="tipbox">Mẹo: '+esc(t.tip)+'</p></section>'+
+    '<section class="card"><h3 class="sec">Chọn mức</h3><div class="vlist">'+['de','vua','kho'].map(b=>{
+      const best = Prog.best('th:'+id+':'+b), bi = BAND_INFO[b];
+      return '<a class="vcard" href="#/cau-do/chu-de/'+id+'/'+b+'"><div><h3>Mức '+bi.name+'</h3><p class="muted">Độ khó '+bi.d+'. Mỗi lượt 10 câu.</p><p><span class="pill'+(best?' ok':'')+'">'+(best?'Điểm cao nhất '+best.pts+'/'+best.n:'Chưa làm')+'</span></p></div><span class="go" aria-hidden="true">›</span></a>';
+    }).join('')+'</div></section>';
+}
+function viewThemeRun(id, band){
+  const t = PUZ_THEMES.find(x=>x.id===id);
+  if (!t || !BAND_INFO[band]){ go('#/cau-do/chu-de'); return; }
+  setCrumbs([['Trang chủ','#/'],['Câu đố','#/cau-do'],['Theo chủ đề','#/cau-do/chu-de'],[t.name,'#/cau-do/chu-de/'+id],['Mức '+BAND_INFO[band].name]]);
+  stage.innerHTML = '<section class="card center"><p class="muted">Đang tải câu đố...</p></section>';
+  let alive = true; onLeave(()=>{ alive = false; });
+  loadTheme(id, rows=>{
+    if (!alive) return;
+    if (!rows){ stage.innerHTML = '<section class="card center"><p>Không tải được bộ câu đố. Kiểm tra mạng rồi thử lại.</p><a class="btn" href="#/cau-do/chu-de/'+id+'">Quay lại</a></section>'; return; }
+    const pool = rows.filter(r=>bandOf(r[3])===band);
+    startPuzzleRun(pool, t, {backHref:'#/cau-do/chu-de/'+id, backText:'Về chủ đề', setId:'th:'+id+':'+band, count:10, title:t.name+' · '+BAND_INFO[band].name});
+  });
+}
+
+/* Chạy một lượt câu đố Lichess: nước đầu là của đối thủ (máy tự đi), rồi bạn đi, máy đáp, cho tới khi xong.
+   Nước chiếu hết nào cũng được tính đúng (giống Lichess). po: {backHref, backText, setId, count, title, single, onEnd, endHTML} */
+function replayUci(fen, ucis){
+  const c = new Chess(fen), out = [{fen:c.fen(), from:null, to:null, san:null, promo:''}];
+  for (const u of ucis){
+    const m = c.move({from:u.slice(0,2), to:u.slice(2,4), promotion:u[4]});
+    if (!m) break;
+    out.push({fen:c.fen(), from:m.from, to:m.to, san:m.san, promo:m.promotion||''});
+  }
+  return out;
+}
+function startPuzzleRun(pool, theme, po){
+  const rows = pool.slice();
+  for (let i=rows.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); const x = rows[i]; rows[i] = rows[j]; rows[j] = x; }
+  const list = rows.slice(0, po.count || 10);
+  if (!list.length){ go(po.backHref); return; }
+  let idx = 0, answers = [], board = null, timer = null;
+  const $ = id => document.getElementById(id);
+  const dotsEl = $('dots');
+  onLeave(()=>{ clearTimeout(timer); if (board) board.destroy(); });
+  function renderDots(){
+    if (list.length<2){ dotsEl.hidden = true; return; }
+    let h = '';
+    for (let i=0;i<list.length;i++){ const a = answers[i]; h += '<span class="dot '+(a===undefined ? (i===idx?'now':'') : (a?'ok':'no'))+'">'+(i+1)+'</span>'; }
+    dotsEl.innerHTML = h+'<span class="score">Điểm: '+answers.filter(Boolean).length+'</span>'; dotsEl.hidden = false;
+  }
+  function show(){
+    clearTimeout(timer); if (board){ board.destroy(); board = null; }
+    renderDots();
+    const pz = list[idx], ucis = pz[2].split(' '), pos = replayUci(pz[1], ucis), last = pos.length-1;
+    const me = pos[1].fen.split(' ')[1];   // bên đi sau nước đầu của đối thủ
+    stage.innerHTML =
+      '<section class="card"><div class="meta"><span class="tag">'+(list.length>1?'Câu '+(idx+1)+'/'+list.length+' · ':'')+esc(theme.name)+'</span>'+
+      '<span class="turn"><i class="'+me+'"></i>'+(me==='w'?'Trắng':'Đen')+' đi</span></div>'+
+      '<h2>'+esc(theme.desc)+'</h2>'+
+      '<div class="boardbox" id="qbox"></div>'+
+      '<div class="boardtools"><button class="btn ghost small" id="hintBtn" type="button">Gợi ý</button><button class="btn ghost small" id="showBtn" type="button">Xem đáp án</button></div>'+
+      '<div class="status info" id="fb" aria-live="polite"></div><div class="next" id="next"></div>'+
+      '<p class="muted small">Độ khó '+pz[3]+' (Lichess). Mã câu '+esc(pz[0])+'.</p></section>';
+    let k = 0, attempts = 0, solved = false, hintLvl = 0;
+    const fb = (kind, ico, html)=>{ const el = $('fb'); el.hidden = false; el.className = 'status '+kind; el.innerHTML = '<span class="ico" aria-hidden="true">'+ico+'</span><div>'+html+'</div>'; };
+    const b = new Board($('qbox'), {fen:pos[0].fen, flip:me==='b', interactive:true, intro:true, canMove:c=>c===me, onMove});
+    board = b; b.lock(true);
+    fb('info','♟','<p>Nhìn thế cờ. Đối thủ sắp đi nước đầu...</p>');
+    timer = setTimeout(()=>{ if (board!==b) return; b.play(pos[1].from, pos[1].to, pos[1].promo, !REDUCE); k = 1; b.lock(false);
+      fb('info','♟','<p>Đến lượt bạn. Chạm quân muốn đi rồi chạm ô đến, hoặc kéo quân.</p>'); }, 700);
+    function finish(kind){
+      solved = true; b.lock(true); b.setHint(null);
+      if (answers[idx]===undefined) answers[idx] = kind==='first';
+      renderDots();
+      const sol = pos.slice(2).map((p,i)=>p.san).join(' ');
+      fb(kind==='show'?'info':'ok', kind==='show'?'→':'✓',
+        '<p><b>'+(kind==='first' ? PRAISE[idx%PRAISE.length] : kind==='retry' ? 'Đúng rồi! Lần này bạn đã tìm ra.' : 'Đáp án')+'</b></p><p>Các nước: <b>'+esc(movesTextFrom(pos, 1))+'</b></p><p class="tip">Mẹo: '+esc(theme.tip)+'</p>');
+      if (kind!=='show') $('fb').classList.add('celebrate');
+      $('hintBtn').hidden = $('showBtn').hidden = true;
+      const lastQ = idx===list.length-1;
+      $('next').innerHTML = '<button class="btn" id="nb" type="button">'+(lastQ?'Xem kết quả':'Câu tiếp theo')+'</button>';
+      $('nb').addEventListener('click', ()=>{ idx++; idx<list.length ? show() : end(); window.scrollTo({top:0}); });
+      $('nb').focus({preventScroll:true});
+      void sol;
+    }
+    function onMove(m){
+      if (solved || board!==b) return;
+      const ex = pos[k+1];
+      const ok = ex && m.from===ex.from && m.to===ex.to && (m.promotion||'')===(ex.promo||'');
+      if (ok || b.game.in_checkmate()){
+        k++; b.setFlash(m.to,'ok',700); b.setHint(null);
+        if (b.game.in_checkmate() || k>=last) return finish(attempts===0 ? 'first' : 'retry');
+        b.lock(true);
+        fb('ok','✓','<p><b>Đúng!</b> Đối thủ đáp lại...</p>');
+        timer = setTimeout(()=>{
+          if (board!==b) return;
+          const p = pos[k+1]; b.play(p.from, p.to, p.promo, !REDUCE); k++; hintLvl = 0; b.lock(false);
+          fb('info','♟','<p>Đến lượt bạn, tiếp tục nhé.</p>');
+        }, 650);
+      } else {
+        attempts++; if (answers[idx]===undefined){ answers[idx] = false; renderDots(); }
+        b.lock(true); b.setFlash(m.to,'no',700);
+        fb('no','✗','<p><b>'+esc(m.san)+'</b> chưa đúng.</p><p>'+(attempts>=2?'Bí rồi? Bấm Gợi ý hoặc Xem đáp án.':'Hãy thử nước khác.')+'</p>');
+        timer = setTimeout(()=>{ if (board!==b || solved) return; b.setFen(pos[k].fen, {last:[pos[k].from,pos[k].to]}); if (hintLvl>=1) b.setHint(pos[k+1].from, hintLvl>=2 ? pos[k+1].to : null); b.lock(false); }, 800);
+      }
+    }
+    $('hintBtn').addEventListener('click', ()=>{
+      if (solved || k<1) return;
+      hintLvl = Math.min(2, hintLvl+1); b.setHint(pos[k+1].from, hintLvl>=2 ? pos[k+1].to : null);
+      if (hintLvl>=2) $('hintBtn').hidden = true;
+      else $('hintBtn').textContent = 'Chỉ cho tôi ô cần đến';
+    });
+    $('showBtn').addEventListener('click', ()=>{
+      if (solved || k<1) return;
+      if (answers[idx]===undefined){ answers[idx] = false; renderDots(); }
+      clearTimeout(timer); b.setFen(pos[last].fen, {last:[pos[last].from,pos[last].to]});
+      finish('show');
+    });
+  }
+  function end(){
+    dotsEl.hidden = true;
+    const pts = answers.filter(Boolean).length, n = list.length, ratio = pts/n;
+    if (po.setId) Prog.setBest(po.setId, pts, n);
+    if (po.onEnd) po.onEnd(pts, n);
+    const msg = po.single ? (pts ? 'Xong câu đố hôm nay, đúng ngay lần đầu!' : 'Xong câu đố hôm nay!') : pts===n ? 'Tuyệt vời, trọn điểm!' : ratio>=0.8 ? 'Rất xuất sắc!' : ratio>=0.5 ? 'Khá lắm, luyện thêm chút nữa nhé!' : 'Đừng lo, câu khó cần luyện nhiều. Thử lại nào!';
+    const stars = ratio>=0.9 ? 3 : ratio>=0.6 ? 2 : ratio>=0.3 ? 1 : 0;
+    let st = ''; for (let i=0;i<3;i++) st += '<span'+(i<stars?'':' style="opacity:.3"')+'>★</span>';
+    stage.innerHTML = '<section class="card end"><h2>'+msg+'</h2>'+
+      (po.single ? '' : '<div class="big">'+pts+'/'+n+'</div><div class="stars" aria-hidden="true">'+st+'</div><p class="muted small">Điểm chỉ tính khi bạn đi đúng ngay lần đầu.</p>')+(po.endHTML ? po.endHTML() : '')+
+      '<div class="actions"><button class="btn" id="again" type="button">Chơi lại</button> <a class="btn ghost" href="'+po.backHref+'">'+esc(po.backText)+'</a></div></section>';
+    $('again').addEventListener('click', ()=>{
+      const r2 = pool.slice().sort(()=>Math.random()-.5); list.length = 0; r2.slice(0, po.count||10).forEach(x=>list.push(x));
+      idx = 0; answers = []; show(); window.scrollTo({top:0});
+    });
+    if (ratio>=0.6 && !po.single) confetti();
+  }
+  show();
+}
+/* "1. e4 e5 ..." hoặc "1... e5" từ vị trí i của dãy thế cờ (pos[0] là thế gốc, nước đầu là pos[1]). */
+function movesTextFrom(pos, from){
+  const turn0 = pos[0].fen.split(' ')[1]==='w' ? 0 : 1, num0 = +pos[0].fen.split(' ')[5] || 1;
+  const parts = [];
+  for (let i=from;i<pos.length;i++){
+    const white = ((i-1+turn0)%2===0), num = num0 + Math.floor((i-1+turn0)/2);
+    parts.push((white ? num+'. ' : (i===from ? num+'... ' : ''))+pos[i].san);
+  }
+  return parts.join(' ');
+}
 function viewDaily(){
-  const pz = dailyPuzzle();
-  startQuiz([pz], '#/cau-do', 'Câu đố hôm nay', {
-    crumbs:[['Trang chủ','#/'],['Câu đố','#/cau-do'],['Hôm nay']], single:true, backText:'Về khu Câu đố',
-    onEnd:()=>Prog.markDay(),
-    endHTML:()=>'<p class="streak"><b>Chuỗi '+Prog.streak()+' ngày</b> liên tiếp. Mai quay lại để giữ chuỗi nhé.</p>'
+  const dp = dailyPick(), t = dp.theme;
+  setCrumbs([['Trang chủ','#/'],['Câu đố','#/cau-do'],['Hôm nay']]);
+  stage.innerHTML = '<section class="card center"><p class="muted">Đang tải câu đố...</p></section>';
+  let alive = true; onLeave(()=>{ alive = false; });
+  loadTheme(t.id, rows=>{
+    if (!alive) return;
+    if (!rows){ stage.innerHTML = '<section class="card center"><p>Không tải được câu đố. Kiểm tra mạng rồi thử lại.</p><a class="btn" href="#/cau-do">Quay lại</a></section>'; return; }
+    const easy = rows.filter(r=>r[3]<1600), pz = easy[dp.idx % easy.length];
+    startPuzzleRun([pz], t, {
+      count:1, single:true, backHref:'#/cau-do', backText:'Về khu Câu đố', onEnd:()=>Prog.markDay(),
+      endHTML:()=>'<p class="streak"><b>Chuỗi '+Prog.streak()+' ngày</b> liên tiếp. Mai quay lại để giữ chuỗi nhé.</p>'
+    });
   });
 }
 function viewEndgameQuiz(){
