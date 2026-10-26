@@ -152,7 +152,12 @@ function route(){
   }
   if (h[0]==='hoc') return h[1] ? viewLesson(h[1]) : viewRoadmap();
   if (h[0]==='tu-dien') return viewGlossary(h[1]);
-  if (h[0]==='may' || h[0]==='tam-nhin' || h[0]==='lop') return viewSoon(h[0]);
+  if (h[0]==='cai-dat') return viewSettings();
+  if (h[0]==='tong-ket') return Fun.viewRecap();
+  if (h[0]==='may') return !h[1] ? viewMachine() : viewGame(h[1], h[2]);
+  if (h[0]==='xep-lop') return viewLesson('xep-lop');
+  if (h[0]==='on-tap') return viewReview();
+  if (h[0]==='tam-nhin' || h[0]==='lop') return viewSoon(h[0]);
   if (h[0]==='o' && h[1]) return openingRoute(h);
   if (h[0]==='line' && ALL[+h[1]]) return viewLine(+h[1]);
   viewHome();
@@ -652,11 +657,13 @@ function startQuiz(list, backHref, title, qo){
       const correct = pz.var==='trap' ? b.game.in_checkmate() : uci===pz.uci;
       if (correct){
         if (answers[idx]===undefined) answers[idx] = true;
+        Fun.solved({first:attempts===0, game:b.game});
         renderDots(); b.setFlash(m.to,'ok',900);
         finishSolved(attempts===0 ? 'first' : 'retry');
       } else {
         attempts++;
         if (answers[idx]===undefined){ answers[idx] = false; renderDots(); }
+        Fun.wrong({game:b.game, move:m, fenBefore:pz.fen, loss:pz.ev[uci]});
         b.lock(true); b.setFlash(m.to,'no',700);
         fb('no','✗','<p><b>'+esc(m.san)+'</b></p><p>'+esc(wrongText(m, uci))+'</p><p>'+(attempts>=2?'Bí rồi? Bấm Gợi ý hoặc Xem đáp án.':'Hãy thử nước khác.')+'</p>');
         setTimeout(()=>{
@@ -668,7 +675,7 @@ function startQuiz(list, backHref, title, qo){
     }
     $('hintBtn').addEventListener('click', ()=>{
       if (solved) return;
-      hintLvl++;
+      hintLvl++; Fun.hint();
       if (hintLvl===1){
         $('hint').innerHTML = '<div class="hint">'+esc(pz.hint)+'</div>';
         $('hintBtn').textContent = 'Chỉ cho tôi quân cần đi';
