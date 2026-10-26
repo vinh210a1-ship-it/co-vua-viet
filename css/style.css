@@ -348,3 +348,6 @@ a.btn.ghost{color:var(--ink)}
 .board.live.nocoord .co{display:none}
 .streak{font-weight:700}
 .status[hidden],.next:empty{display:none}
+.badge.side-b{background:#262421;color:#f1efe9}
+.badge.side-w{background:#fff;color:#262421;border:2px solid var(--line)}
+.vlist .lesson .thumb{width:92px}

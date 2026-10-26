@@ -1,4 +1,5 @@
-/* Thư Viện Khai Cuộc: bản mẫu. Dữ liệu: OP (bài học), PUZ (puzzle), ALL (bảng khai cuộc Lichess). */
+/* Thư Viện Khai Cuộc. Dữ liệu: LS (bài học khai cuộc đang mở, nạp từ data/lessons), ALL (bảng khai cuộc Lichess). */
+let LS = null, routeTok = 0;
 const PRAISE = ['Chính xác!','Quá đỉnh!','Hay lắm!','Đúng rồi, giỏi quá!'];
 const OOPS = ['Chưa đúng rồi.','Tiếc quá!','Chưa phải nước này.'];
 const VN = {K:'Vua',Q:'Hậu',R:'Xe',B:'Tượng',N:'Mã',P:'Tốt'};
@@ -136,13 +137,11 @@ function go(h){
   route();
 }
 function route(){
-  cleanup();
+  cleanup(); routeTok++;
   document.getElementById('dots').hidden = true;
   stepperGo = stepperKey = null;
   const h = CUR.slice(2).split('/').filter(Boolean);
   window.scrollTo({top:0});
-  if (h[0]==='o' && h[1]===OP.opening.id && h[2]==='trap' && h[3]==='quiz')
-    return startQuiz([PUZ.find(p=>p.var==='trap')], '#/o/'+OP.opening.id+'/trap', 'Bẫy cần biết');
   if (h.length===0) return viewHome();
   if (h[0]==='khai-cuoc') return viewOpenings();
   if (h[0]==='cau-do'){
@@ -153,23 +152,47 @@ function route(){
   }
   if (h[0]==='hoc') return h[1] ? viewLesson(h[1]) : viewRoadmap();
   if (h[0]==='may' || h[0]==='tam-nhin' || h[0]==='lop') return viewSoon(h[0]);
-  if (h[0]==='o' && h[1]===OP.opening.id){
-    if (!h[2]) return viewOpening();
-    if (h[2]==='quiz') return startQuiz(PUZ, '#/o/'+OP.opening.id, 'Luyện tập '+OP.opening.name_vi);
-    if (h[2]==='trap') return viewTrap();
-    const v = OP.variations.find(x=>x.id===h[2]);
-    if (v){
-      if (h[3]==='quiz'){
-        const list = PUZ.filter(p=>p.var===v.id);
-        return startQuiz(list, '#/o/'+OP.opening.id+'/'+v.id, 'Luyện biến thể '+v.name_vi);
-      }
-      if (h[3]==='practice') return viewPractice(v);
-      return viewVariation(v);
-    }
-  }
+  if (h[0]==='o' && h[1]) return openingRoute(h);
   if (h[0]==='line' && ALL[+h[1]]) return viewLine(+h[1]);
   viewHome();
 }
+/* Trang của một khai cuộc: nạp bài học (nếu chưa có) rồi vẽ đúng màn hình theo đường dẫn. */
+const quizSetId = id => id==='caro-kann' ? 'ck-all' : 'op:'+id;
+const trapsOf = ls => ls.traps || (ls.trap ? [ls.trap] : []);
+function openingRoute(h){
+  const tok = routeTok, id = h[1];
+  stage.innerHTML = '<section class="card center"><p class="muted">Đang tải bài học...</p></section>';
+  loadLesson(id, ls=>{
+    if (tok !== routeTok) return;
+    if (!ls){ stage.innerHTML = '<section class="card center"><p>Không tìm thấy bài học này, hoặc mạng bị lỗi.</p><a class="btn" href="#/khai-cuoc">Về danh sách khai cuộc</a></section>'; return; }
+    LS = ls; drawOpening(h);
+  });
+}
+function drawOpening(h){
+  const o = LS.opening, base = '#/o/'+o.id;
+  if (!h[2]) return viewOpening();
+  if (h[2]==='quiz') return startQuiz(LS.puzzles, base, 'Luyện tập '+o.name_vi, {setId:quizSetId(o.id)});
+  if (h[2]==='trap'){
+    const t = trapsOf(LS).find(x=>x.id===h[3]) || trapsOf(LS)[0];
+    if (!t) return viewOpening();
+    if (h[4]==='quiz' || h[3]==='quiz'){
+      const pz = trapPuzzle(t);
+      if (pz) return startQuiz([pz], base+'/trap/'+t.id, 'Bẫy: '+t.name_vi);
+    }
+    return viewTrap(t);
+  }
+  const v = LS.variations.find(x=>x.id===h[2]);
+  if (v){
+    if (h[3]==='quiz'){
+      const list = LS.puzzles.filter(p=>p.var===v.id);
+      return startQuiz(list, base+'/'+v.id, 'Luyện biến thể '+v.name_vi);
+    }
+    if (h[3]==='practice') return viewPractice(v);
+    return viewVariation(v);
+  }
+  viewOpening();
+}
+function trapPuzzle(t){ return LS.puzzles.find(p=>p.var==='trap' && (!p.trap_id || p.trap_id===t.id)); }
 document.addEventListener('click', e=>{
   const a = e.target.closest && e.target.closest('a[href^="#/"]');
   if (a){ e.preventDefault(); go(a.getAttribute('href')); }
@@ -194,18 +217,35 @@ function matchQuery(q){
   res.sort((a,b)=> starts(a)-starts(b) || ALL[a][2].split(' ').length - ALL[b][2].split(' ').length || (ALL[a][1] < ALL[b][1] ? -1 : 1));
   return res;
 }
-function lessonMatches(q){
+function lessonMatches(m, q){
   const t = norm(q).trim(); if (!t) return true;
-  const o = OP.opening;
-  const hay = norm(o.name_vi+' '+o.name_en+' '+o.eco+' caro kann caro-kann');
+  const hay = norm(m.name_vi+' '+m.name_en+' '+m.eco+' '+m.first_moves+' '+m.group+(m.id==='caro-kann'?' caro kann':''));
   return t.split(/\s+/).every(w=>hay.includes(w) || (ALIAS[w] && hay.includes(ALIAS[w])));
 }
-function lessonCard(){
-  const o = OP.opening;
-  return '<a class="lesson" href="#/o/'+o.id+'"><span class="thumb" data-sans="'+esc(OP.variations[0].moves)+'" data-flip="'+(o.side==='b'?1:0)+'"></span>'+
-    '<div><span class="badge">Có bài học đầy đủ</span>'+
-    '<h2>'+esc(o.name_vi)+'</h2><p class="muted">'+esc(o.name_en)+' · '+esc(o.eco)+' · '+esc(o.first_moves)+'</p>'+
-    '<p>'+esc(o.tagline)+'</p></div><span class="go" aria-hidden="true">›</span></a>';
+/* Dòng nước đi cho ảnh động của mỗi khai cuộc trong danh sách: lấy các nước ghi ở first_moves, rồi nối dài bằng
+   dòng dài nhất (tối đa 10 nước) trong bảng Lichess bắt đầu bằng đúng các nước đó. Không đọc được thì dùng ván Scholar để minh hoạ. */
+const OPEN_DEMO = 'e4 e5 Bc4 Nc6 Qh5 Nf6 Qxf7'.split(' ');
+const openSansCache = {};
+function openSans(m){
+  if (openSansCache[m.id]) return openSansCache[m.id];
+  const c = new Chess(), base = [];
+  for (const x of m.first_moves.replace(/\d+\.(\.\.)?/g,' ').split(/\s+/).filter(Boolean)){ const r = c.move(x); if (!r) break; base.push(r.san); }
+  let out = base;
+  if (base.length >= 2){
+    for (const r of ALL){
+      if (r[1].indexOf(m.name_en) !== 0) continue;
+      const sans = r[2].split(' ');
+      if (sans.length <= 10 && sans.length > out.length && base.every((x,i)=>sans[i]===x)) out = sans;
+    }
+  } else out = OPEN_DEMO;
+  return openSansCache[m.id] = out;
+}
+const LEVEL_NAMES = {1:'Mức 1: dễ học, hợp người mới', 2:'Mức 2: tiếp theo', 3:'Mức 3: nâng cao'};
+function lessonCard(m){
+  return '<a class="lesson" href="#/o/'+m.id+'"><span class="thumb" data-sans="'+esc(openSans(m).join(' '))+'" data-flip="'+(m.side==='b'?1:0)+'"></span>'+
+    '<div><span class="badge side-'+m.side+'">Cầm '+(m.side==='b'?'Đen':'Trắng')+'</span>'+
+    '<h3>'+esc(m.name_vi)+'</h3><p class="muted">'+esc(m.name_en)+' · '+esc(m.eco)+' · '+esc(m.first_moves)+'</p>'+
+    '<p>'+esc(m.tagline)+'</p><p class="muted small">'+m.variations+' biến thể · '+m.puzzles+' câu đố</p></div><span class="go" aria-hidden="true">›</span></a>';
 }
 function resultItem(i){
   const r = ALL[i], sans = r[2].split(' '), rp = replay(sans), lp = rp[rp.length-1];
@@ -219,13 +259,13 @@ const HERO_LINES = [
   ['French Defense: Advance Variation','e4 e6 d4 d5 e5 c5 c3 Nc6']
 ];
 function heroScenes(){
-  const o = OP.opening, out = [];
-  out.push({name:o.name_vi+': '+OP.variations[0].name_vi, sans:OP.variations[0].moves.split(' '), flip:o.side==='b', href:'#/o/'+o.id+'/'+OP.variations[0].id});
+  const CK = window.LESSONS['caro-kann'], o = CK.opening, out = [];
+  out.push({name:o.name_vi+': '+CK.variations[0].name_vi, sans:CK.variations[0].moves.split(' '), flip:o.side==='b', href:'#/o/'+o.id+'/'+CK.variations[0].id});
   HERO_LINES.forEach(h=>{
     const i = ALL.findIndex(r=>r[1]===h[0] && r[2]===h[1]);
     if (i>=0) out.push({name:h[0], sans:h[1].split(' '), flip:false, href:'#/line/'+i});
   });
-  out.push({name:OP.trap.name_vi, sans:OP.trap.moves.split(' ').concat(['Nd6#']), flip:false, href:'#/o/'+o.id+'/trap'});
+  out.push({name:CK.trap.name_vi, sans:CK.trap.moves.split(' ').concat([CK.trap.finish]), flip:false, href:'#/o/'+o.id+'/trap/'+CK.trap.id});
   return out;
 }
 function animateHero(host){
@@ -258,9 +298,13 @@ function viewOpenings(){
     searchState.q = q.value;
     const val = q.value.trim();
     let h = '';
-    if (lessonMatches(val)) h += '<h3 class="sec">Bài học có sẵn</h3>'+lessonCard();
+    const ls = window.LESSON_LIST.filter(m=>lessonMatches(m, val));
+    if (ls.length){
+      if (val) h += '<h3 class="sec">Bài học đầy đủ ('+ls.length+')</h3><div class="vlist">'+ls.map(lessonCard).join('')+'</div>';
+      else [1,2,3].forEach(lv=>{ const g = ls.filter(m=>m.level===lv); if (g.length) h += '<h3 class="sec">'+LEVEL_NAMES[lv]+' ('+g.length+')</h3><div class="vlist">'+g.map(lessonCard).join('')+'</div>'; });
+    }
     if (!val){
-      h += '<p class="muted">Gõ tên khai cuộc để tìm trong '+ALL.length.toLocaleString('vi-VN')+' dòng khai cuộc. Các khai cuộc khác hiện chỉ xem được nước đi, chưa có bài học chi tiết.</p>';
+      h += '<p class="muted">Gõ tên để tìm trong '+window.LESSON_LIST.length+' bài học và '+ALL.length.toLocaleString('vi-VN')+' dòng khai cuộc. Dòng nào chưa có bài học thì chỉ xem được nước đi.</p>';
     } else {
       const ids = matchQuery(val), shown = ids.slice(0,40);
       h += '<h3 class="sec">Các dòng khai cuộc ('+ids.length+')</h3>';
@@ -284,11 +328,11 @@ function viewOpenings(){
 function viewLine(i){
   const r = ALL[i], sans = r[2].split(' ');
   setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[r[1]]]);
-  const inLesson = r[1].indexOf('Caro-Kann Defense')===0;
+  const lm = window.LESSON_LIST.find(m=>r[1].indexOf(m.name_en)===0);
   stage.innerHTML =
     '<section class="card"><div class="meta"><span class="tag">'+esc(r[0])+'</span></div><h2>'+esc(r[1])+'</h2>'+
     '<p class="muted">'+esc(movesText(sans, sans.length))+'</p>'+
-    '<div class="note">'+(inLesson ? 'Dòng này thuộc Caro-Kann. <a href="#/o/'+OP.opening.id+'">Xem bài học đầy đủ</a>.' : 'Dòng này mới có tên và nước đi (từ bảng khai cuộc Lichess). Chưa có bảng mục đích từng nước và puzzle.')+'</div>'+
+    '<div class="note">'+(lm ? 'Dòng này thuộc '+esc(lm.name_vi)+'. <a href="#/o/'+lm.id+'">Xem bài học đầy đủ</a>.' : 'Dòng này mới có tên và nước đi (từ bảng khai cuộc Lichess). Chưa có bảng mục đích từng nước và puzzle.')+'</div>'+
     '<div id="stepper"></div></section>';
   mountStepper(document.getElementById('stepper'), sans, null, {start:0, autoplay:true});
 }
@@ -369,56 +413,54 @@ document.addEventListener('keydown', e=>{
 });
 
 /* ---------- Trang khai cuộc có bài học ---------- */
-function proCon(strengths, weaknesses){
+function proCon(strengths, weaknesses, side){
   return '<div class="pc2"><div class="pro"><h3>Điểm mạnh</h3><ul>'+strengths.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul></div>'+
     '<div class="con"><h3>Điểm yếu</h3><ul>'+weaknesses.map(s=>'<li>'+esc(s)+'</li>').join('')+'</ul></div></div>'+
-    '<p class="muted small">Nhận định theo nguyên lý khai cuộc phổ biến, chưa phải chứng minh bằng máy. Điểm mạnh và điểm yếu tính cho Đen, người chơi Caro-Kann.</p>';
+    '<p class="muted small">Nhận định theo nguyên lý khai cuộc phổ biến, chưa phải chứng minh bằng máy. Điểm mạnh và điểm yếu tính cho bên cầm '+(side==='b'?'Đen':'Trắng')+', người chơi khai cuộc này.</p>';
 }
 function viewOpening(){
-  const o = OP.opening;
+  const o = LS.opening;
   setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[o.name_vi]]);
   let cards = '';
-  OP.variations.forEach((v,vi)=>{
+  LS.variations.forEach((v,vi)=>{
     cards += '<a class="vcard" href="#/o/'+o.id+'/'+v.id+'"><span class="thumb" data-sans="'+esc(v.moves)+'" data-flip="'+(o.side==='b'?1:0)+'"></span><div><span class="tag">'+esc(v.eco)+' · '+esc(v.name_en)+'</span>'+
       '<h3>'+esc(v.name_vi)+'</h3><p class="muted">'+esc(movesText(v.moves.split(' '), 8))+' …</p><p>'+esc(v.idea)+'</p></div><span class="go" aria-hidden="true">›</span></a>';
   });
   stage.innerHTML =
-    '<section class="card"><div class="meta"><span class="tag">'+esc(o.eco)+' · '+esc(o.name_en)+'</span></div>'+
+    '<section class="card"><div class="meta"><span class="tag">'+esc(o.eco)+' · '+esc(o.name_en)+'</span>'+(o.reviewed===false?'<span class="pill soon">Chờ thầy duyệt nội dung</span>':'')+'</div>'+
     '<h2>'+esc(o.name_vi)+'</h2>'+
     '<div class="herobox tour"><div class="boardbox" id="tourBoard"></div><a class="herocap" id="tourCap" href="#/o/'+o.id+'"><b id="tourName"></b><span id="tourMoves"></span></a></div>'+
     '<p class="muted center">'+esc(o.first_moves)+'. Đen đi sau nên bàn được xoay cho Đen ở dưới. Bàn cờ trên tự đi lần lượt từng biến thể, bấm tên bên dưới để vào học.</p>'+
     o.idea.map(t=>'<p>'+esc(t)+'</p>').join('')+
-    proCon(o.strengths, o.weaknesses)+'</section>'+
+    proCon(o.strengths, o.weaknesses, o.side)+'</section>'+
     '<section class="card"><h2>Chọn một biến thể để học</h2><div class="vlist">'+cards+'</div></section>'+
-    '<section class="card"><h2>Bẫy cần biết</h2><a class="vcard" href="#/o/'+o.id+'/trap"><div><h3>'+esc(OP.trap.name_vi)+'</h3><p>Một bẫy rất nhanh mà người mới hay mắc.</p></div><span class="go" aria-hidden="true">›</span></a></section>'+
-    '<section class="card center"><h2>Luyện tập</h2><p>'+PUZ.length+' câu puzzle về '+esc(o.name_vi)+', từ dễ đến khó. Mỗi câu có gợi ý và giải thích.</p>'+
-    '<a class="btn" href="#/o/'+o.id+'/quiz">Làm '+PUZ.length+' câu</a></section>';
+    (trapsOf(LS).length ? '<section class="card"><h2>Bẫy cần biết</h2><div class="vlist">'+trapsOf(LS).map(t=>'<a class="vcard" href="#/o/'+o.id+'/trap/'+t.id+'"><div><h3>'+esc(t.name_vi)+'</h3><p class="muted">'+esc(t.by==='b' ? 'Đen thắng nhanh nếu Trắng sơ ý.' : 'Trắng thắng nhanh nếu Đen sơ ý.')+'</p></div><span class="go" aria-hidden="true">›</span></a>').join('')+'</div></section>' : '')+
+    '<section class="card center"><h2>Luyện tập</h2><p>'+LS.puzzles.length+' câu puzzle về '+esc(o.name_vi)+', từ dễ đến khó. Mỗi câu có gợi ý và giải thích.</p>'+
+    '<a class="btn" href="#/o/'+o.id+'/quiz">Làm '+LS.puzzles.length+' câu</a></section>';
   const tour = autoBoard(document.getElementById('tourBoard'),
-    OP.variations.map(v=>({name:v.name_vi, sans:v.moves.split(' '), flip:o.side==='b', href:'#/o/'+o.id+'/'+v.id})),
+    LS.variations.map(v=>({name:v.name_vi, sans:v.moves.split(' '), flip:o.side==='b', href:'#/o/'+o.id+'/'+v.id})),
     {delay:850, hold:1800, label:sc=>'Minh hoạ: '+sc.name,
      onScene:sc=>{ document.getElementById('tourName').textContent = sc.name; document.getElementById('tourMoves').textContent = ''; document.getElementById('tourCap').setAttribute('href', sc.href); },
      onMove:(sc,k)=>{ document.getElementById('tourMoves').textContent = tailText(sc.sans, k); }});
   const thumbs = mountThumbs(stage);
   onLeave(()=>{ tour.stop(); thumbs(); });
 }
-function viewTrap(){
-  const t = OP.trap, o = OP.opening, sans = t.moves.split(' ');
+function viewTrap(t){
+  const o = LS.opening, sans = t.moves.split(' ').concat(t.finish ? [t.finish] : []);
   setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[o.name_vi,'#/o/'+o.id],[t.name_vi]]);
-  const tp = PUZ.find(p=>p.var==='trap');
+  const tp = trapPuzzle(t);
   stage.innerHTML =
     '<section class="card"><div class="meta"><span class="tag">Bẫy</span></div><h2>'+esc(t.name_vi)+'</h2>'+
     '<p class="muted">'+esc(movesText(sans, sans.length))+'</p><p>'+esc(t.text)+'</p><div id="stepper"></div>'+
-    '<div class="center"><a class="btn" href="#/o/'+o.id+'/trap/quiz">Thử tìm nước chiếu hết</a></div></section>';
-  mountStepper(document.getElementById('stepper'), sans, null, {start:0, autoplay:true, speed:1300});
-  // đường dẫn quiz riêng cho bẫy
-  void tp;
+    (tp ? '<div class="center"><a class="btn" href="#/o/'+o.id+'/trap/'+t.id+'/quiz">Thử tìm nước chiếu hết</a></div>' : '')+'</section>';
+  mountStepper(document.getElementById('stepper'), sans, null, {start:0, autoplay:true, speed:1300, flip:t.by==='b' && false});
 }
 
 /* ---------- Biến thể: bảng chỉ dẫn từng nước ---------- */
 function viewVariation(v){
-  const o = OP.opening, sans = v.moves.split(' ');
+  const o = LS.opening, sans = v.moves.split(' ');
   setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[o.name_vi,'#/o/'+o.id],[v.name_vi]]);
-  const n = PUZ.filter(p=>p.var===v.id).length;
+  const n = LS.puzzles.filter(p=>p.var===v.id).length;
   const rows = v.steps.map((s,i)=>'<tr data-i="'+(i+1)+'" tabindex="0"><td class="m">'+esc(plyLabel(i,s.san))+'</td><td><span class="who '+(s.who==='Trắng'?'w':'b')+'">'+s.who+'</span></td><td>'+esc(s.purpose)+'</td></tr>').join('');
   const evalNote = Math.abs(v.eval_cp)<=50 ? 'cân bằng' : (v.eval_cp>0?'Trắng nhỉnh hơn':'Đen nhỉnh hơn');
   stage.innerHTML =
@@ -427,7 +469,7 @@ function viewVariation(v){
     '<div class="actions"><a class="btn" href="#/o/'+o.id+'/'+v.id+'/practice">Tự đi lại bên '+(o.side==='b'?'Đen':'Trắng')+'</a>'+(n?'<a class="btn alt" href="#/o/'+o.id+'/'+v.id+'/quiz">Làm '+n+' puzzle</a>':'')+'</div></section>'+
     '<section class="card"><h2>Bảng chỉ dẫn từng nước</h2><p class="muted small">Bấm vào một dòng để xem thế cờ lúc đó.</p>'+
     '<div class="tablewrap"><table class="steps" id="steptable"><thead><tr><th>Nước</th><th>Bên</th><th>Mục đích</th></tr></thead><tbody>'+rows+'</tbody></table></div></section>'+
-    '<section class="card"><h2>Điểm mạnh và điểm yếu</h2>'+proCon(v.strengths, v.weaknesses)+
+    '<section class="card"><h2>Điểm mạnh và điểm yếu</h2>'+proCon(v.strengths, v.weaknesses, o.side)+
     '<h3 class="sec">Kế hoạch</h3><p><b>Trắng:</b> '+esc(v.plan_w)+'</p><p><b>Đen:</b> '+esc(v.plan_b)+'</p>'+
     '<p class="tipbox">Mẹo: '+esc(v.tip)+'</p>'+
     '<p class="muted small">Máy (Stockfish) chấm thế cuối dòng này: '+evalNote+'.</p></section>'+
@@ -443,7 +485,7 @@ function viewVariation(v){
 
 /* ---------- Tự đi lại biến thể ---------- */
 function viewPractice(v){
-  const o = OP.opening, sans = v.moves.split(' '), pos = replay(sans), n = sans.length;
+  const o = LS.opening, sans = v.moves.split(' '), pos = replay(sans), n = sans.length;
   const me = o.side, meName = me==='b' ? 'Đen' : 'Trắng';
   setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[o.name_vi,'#/o/'+o.id],[v.name_vi,'#/o/'+o.id+'/'+v.id],['Tự đi lại']]);
   stage.innerHTML =
@@ -490,7 +532,7 @@ function viewPractice(v){
   function finish(){
     done = true; prog(); board.lock(true); board.setHint(null);
     say('ok','★','<p><b>Hoàn thành!</b> Bạn đã đi đúng cả '+Math.ceil(n/2)+' nước của '+meName+' trong biến thể này.</p><p>Thử lại một lần nữa mà không cần gợi ý, hoặc sang phần puzzle.</p>');
-    const q = PUZ.filter(p=>p.var===v.id).length;
+    const q = LS.puzzles.filter(p=>p.var===v.id).length;
     $('pEnd').innerHTML = '<button class="btn" id="pAgain2" type="button">Làm lại</button>'+
       (q?'<a class="btn alt" href="#/o/'+o.id+'/'+v.id+'/quiz">Làm '+q+' puzzle</a>':'')+
       '<a class="btn ghost" href="#/o/'+o.id+'/'+v.id+'">Về bảng chỉ dẫn</a>';
@@ -536,7 +578,7 @@ function startQuiz(list, backHref, title, qo){
   qo = qo || {};
   if (!list.length){ go(backHref); return; }
   stepperGo = stepperKey = null;
-  setCrumbs(qo.crumbs || [['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[OP.opening.name_vi,'#/o/'+OP.opening.id],[title]]);
+  setCrumbs(qo.crumbs || [['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[LS.opening.name_vi,'#/o/'+LS.opening.id],[title]]);
   let idx = 0, answers = [], board = null;
   onLeave(()=>{ if (board) board.destroy(); });
   const dotsEl = document.getElementById('dots');

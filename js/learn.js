@@ -70,7 +70,7 @@ function viewHome(){
     ? '<a class="goon" href="'+nx.href+'"><span class="vnum" aria-hidden="true">▶</span><div><b>'+(anyProgress()?'Tiếp tục học':'Bắt đầu học')+'</b><span class="muted">Cấp '+nx.lv.n+' · '+esc(nx.u.title)+'</span></div><span class="go" aria-hidden="true">›</span></a>'
     : '<a class="goon" href="#/hoc"><span class="vnum" aria-hidden="true">★</span><div><b>Bạn đã làm hết các bài hiện có</b><span class="muted">Xem lại lộ trình</span></div><span class="go" aria-hidden="true">›</span></a>';
   const daily = '<a class="goon daily'+(today?' done':'')+'" href="#/cau-do/hom-nay"><span class="vnum" aria-hidden="true">'+(today?'✓':'?')+'</span><div><b>Câu đố hôm nay</b><span class="muted">'+(today?'Hôm nay bạn đã xong':'Một câu, vài phút')+(st?' · chuỗi '+st+' ngày':'')+'</span></div><span class="go" aria-hidden="true">›</span></a>';
-  const nPuz = PUZ.length + PUZ_END.length;
+  const nPuz = window.LESSON_LIST.reduce((a,m)=>a+m.puzzles,0) + PUZ_END.length + PUZ_THEMES.reduce((a,t)=>a+t.n,0);
   stage.innerHTML =
     '<section class="hero"><div><h2>Học cờ vua từng bước, dễ hiểu, miễn phí</h2>'+
       '<p>Chọn một nút bên dưới. Mọi bài đều có bàn cờ để bạn tự đi quân.</p>'+
@@ -106,8 +106,7 @@ function viewPuzzleHub(){
       hubCard({href:'#/cau-do/tan-cuoc', tag:'Tàn cuộc', title:'Luyện '+PUZ_END.length+' câu tàn cuộc', desc:'Đòn nĩa, xiên, chiếu hết khi còn ít quân.', note:en?'Điểm cao nhất '+en.pts+'/'+en.n:'Chưa làm', ok:!!en, fen:'1k6/8/8/8/6K1/3r4/8/Q7 w - - 0 1', sans:'Qb1+ Kc7 Qxd3'})+
     '</section>'+
     '<section class="card"><h3 class="sec">Theo khai cuộc</h3>'+
-      hubCard({href:'#/o/'+OP.opening.id+'/quiz', tag:OP.opening.eco, title:OP.opening.name_vi, desc:PUZ.length+' câu, từ dễ đến khó, kèm bẫy cần biết.', note:ck?'Điểm cao nhất '+ck.pts+'/'+ck.n:'Chưa làm', ok:!!ck, sans:OP.variations[0].moves, flip:OP.opening.side==='b'})+
-      '<p class="muted small">Khai cuộc khác (Sicilian, Pháp, Ruy Lopez...) sẽ thêm cùng với bài học của chúng.</p>'+
+      hubCard({href:'#/khai-cuoc', tag:'Từng khai cuộc', title:window.LESSON_LIST.length+' khai cuộc có câu đố riêng', desc:'Mở một khai cuộc, rồi bấm "Làm câu đố" để luyện đúng khai cuộc đó, kèm bẫy cần biết.', note:ck?'Caro-Kann: '+ck.pts+'/'+ck.n:'Chưa làm', ok:!!ck, sans:'e4 c6 d4 d5 Nc3 dxe4 Nxe4', flip:1})+
     '</section>'+
     '<section class="card"><h3 class="sec">Thử thách</h3>'+
       hubCard({tag:'Chạy đua', title:'Câu đố tốc độ', desc:'Giải càng nhiều câu càng tốt trong ba phút.', note:'Sắp có', soon:true, fen:'4k3/8/8/8/8/8/8/R3K3 w - - 0 1', sans:'Ra8+ Kd7 Rh8 Ke7'})+
