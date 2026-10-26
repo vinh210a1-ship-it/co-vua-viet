@@ -93,6 +93,7 @@ function viewHome(){
     '<div class="goons">'+cont+daily+place+review+'</div>'+
     '<h3 class="sec">Chọn một khu</h3>'+
     '<div class="tiles">'+TILES.map(tileHTML).join('')+'</div>'+
+    '<a class="goon" href="#/tu-dien"><span class="vnum" aria-hidden="true">A</span><div><b>Từ điển cờ vua</b><span class="muted">'+GLOSSARY.length+' từ, tìm nhanh, giải thích dễ hiểu</span></div><span class="go" aria-hidden="true">›</span></a>'+
     '<a class="classbar" href="#/lop"><span class="vnum" aria-hidden="true">♜</span><div><b>Lớp của thầy</b><span class="muted">Khu riêng cho học sinh của thầy. Sắp có.</span></div><span class="go" aria-hidden="true">›</span></a>'+
     '<details class="legend"><summary>Cách đọc nước đi</summary><p>K = Vua, Q = Hậu, R = Xe, B = Tượng, N = Mã, không có chữ = Tốt. x là ăn quân, + là chiếu, # là chiếu hết, O-O là nhập thành gần.</p></details>';
   animateHero(document.getElementById('heroBoard'));
@@ -147,7 +148,7 @@ function viewTheme(id){
   const t = PUZ_THEMES.find(x=>x.id===id);
   if (!t){ go('#/cau-do/chu-de'); return; }
   setCrumbs([['Trang chủ','#/'],['Câu đố','#/cau-do'],['Theo chủ đề','#/cau-do/chu-de'],[t.name]]);
-  stage.innerHTML = '<section class="card"><h2>'+esc(t.name)+'</h2><p>'+esc(t.desc)+'</p><p class="tipbox">Mẹo: '+esc(t.tip)+'</p></section>'+
+  stage.innerHTML = '<section class="card"><h2>'+esc(t.name)+'</h2><p>'+esc(t.desc)+'</p><p class="tipbox">Mẹo: '+esc(t.tip)+'</p>'+((TIPS.themes[t.id]||[]).length ? '<h3 class="sec">Mẹo thêm từ khóa học</h3><ul class="tips">'+TIPS.themes[t.id].map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>' : '')+'</section>'+
     '<section class="card"><h3 class="sec">Chọn mức</h3><div class="vlist">'+['de','vua','kho'].map(b=>{
       const best = Prog.best('th:'+id+':'+b), bi = BAND_INFO[b];
       return '<a class="vcard" href="#/cau-do/chu-de/'+id+'/'+b+'"><div><h3>Mức '+bi.name+'</h3><p class="muted">Độ khó '+bi.d+'. Mỗi lượt 10 câu.</p><p><span class="pill'+(best?' ok':'')+'">'+(best?'Điểm cao nhất '+best.pts+'/'+best.n:'Chưa làm')+'</span></p></div><span class="go" aria-hidden="true">›</span></a>';
@@ -222,7 +223,7 @@ function startPuzzleRun(pool, theme, po){
       renderDots();
       const sol = pos.slice(2).map((p,i)=>p.san).join(' ');
       fb(kind==='show'?'info':'ok', kind==='show'?'→':'✓',
-        '<p><b>'+(kind==='first' ? PRAISE[idx%PRAISE.length] : kind==='retry' ? 'Đúng rồi! Lần này bạn đã tìm ra.' : 'Đáp án')+'</b></p><p>Các nước: <b>'+esc(movesTextFrom(pos, 1))+'</b></p><p class="tip">Mẹo: '+esc(th.tip)+'</p>');
+        '<p><b>'+(kind==='first' ? PRAISE[idx%PRAISE.length] : kind==='retry' ? 'Đúng rồi! Lần này bạn đã tìm ra.' : 'Đáp án')+'</b></p><p>Các nước: <b>'+esc(movesTextFrom(pos, 1))+'</b></p><p class="tip">Mẹo: '+esc(th.tip)+'</p><p class="muted small">Thêm một mẹo: '+esc(tipFor(th.id, idx+1))+'</p>');
       if (kind!=='show') $('fb').classList.add('celebrate');
       $('hintBtn').hidden = $('showBtn').hidden = true;
       const lastQ = idx===list.length-1;

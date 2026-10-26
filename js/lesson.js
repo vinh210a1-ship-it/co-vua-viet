@@ -1,7 +1,8 @@
-/* Màn học từng bài (cấp 0, 1, 2), bài xếp lớp và bài kiểm tra cuối cấp. Dữ liệu bài nằm trong data/level0.js, level1.js, level2.js, placement.js.
+/* Màn học từng bài (cấp 0 đến 5), bài xếp lớp và bài kiểm tra cuối cấp. Dữ liệu bài nằm trong data/level0.js đến level5.js, placement.js.
    Một bài là danh sách bước; mỗi bước có type: show, demo, explore, reach, capture, tap, find, mate, quiz, run, note. */
 const LESSON_BANK = Object.assign({},
   typeof LV0 !== 'undefined' ? LV0 : {}, typeof LV1 !== 'undefined' ? LV1 : {}, typeof LV2 !== 'undefined' ? LV2 : {},
+  typeof LV3 !== 'undefined' ? LV3 : {}, typeof LV4 !== 'undefined' ? LV4 : {}, typeof LV5 !== 'undefined' ? LV5 : {},
   typeof PLACEMENT !== 'undefined' ? {'xep-lop':PLACEMENT} : {});
 const SKIPPABLE = ['find', 'mate', 'reach', 'capture', 'explore', 'tap'];
 const KIND_TEXT = {king:'đi Vua ra khỏi đường chiếu', block:'chắn đường chiếu', capture:'ăn quân đang chiếu'};
