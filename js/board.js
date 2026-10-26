@@ -11,6 +11,7 @@ class Board {
     this.onIllegal = opts.onIllegal || null;
     this.locked = false;
     this.intro = !!opts.intro;
+    this.solo = opts.solo || null;   // 'w' hoặc 'b': chỉ bên này đi, lượt luôn quay về bên này (dùng cho bài tập một mình)
     this.game = new Chess(opts.fen || undefined);
     this.sel = null; this.targets = new Map();
     this.last = null; this.hint = null; this.flash = null;
@@ -168,7 +169,12 @@ class Board {
       if (re) { delete this.pieces[rf]; re.classList.toggle('slide', animate); this.place(re, rt); this.pieces[rt] = re; re.dataset.sq = rt; }
     }
     this.paint();
+    if (this.solo) this.keepTurn();
     return m;
+  }
+  keepTurn() {
+    const f = this.game.fen().split(' '); f[1] = this.solo; f[3] = '-';
+    this.game.load(f.join(' '));
   }
   /* ---- chạm, kéo thả ---- */
   pointerDown(e) {

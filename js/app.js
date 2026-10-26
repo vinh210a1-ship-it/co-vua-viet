@@ -54,8 +54,8 @@ function boardHTML(fen, flip, hl, moved, cls){
 }
 
 /* ---------- Phát lại nước đi bằng chess.js ---------- */
-function replay(sans){
-  const c = new Chess();
+function replay(sans, fen){
+  const c = fen ? new Chess(fen) : new Chess();
   const out = [{fen:c.fen(), from:null, to:null, san:null}];
   for (const s of sans){
     const m = c.move(s);
@@ -86,7 +86,7 @@ function autoBoard(host, scenes, o){
   let io = null;
   if ('IntersectionObserver' in window){ io = new IntersectionObserver(es=>{ visible = es[es.length-1].isIntersecting; }); io.observe(host); }
   function load(){
-    sc = scenes[si % scenes.length]; pos = replay(sc.sans); k = 0;
+    sc = scenes[si % scenes.length]; pos = replay(sc.sans, sc.fen); k = 0;
     if (!b) b = new Board(host, {fen:pos[0].fen, flip:!!sc.flip, mini:!!o.mini});
     else { b.setFlip(!!sc.flip); b.setFen(pos[0].fen); }
     if (o.label) b.root.setAttribute('aria-label', o.label(sc));
@@ -110,7 +110,7 @@ function autoBoard(host, scenes, o){
 function mountThumbs(root){
   const stops = [];
   root.querySelectorAll('.thumb[data-sans]').forEach((el,n)=>{
-    stops.push(autoBoard(el, [{sans:el.dataset.sans.split(' '), flip:el.dataset.flip==='1'}], {delay:800, hold:1500, start:500+n*350, mini:true}).stop);
+    stops.push(autoBoard(el, [{sans:el.dataset.sans.split(' '), fen:el.dataset.fen||undefined, flip:el.dataset.flip==='1'}], {delay:800, hold:1500, start:500+n*350, mini:true}).stop);
   });
   return ()=>stops.forEach(f=>f());
 }
@@ -144,6 +144,14 @@ function route(){
   if (h[0]==='o' && h[1]===OP.opening.id && h[2]==='trap' && h[3]==='quiz')
     return startQuiz([PUZ.find(p=>p.var==='trap')], '#/o/'+OP.opening.id+'/trap', 'Bẫy cần biết');
   if (h.length===0) return viewHome();
+  if (h[0]==='khai-cuoc') return viewOpenings();
+  if (h[0]==='cau-do'){
+    if (!h[1]) return viewPuzzleHub();
+    if (h[1]==='hom-nay') return viewDaily();
+    if (h[1]==='tan-cuoc') return viewEndgameQuiz();
+  }
+  if (h[0]==='hoc') return h[1] ? viewLesson(h[1]) : viewRoadmap();
+  if (h[0]==='may' || h[0]==='tam-nhin' || h[0]==='lop') return viewSoon(h[0]);
   if (h[0]==='o' && h[1]===OP.opening.id){
     if (!h[2]) return viewOpening();
     if (h[2]==='quiz') return startQuiz(PUZ, '#/o/'+OP.opening.id, 'Luyện tập '+OP.opening.name_vi);
@@ -229,19 +237,15 @@ function animateHero(host){
   });
   onLeave(a.stop);
 }
-function viewHome(){
-  setCrumbs([['Trang chủ']]);
+function viewOpenings(){
+  setCrumbs([['Trang chủ','#/'],['Khai cuộc']]);
   const fam = {};
   ALL.forEach(r=>{ const f = r[1].split(':')[0]; fam[f] = (fam[f]||0)+1; });
   const chips = POPULAR.filter(f=>fam[f]).map(f=>'<button type="button" class="chip" data-q="'+esc(f)+'">'+esc(f)+' <small>'+fam[f]+'</small></button>').join('');
   stage.innerHTML =
-    '<section class="hero"><div><h2>Học khai cuộc từng bước, có người chỉ từng nước đi</h2>'+
-      '<p>Tìm một khai cuộc, xem mục đích của từng nước, tự đi lại trên bàn cờ, rồi luyện puzzle.</p>'+
-      '<ol class="steps3"><li><b>1</b>Tìm</li><li><b>2</b>Học</li><li><b>3</b>Luyện</li></ol>'+
-      '<div class="stats"><span><strong>'+ALL.length.toLocaleString('vi-VN')+'</strong>dòng khai cuộc</span>'+
-      '<span><strong>'+OP.variations.length+'</strong>biến thể có bài</span><span><strong>'+PUZ.length+'</strong>puzzle</span></div></div>'+
-      '<div class="herobox"><div class="boardbox" id="heroBoard"></div><a class="herocap" id="heroCap" href="#/"><b id="heroName"></b><span id="heroMoves"></span></a></div></section>'+
     '<section class="card">'+
+      '<h2>Khai cuộc</h2>'+
+      '<p class="muted">Tìm một khai cuộc, xem mục đích của từng nước, tự đi lại trên bàn cờ, rồi luyện puzzle.</p>'+
       '<label class="lbl" for="q">Tìm khai cuộc</label>'+
       '<input id="q" class="search" type="search" inputmode="search" autocomplete="off" placeholder="Ví dụ: Sicilian, Caro-Kann, Ruy Lopez, B12" value="'+esc(searchState.q)+'">'+
       '<div class="chips" id="chips">'+chips+'</div>'+
@@ -268,7 +272,6 @@ function viewHome(){
   let stopThumbs = ()=>{};
   onLeave(()=>stopThumbs());
   q.addEventListener('input', draw);
-  animateHero(document.getElementById('heroBoard'));
   document.getElementById('chips').addEventListener('click', e=>{
     const b = e.target.closest('.chip'); if (!b) return;
     q.value = b.dataset.q; draw(); q.focus();
@@ -279,7 +282,7 @@ function viewHome(){
 /* ---------- Dòng khai cuộc bất kỳ (chỉ xem nước đi) ---------- */
 function viewLine(i){
   const r = ALL[i], sans = r[2].split(' ');
-  setCrumbs([['Trang chủ','#/'],[r[1]]]);
+  setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[r[1]]]);
   const inLesson = r[1].indexOf('Caro-Kann Defense')===0;
   stage.innerHTML =
     '<section class="card"><div class="meta"><span class="tag">'+esc(r[0])+'</span></div><h2>'+esc(r[1])+'</h2>'+
@@ -372,7 +375,7 @@ function proCon(strengths, weaknesses){
 }
 function viewOpening(){
   const o = OP.opening;
-  setCrumbs([['Trang chủ','#/'],[o.name_vi]]);
+  setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[o.name_vi]]);
   let cards = '';
   OP.variations.forEach((v,vi)=>{
     cards += '<a class="vcard" href="#/o/'+o.id+'/'+v.id+'"><span class="thumb" data-sans="'+esc(v.moves)+'" data-flip="'+(o.side==='b'?1:0)+'"></span><div><span class="tag">'+esc(v.eco)+' · '+esc(v.name_en)+'</span>'+
@@ -399,7 +402,7 @@ function viewOpening(){
 }
 function viewTrap(){
   const t = OP.trap, o = OP.opening, sans = t.moves.split(' ');
-  setCrumbs([['Trang chủ','#/'],[o.name_vi,'#/o/'+o.id],[t.name_vi]]);
+  setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[o.name_vi,'#/o/'+o.id],[t.name_vi]]);
   const tp = PUZ.find(p=>p.var==='trap');
   stage.innerHTML =
     '<section class="card"><div class="meta"><span class="tag">Bẫy</span></div><h2>'+esc(t.name_vi)+'</h2>'+
@@ -413,7 +416,7 @@ function viewTrap(){
 /* ---------- Biến thể: bảng chỉ dẫn từng nước ---------- */
 function viewVariation(v){
   const o = OP.opening, sans = v.moves.split(' ');
-  setCrumbs([['Trang chủ','#/'],[o.name_vi,'#/o/'+o.id],[v.name_vi]]);
+  setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[o.name_vi,'#/o/'+o.id],[v.name_vi]]);
   const n = PUZ.filter(p=>p.var===v.id).length;
   const rows = v.steps.map((s,i)=>'<tr data-i="'+(i+1)+'" tabindex="0"><td class="m">'+esc(plyLabel(i,s.san))+'</td><td><span class="who '+(s.who==='Trắng'?'w':'b')+'">'+s.who+'</span></td><td>'+esc(s.purpose)+'</td></tr>').join('');
   const evalNote = Math.abs(v.eval_cp)<=50 ? 'cân bằng' : (v.eval_cp>0?'Trắng nhỉnh hơn':'Đen nhỉnh hơn');
@@ -441,7 +444,7 @@ function viewVariation(v){
 function viewPractice(v){
   const o = OP.opening, sans = v.moves.split(' '), pos = replay(sans), n = sans.length;
   const me = o.side, meName = me==='b' ? 'Đen' : 'Trắng';
-  setCrumbs([['Trang chủ','#/'],[o.name_vi,'#/o/'+o.id],[v.name_vi,'#/o/'+o.id+'/'+v.id],['Tự đi lại']]);
+  setCrumbs([['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[o.name_vi,'#/o/'+o.id],[v.name_vi,'#/o/'+o.id+'/'+v.id],['Tự đi lại']]);
   stage.innerHTML =
     '<section class="card"><div class="meta"><span class="tag">Tự đi lại · '+esc(v.eco)+'</span>'+
     '<span class="turn"><i class="'+me+'"></i>Bạn cầm '+meName+'</span></div>'+
@@ -528,10 +531,11 @@ function viewPractice(v){
 }
 
 /* ---------- Puzzle: đi quân thật trên bàn cờ ---------- */
-function startQuiz(list, backHref, title){
+function startQuiz(list, backHref, title, qo){
+  qo = qo || {};
   if (!list.length){ go(backHref); return; }
   stepperGo = stepperKey = null;
-  setCrumbs([['Trang chủ','#/'],[OP.opening.name_vi,'#/o/'+OP.opening.id],[title]]);
+  setCrumbs(qo.crumbs || [['Trang chủ','#/'],['Khai cuộc','#/khai-cuoc'],[OP.opening.name_vi,'#/o/'+OP.opening.id],[title]]);
   let idx = 0, answers = [], board = null;
   onLeave(()=>{ if (board) board.destroy(); });
   const dotsEl = document.getElementById('dots');
@@ -639,7 +643,9 @@ function startQuiz(list, backHref, title){
     renderDots();
     const pts = answers.filter(Boolean).length, n = list.length;
     const ratio = pts/n;
-    const msg = pts===n ? 'Tuyệt vời, trọn điểm!' : ratio>=0.8 ? 'Rất xuất sắc!' : ratio>=0.5 ? 'Khá lắm, luyện thêm chút nữa nhé!' : 'Đừng lo, khai cuộc cần luyện tập. Thử lại nào!';
+    if (qo.setId) Prog.setBest(qo.setId, pts, n);
+    if (qo.onEnd) qo.onEnd(pts, n);
+    const msg = qo.single ? (pts ? 'Xong câu đố hôm nay, đúng ngay lần đầu!' : 'Xong câu đố hôm nay!') : pts===n ? 'Tuyệt vời, trọn điểm!' : ratio>=0.8 ? 'Rất xuất sắc!' : ratio>=0.5 ? 'Khá lắm, luyện thêm chút nữa nhé!' : 'Đừng lo, khai cuộc cần luyện tập. Thử lại nào!';
     const stars = ratio>=0.9 ? 3 : ratio>=0.6 ? 2 : ratio>=0.3 ? 1 : 0;
     let rev = '', key = '';
     list.forEach((pz,i)=>{
@@ -649,11 +655,9 @@ function startQuiz(list, backHref, title){
     let st = '';
     for (let i=0;i<3;i++) st += '<span'+(i<stars?'':' style="opacity:.3"')+'>★</span>';
     stage.innerHTML =
-      '<section class="card end"><h2>'+msg+'</h2><div class="big">'+pts+'/'+n+'</div>'+
-      '<div class="stars" aria-hidden="true">'+st+'</div>'+
-      '<p class="muted small">Điểm chỉ tính khi bạn đi đúng ngay lần đầu.</p>'+
+      '<section class="card end"><h2>'+msg+'</h2>'+(qo.single ? '' : '<div class="big">'+pts+'/'+n+'</div><div class="stars" aria-hidden="true">'+st+'</div><p class="muted small">Điểm chỉ tính khi bạn đi đúng ngay lần đầu.</p>')+(qo.endHTML ? qo.endHTML() : '')+
       '<ul class="review">'+rev+'</ul>'+
-      '<div class="actions"><button class="btn" id="again" type="button">Chơi lại</button> <a class="btn ghost" href="'+backHref+'">Về bài học</a></div>'+
+      '<div class="actions"><button class="btn" id="again" type="button">Chơi lại</button> <a class="btn ghost" href="'+backHref+'">'+esc(qo.backText || 'Về bài học')+'</a></div>'+
       '<details class="legend key"><summary>Đáp án cho giáo viên</summary><div class="tablewrap"><table><tr><th>Câu</th><th>Chủ đề</th><th>Nước đúng</th></tr>'+key+'</table></div></details>'+
       '</section>';
     $('again').addEventListener('click',()=>{ idx = 0; answers = []; show(); window.scrollTo({top:0}); });
