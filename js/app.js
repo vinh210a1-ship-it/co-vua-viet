@@ -151,6 +151,7 @@ function route(){
     if (h[1]==='chu-de') return !h[2] ? viewThemes() : !h[3] ? viewTheme(h[2]) : viewThemeRun(h[2], h[3]);
   }
   if (h[0]==='hoc') return h[1] ? viewLesson(h[1]) : viewRoadmap();
+  if (h[0]==='cai-dat') return viewSettings();
   if (h[0]==='may') return !h[1] ? viewMachine() : viewGame(h[1], h[2]);
   if (h[0]==='xep-lop') return viewLesson('xep-lop');
   if (h[0]==='on-tap') return viewReview();
