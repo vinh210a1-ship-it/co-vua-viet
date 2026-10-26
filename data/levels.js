@@ -1,5 +1,6 @@
 /* Khung 6 cấp (cấp 0 đến cấp 5) đã được thầy duyệt. Mỗi bài: {id, title, href?, soon?}.
-   Bài có href là bài đã làm xong; bài soon:true là bài sẽ làm sau. */
+   Bài có id có trong LESSON_BANK (js/lesson.js) hoặc có href là bài đã làm xong; bài soon:true là bài sẽ làm sau.
+   test:true là bài kiểm tra cuối cấp: đạt 80% thì cấp được tính là đã qua (Prog.level). */
 const LEVELS = [
   {n:0, name:'Làm quen', desc:'Bàn cờ, cách đi và ăn của từng quân, giá trị quân.', units:[
     {id:'ban-co', title:'Bàn cờ và tọa độ'}, {id:'tot', title:'Quân Tốt'}, {id:'xe', title:'Quân Xe'}, {id:'tuong', title:'Quân Tượng'},
@@ -7,12 +8,12 @@ const LEVELS = [
     {id:'kiem-tra', title:'Bài kiểm tra cấp 0', test:true}
   ]},
   {n:1, name:'Luật và chiếu hết', desc:'Chiếu, chiếu hết, hòa, nhập thành, bắt Tốt qua đường, phong cấp; chiếu hết bằng Hậu và bằng Xe.', units:[
-    {title:'Chiếu và chiếu hết', soon:true}, {title:'Hòa cờ', soon:true}, {title:'Nhập thành', soon:true}, {title:'Bắt Tốt qua đường', soon:true},
-    {title:'Phong cấp', soon:true}, {title:'Chiếu hết bằng Hậu và bằng Xe', soon:true}, {title:'Bài kiểm tra cấp 1', soon:true}
+    {id:'chieu', title:'Chiếu và chiếu hết'}, {id:'hoa-co', title:'Hòa cờ'}, {id:'nhap-thanh', title:'Nhập thành'}, {id:'qua-duong', title:'Bắt Tốt qua đường'},
+    {id:'phong-cap', title:'Phong cấp'}, {id:'chieu-het-hau-xe', title:'Chiếu hết bằng Hậu và bằng Xe'}, {id:'kiem-tra-1', title:'Bài kiểm tra cấp 1', test:true}
   ]},
   {n:2, name:'Chiến thuật một đến hai nước', desc:'Đòn đôi, ghim, xiên, quân treo, chiếu hết 1 nước và 2 nước, tránh nhả quân.', units:[
-    {title:'Đòn đôi', soon:true}, {title:'Ghim', soon:true}, {title:'Xiên', soon:true}, {title:'Quân treo', soon:true},
-    {title:'Chiếu hết 1 nước và 2 nước', soon:true}, {title:'Tránh nhả quân', soon:true}, {title:'Ôn trộn và kiểm tra cấp 2', soon:true}
+    {id:'doi', title:'Đòn đôi'}, {id:'ghim', title:'Ghim'}, {id:'xien', title:'Xiên'}, {id:'quan-treo', title:'Quân treo'},
+    {id:'chieu-het-1-2', title:'Chiếu hết 1 nước và 2 nước'}, {id:'tranh-nha-quan', title:'Tránh nhả quân'}, {id:'kiem-tra-2', title:'Ôn trộn và kiểm tra cấp 2', test:true}
   ]},
   {n:3, name:'Nguyên tắc khai cuộc', desc:'Chiếm trung tâm, phát triển quân, nhập thành, tránh bẫy; hai khai cuộc đầu tiên cho mỗi bên.', units:[
     {title:'Ba nguyên tắc: trung tâm, phát triển, nhập thành', soon:true},

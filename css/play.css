@@ -1,0 +1,44 @@
+/* Phần mới của hệ thống học: Đánh với máy, bài học Cấp 1–2, bài xếp lớp, ôn lặp.
+   Chỉ dùng biến màu và cỡ chữ sẵn có trong style.css. Nút và ô chạm tối thiểu 48px cho học sinh nhỏ tuổi. */
+
+/* chọn màu quân */
+.seg{display:flex;gap:6px;background:var(--bg);padding:5px;border-radius:14px}
+.seg button{flex:1;font:800 .95rem var(--font-display);padding:11px 4px;min-height:48px;border-radius:10px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--accent);color:var(--accent-ink);box-shadow:0 3px 0 var(--accent-edge)}
+
+/* danh sách 8 mức của máy */
+.lvlist{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.lvlist{grid-template-columns:1fr}}
+.lvpick{display:flex;align-items:center;gap:12px;text-align:left;font:inherit;color:inherit;background:var(--surface);border:2px solid var(--line);border-radius:14px;padding:12px 14px;min-height:64px;cursor:pointer;box-shadow:0 3px 0 var(--line)}
+.lvpick:hover{border-color:var(--accent);transform:translateY(-2px)}
+.lvpick:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.lvpick .vnum{width:38px;height:38px;font-size:1.15rem}
+.lvt{display:flex;flex-direction:column;flex:1;min-width:0;line-height:1.3}
+.lvt b{font:800 1.05rem var(--font-display)}
+.lvt .muted{font-size:.85rem}
+.lvs{flex:none;font:800 1rem var(--font-display);color:var(--sun)}
+
+/* ván đánh với máy */
+.movelist{display:flex;flex-wrap:wrap;gap:4px 10px;max-height:5.6em;overflow-y:auto;font-weight:700;font-size:.95rem;padding:8px 12px;background:var(--bg);border-radius:12px;min-height:2.4em}
+.movelist:empty::before{content:'Các nước đã đi sẽ hiện ở đây.';color:var(--muted);font-weight:600}
+.mv i{font-style:normal;color:var(--muted);margin-right:3px}
+.three{background:var(--bg);border-radius:12px;padding:8px 14px}
+.three summary{cursor:pointer;font:800 1rem var(--font-display);min-height:36px;display:flex;align-items:center}
+.three ol{margin:6px 0 4px 1.2em;padding:0;display:flex;flex-direction:column;gap:4px;font-weight:700}
+
+/* bài học: danh sách ghi nhớ, nút bỏ qua, màn kết quả */
+.notelist{margin:0 0 0 1.3em;padding:0;display:flex;flex-direction:column;gap:8px;font-weight:700;line-height:1.45}
+.notelist li::marker{color:var(--accent);font-weight:800}
+.skiprow{display:flex;justify-content:center;margin-top:-4px}
+.weak{background:var(--bg);border-left:5px solid var(--sun);border-radius:8px;padding:10px 14px;text-align:left;width:100%}
+.weak ul{margin:6px 0 0 1.2em;padding:0}
+.weak a{font-weight:800}
+
+/* thẻ ôn tập, bài xếp lớp, huy hiệu cấp trong lộ trình */
+.lvbadge{display:inline-flex;align-items:center;gap:6px;font:800 .8rem var(--font-body);padding:3px 12px;border-radius:99px;background:var(--good-bg);color:var(--good)}
+.lvbadge.hint{background:var(--bg);color:var(--muted);border:2px dashed var(--line)}
+.revcount{font:800 1.8rem var(--font-display);color:var(--accent-edge)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .revcount{color:var(--accent)}}
+.placebar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--bg);border-radius:14px;padding:12px 14px}
+.placebar p{margin:0;flex:1;min-width:12em}
+@media (prefers-reduced-motion:reduce){.lvpick:hover{transform:none}}

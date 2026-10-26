@@ -66,18 +66,18 @@ const LV0 = {
     {type:'quiz', q:'Bạn đổi Hậu của mình lấy một Xe của đối phương. Theo bảng giá trị, bạn được hay mất?', opts:['Mất, vì Hậu (9) hơn Xe (5) tới 4 Tốt','Được, vì Xe nhiều quân hơn','Bằng nhau'], correct:0, why:'Hậu 9, Xe 5: bạn mất khoảng 4 Tốt giá trị.'},
     {type:'quiz', q:'Hai Mã (3 + 3) đổi lấy một Xe (5). Bên nào có lợi theo bảng giá trị?', opts:['Bên nhận hai Mã (6 so với 5)','Bên nhận Xe (5 so với 6)','Bằng nhau'], correct:0, why:'Hai Mã có tổng 6, hơn Xe 1 Tốt. Đây chỉ là tính nhanh, vị trí cụ thể có thể làm khác đi.'}
   ]},
-  'kiem-tra': {title:'Bài kiểm tra cấp 0', test:true, intro:[
+  'kiem-tra': {title:'Bài kiểm tra cấp 0', test:true, level:0, intro:[
     'Bài kiểm tra có 9 câu về những gì bạn đã học: tọa độ, cách đi của các quân và giá trị quân.',
     'Câu đi quân chỉ tính đúng khi bạn đi bằng số nước ngắn nhất.'
   ], steps:[
-    {type:'tap', squares:['b5','g2','d8'], text:'Chạm vào ô được yêu cầu.'},
-    {type:'reach', fen:'8/8/8/8/8/8/8/R7 w - - 0 1', target:'a8', best:1, text:'Đưa Xe lên ô a8.'},
-    {type:'reach', fen:'8/8/8/8/8/8/8/6N1 w - - 0 1', target:'f3', best:1, text:'Đưa Mã tới ô f3.'},
-    {type:'reach', fen:'8/8/8/8/8/8/8/2B5 w - - 0 1', target:'h6', best:1, text:'Đưa Tượng tới ô h6.'},
-    {type:'capture', fen:'8/8/8/1p6/2p5/3p4/4P3/8 w - - 0 1', best:3, text:'Ăn hết 3 Tốt Đen bằng Tốt.'},
-    {type:'quiz', q:'Quân nào đi được hình chữ L và nhảy qua quân khác?', opts:['Tượng','Mã','Xe'], correct:1, why:'Chỉ Mã đi hình chữ L và nhảy qua được quân khác.'},
-    {type:'quiz', q:'Quân nào đi được cả hàng ngang, cột dọc và đường chéo?', opts:['Hậu','Xe','Vua'], correct:0, why:'Hậu gộp cách đi của Xe và Tượng. (Vua cũng đi mọi hướng nhưng chỉ một ô.)'},
-    {type:'quiz', q:'Quân nào có giá trị lớn nhất trong Tốt, Mã, Tượng, Xe, Hậu?', opts:['Xe','Hậu','Tượng'], correct:1, why:'Hậu 9 là lớn nhất trong năm loại quân này.'},
-    {type:'quiz', q:'Vua có được đi vào ô đang bị quân địch tấn công không?', opts:['Được','Không được'], correct:1, why:'Vua không bao giờ được tự đi vào ô bị tấn công.'}
+    {from:'ban-co', type:'tap', squares:['b5','g2','d8'], text:'Chạm vào ô được yêu cầu.'},
+    {from:'xe', type:'reach', fen:'8/8/8/8/8/8/8/R7 w - - 0 1', target:'a8', best:1, text:'Đưa Xe lên ô a8.'},
+    {from:'ma', type:'reach', fen:'8/8/8/8/8/8/8/6N1 w - - 0 1', target:'f3', best:1, text:'Đưa Mã tới ô f3.'},
+    {from:'tuong', type:'reach', fen:'8/8/8/8/8/8/8/2B5 w - - 0 1', target:'h6', best:1, text:'Đưa Tượng tới ô h6.'},
+    {from:'tot', type:'capture', fen:'8/8/8/1p6/2p5/3p4/4P3/8 w - - 0 1', best:3, text:'Ăn hết 3 Tốt Đen bằng Tốt.'},
+    {from:'ma', type:'quiz', q:'Quân nào đi được hình chữ L và nhảy qua quân khác?', opts:['Tượng','Mã','Xe'], correct:1, why:'Chỉ Mã đi hình chữ L và nhảy qua được quân khác.'},
+    {from:'hau', type:'quiz', q:'Quân nào đi được cả hàng ngang, cột dọc và đường chéo?', opts:['Hậu','Xe','Vua'], correct:0, why:'Hậu gộp cách đi của Xe và Tượng. (Vua cũng đi mọi hướng nhưng chỉ một ô.)'},
+    {from:'gia-tri', type:'quiz', q:'Quân nào có giá trị lớn nhất trong Tốt, Mã, Tượng, Xe, Hậu?', opts:['Xe','Hậu','Tượng'], correct:1, why:'Hậu 9 là lớn nhất trong năm loại quân này.'},
+    {from:'vua', type:'quiz', q:'Vua có được đi vào ô đang bị quân địch tấn công không?', opts:['Được','Không được'], correct:1, why:'Vua không bao giờ được tự đi vào ô bị tấn công.'}
   ]}
 };
