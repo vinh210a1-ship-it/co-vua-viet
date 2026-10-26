@@ -1,0 +1,41 @@
+/* Hội quân cờ: hộp thoại nhân vật, thẻ trên trang Tôi, danh hiệu, thẻ tổng kết. Dùng các biến màu của style.css và theme.css. */
+.funtoast{position:fixed;z-index:60;top:calc(8px + env(safe-area-inset-top,0px));left:50%;width:min(520px,calc(100vw - 20px));
+  transform:translate(-50%,-16px);opacity:0;transition:transform .22s ease,opacity .22s ease;
+  display:flex;gap:12px;align-items:flex-start;padding:12px 40px 12px 12px;
+  background:var(--surface);border:2px solid var(--accent);border-radius:18px;box-shadow:0 4px 0 var(--accent-edge),0 14px 30px rgba(30,50,20,.22)}
+.funtoast.in{transform:translate(-50%,0);opacity:1}
+@media (min-width:900px){.funtoast{left:calc(50% + var(--nav-w)/2)}}
+.funtoast[hidden]{display:none}
+.fav{flex:none;width:46px;height:46px;border-radius:50%;background:var(--sq-dark);display:grid;place-items:center;box-shadow:0 3px 0 var(--accent-edge)}
+.fav svg{width:34px;height:34px;display:block}
+.fbody{min-width:0;display:flex;flex-direction:column;gap:3px}
+.fname{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font:800 .8rem/1.3 var(--font-body);letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.fbody p{margin:0;font:700 1rem/1.4 var(--font-body);color:var(--ink);overflow-wrap:anywhere}
+.chip{display:inline-block;padding:1px 8px;border-radius:99px;font:800 .72rem/1.35 var(--font-body);letter-spacing:0;text-transform:none;background:var(--bg);color:var(--muted);border:2px solid var(--line)}
+.chip.ok{background:var(--good-bg);color:var(--good);border-color:transparent}
+.chip.no{background:var(--bad-bg);color:var(--bad);border-color:transparent}
+.chip.mid{background:var(--bg);color:var(--ink)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.fbtn{font:800 .88rem var(--font-body);padding:6px 14px;min-height:40px;border-radius:12px;border:2px solid var(--line);background:var(--btn);color:var(--ink);cursor:pointer;box-shadow:0 2px 0 var(--btn-edge)}
+.fbtn.pri{background:var(--accent);color:var(--accent-ink);border-color:var(--accent-edge)}
+.fx{position:absolute;top:6px;right:6px;width:36px;height:36px;border:0;background:transparent;color:var(--muted);font:700 22px/1 var(--font-body);cursor:pointer;border-radius:10px}
+.fx:hover,.fbtn:hover{filter:brightness(1.06)}
+.fx:focus-visible,.fbtn:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){.funtoast{transition:none;transform:translate(-50%,0)}}
+:root[data-motion="reduce"] .funtoast{transition:none;transform:translate(-50%,0)}
+
+/* Trang Tôi */
+.cast,.bdgs{list-style:none;margin:0;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.cast li,.bdg{display:flex;gap:12px;align-items:flex-start;padding:10px;border:2px solid var(--line);border-radius:14px;min-width:0}
+.cast li>div,.bdg>div{min-width:0}
+.bdg{opacity:.78}
+.bdg.have{opacity:1;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.bmark{flex:none;width:28px;height:28px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;font:800 .95rem var(--font-body);color:var(--accent-ink)}
+.bdg.have .bmark{background:var(--accent);border-color:var(--accent)}
+.bok{color:var(--good);font-weight:800}
+
+/* Thẻ tổng kết */
+.recapcv{display:block;width:100%;max-width:420px;height:auto;aspect-ratio:4/5;margin:0 auto;border-radius:16px;box-shadow:0 0 0 2px var(--line)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field input{font:700 1rem var(--font-body);padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);min-height:44px}
+.field input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}

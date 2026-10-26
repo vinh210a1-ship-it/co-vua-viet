@@ -49,6 +49,7 @@ const UI = (function(){
   function sect(){
     const h = (location.hash || '#/').slice(2).split('/')[0];
     if (h==='o' || h==='line') return 'khai-cuoc';
+    if (h==='tong-ket') return 'cai-dat';
     if (h==='cau-do' || h==='hoc' || h==='khai-cuoc' || h==='cai-dat') return h;
     return '';
   }
@@ -84,7 +85,9 @@ function viewSettings(){
     '<section class="card"><h3>Màu quân</h3><div class="swrow" role="group" aria-label="Màu quân cờ">'+pieces+'</div></section>'+
     '<section class="card"><h3>Cỡ chữ</h3><div class="swrow" role="group" aria-label="Cỡ chữ">'+sizes+'</div></section>'+
     '<section class="card"><h3>Chuyển động</h3><p class="muted small">Tắt hiệu ứng trượt, nảy và pháo giấy nếu bạn thấy chóng mặt hoặc máy chạy chậm.</p><div class="swrow" role="group" aria-label="Chuyển động">'+motion+'</div></section>'+
+    Fun.settingsHTML()+
     '<div class="actions"><button type="button" class="btn ghost" id="uiReset">Về mặc định</button></div>';
+  Fun.mountSettings(stage);
   onLeave(mountThumbs(stage));
   stage.querySelectorAll('.sw').forEach(b=>b.addEventListener('click', ()=>{
     UI.set(b.dataset.g, b.dataset.id);
