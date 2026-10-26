@@ -65,10 +65,14 @@ def run_check(b, mv, chk, before):
     if k == 'sym':      # quân đúng màu: chữ hoa = Trắng, chữ thường = Đen
         p = b.piece_at(SQ(chk[1])); return p is not None and p.symbol() == chk[2]
     if k == 'mob_gt':   # quân ở ô có hơn n nước đi hợp lệ (như thể đến lượt nó)
-        bb = b.copy(); p = bb.piece_at(SQ(chk[1])); bb.turn = p.color
+        bb = b.copy(); p = bb.piece_at(SQ(chk[1]))
+        if p is None: return False
+        bb.turn = p.color
         return len([m for m in bb.legal_moves if m.from_square == SQ(chk[1])]) > chk[2]
     if k == 'mob_le':
-        bb = b.copy(); p = bb.piece_at(SQ(chk[1])); bb.turn = p.color
+        bb = b.copy(); p = bb.piece_at(SQ(chk[1]))
+        if p is None: return False
+        bb.turn = p.color
         return len([m for m in bb.legal_moves if m.from_square == SQ(chk[1])]) <= chk[2]
     if k == 'no_pawn_file':   # bên chk[2] ('w'/'b') không còn tốt trên cột chk[1]
         f = 'abcdefgh'.index(chk[1]); col = chess.WHITE if chk[2] == 'w' else chess.BLACK
@@ -115,7 +119,7 @@ class Engine:
         self.path = os.path.join(BUILD, 'cache.pkl')
         self.cache = pickle.load(open(self.path, 'rb')) if os.path.exists(self.path) else {}
         self.e = chess.engine.SimpleEngine.popen_uci(STOCKFISH)
-        self.e.configure({'Threads': 2, 'Hash': 256})
+        self.e.configure({'Threads': 1, 'Hash': 128})
     def multipv(self, b, depth):
         key = ('m', b.fen(), depth)
         if key not in self.cache:
@@ -125,12 +129,16 @@ class Engine:
                                 i['score'].pov(b.turn).is_mate()) for i in infos]
         return self.cache[key]
     def single(self, b, depth):
+        if b.is_checkmate(): return (-10000 if b.turn else 10000), ''     # bên có lượt đã bị chiếu hết
         key = ('s', b.fen(), depth)
         if key not in self.cache:
             i = self.e.analyse(b, chess.engine.Limit(depth=depth))
             self.cache[key] = (i['score'].white().score(mate_score=10000), i['pv'][0].uci())
         return self.cache[key]
     def close(self):
+        if os.path.exists(self.path):          # gộp với bản do tiến trình khác vừa ghi
+            try: self.cache = {**pickle.load(open(self.path, 'rb')), **self.cache}
+            except Exception: pass
         pickle.dump(self.cache, open(self.path, 'wb')); self.e.quit()
 
 def fmt(x): return f'{x:.1f}'.replace('.', ',')
@@ -289,10 +297,33 @@ def build_trap(spec, t, eng):
             'text': t['text'], 'fen': fen}
     pz = build_puzzle(spec, {'var': 'trap', 'tag': 'Bẫy: ' + t['name_vi'], 'line': t['moves'], 'ok': t['finish'],
                              'q': t['q'], 'hint': t['hint'], 'explain': t['explain'], 'tip': t['tip'],
-                             'verify': t.get('verify', [])}, 'tmp', eng)
+                             'verify': t.get('verify', []), 'multi_ok': t.get('multi_ok', True)}, 'tmp', eng)
     if pz: pz['trap_id'] = t['id']
     print(f"  bẫy {t['id']}: {t['finish']} chiếu hết ✓")
     return trap, pz
+
+def expand_step_puzzle(spec, sp):
+    """Puzzle viết tắt: at=(id biến thể, số thứ tự nước 1,2,3...) lấy đáp án là nước đó của biến thể,
+    lời giải thích mặc định lấy từ "mục đích" của chính nước đó, điều kiện kiểm mặc định là điều kiện của nước đó."""
+    if 'at' not in sp: return sp
+    vid, n = sp['at']
+    v = next((x for x in spec.VARS if x['id'] == vid), None)
+    if v is None: err(f'puzzle at={sp["at"]}: không có biến thể {vid}'); return None
+    plies = list(spec.BASE) + list(v['steps'])
+    if not 1 <= n <= len(plies): err(f'puzzle at={sp["at"]}: nước {n} vượt quá {len(plies)}'); return None
+    k = n - 1; sans = [p[0] for p in plies]
+    if 'san' in sp and sans[k] != sp['san']: err(f'puzzle at={sp["at"]}: nước thứ {n} là {sans[k]}, không phải {sp["san"]}'); return None
+    out = dict(sp)
+    out['var'] = sp.get('var', vid); out['line'] = ' '.join(sans[:k]); out['ok'] = sans[k]
+    white = k % 2 == 0; num = k // 2 + 1
+    label = f"{num}.{sans[k]}" if white else f"{num}...{sans[k]}"
+    out.setdefault('tag', f"{v['name_vi']}: nước {label}")
+    out.setdefault('q', f"{'Trắng' if white else 'Đen'} đi. Chọn nước hợp với ý tưởng của {v['name_vi']}.")
+    out.setdefault('explain', f"{label}! {plies[k][1]}")
+    out.setdefault('tip', v['tip'])
+    out.setdefault('verify', list(plies[k][2]) if len(plies[k]) > 2 else [])
+    if 'hint' not in out: err(f'puzzle at={sp["at"]}: thiếu hint'); return None
+    return out
 
 def build_opening(spec, eng, lich):
     op = spec.OPENING; print(f"== {op['id']} ({op['name_vi']})")
@@ -307,11 +338,13 @@ def build_opening(spec, eng, lich):
         if tr: traps.append(tr)
         if pz: puzzles.append(pz)
     for sp in spec.PUZZLES:
+        sp = expand_step_puzzle(spec, sp)
+        if sp is None: continue
         if sp['var'] not in ids: err(f"puzzle {sp.get('tag')}: biến thể {sp['var']} không có")
         puzzles.append(build_puzzle(spec, sp, 'tmp', eng))
     puzzles = [p for p in puzzles if p]
     for n, p in enumerate(puzzles, 1): p['id'] = f"{op['id']}-{n}"
-    opening = dict(op); opening['reviewed'] = False
+    opening = dict(op); opening['reviewed'] = bool(op.get('reviewed', False))
     data = {'opening': opening, 'variations': out_vars, 'trap': traps[0] if traps else None, 'traps': traps, 'puzzles': puzzles}
     print(f'  => {len(out_vars)} biến thể, {len(puzzles)} puzzle, {len(traps)} bẫy')
     return data
@@ -333,7 +366,7 @@ def write_index():
         items.append({'id': o['id'], 'name_vi': o['name_vi'], 'name_en': o['name_en'], 'eco': o['eco'], 'side': o['side'],
                       'first_moves': o['first_moves'], 'tagline': o['tagline'], 'group': o.get('group', ''),
                       'level': o.get('level', 1), 'variations': len(s.VARS),
-                      'puzzles': len(s.PUZZLES) + len(getattr(s, 'TRAPS', [])), 'reviewed': False})
+                      'puzzles': len(s.PUZZLES) + len(getattr(s, 'TRAPS', [])), 'reviewed': bool(o.get('reviewed', False))})
     items.sort(key=lambda x: (x['level'], x['name_vi']))
     with open(os.path.join(OUT, 'index.js'), 'w', encoding='utf-8') as f:
         f.write('/* Danh sách khai cuộc. Tạo bởi tools/content/build_lessons.py. Đừng sửa tay. */\nwindow.LESSON_INDEX=' + dump(items) + ';\n')
