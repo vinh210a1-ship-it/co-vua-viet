@@ -222,7 +222,7 @@ function startPuzzleRun(pool, theme, po){
       const ok = ex && m.from===ex.from && m.to===ex.to && (m.promotion||'')===(ex.promo||'');
       if (ok || b.game.in_checkmate()){
         k++; b.setFlash(m.to,'ok',700); b.setHint(null);
-        if (b.game.in_checkmate() || k>=last) return finish(attempts===0 ? 'first' : 'retry');
+        if (b.game.in_checkmate() || k>=last){ Fun.solved({first:attempts===0, game:b.game}); return finish(attempts===0 ? 'first' : 'retry'); }
         b.lock(true);
         fb('ok','✓','<p><b>Đúng!</b> Đối thủ đáp lại...</p>');
         timer = setTimeout(()=>{
@@ -232,6 +232,7 @@ function startPuzzleRun(pool, theme, po){
         }, 650);
       } else {
         attempts++; if (answers[idx]===undefined){ answers[idx] = false; renderDots(); }
+        Fun.wrong({game:b.game, move:m, fenBefore:pos[k].fen});
         b.lock(true); b.setFlash(m.to,'no',700);
         fb('no','✗','<p><b>'+esc(m.san)+'</b> chưa đúng.</p><p>'+(attempts>=2?'Bí rồi? Bấm Gợi ý hoặc Xem đáp án.':'Hãy thử nước khác.')+'</p>');
         timer = setTimeout(()=>{ if (board!==b || solved) return; b.setFen(pos[k].fen, {last:[pos[k].from,pos[k].to]}); if (hintLvl>=1) b.setHint(pos[k+1].from, hintLvl>=2 ? pos[k+1].to : null); b.lock(false); }, 800);
@@ -239,7 +240,7 @@ function startPuzzleRun(pool, theme, po){
     }
     $('hintBtn').addEventListener('click', ()=>{
       if (solved || k<1) return;
-      hintLvl = Math.min(2, hintLvl+1); b.setHint(pos[k+1].from, hintLvl>=2 ? pos[k+1].to : null);
+      hintLvl = Math.min(2, hintLvl+1); Fun.hint(); b.setHint(pos[k+1].from, hintLvl>=2 ? pos[k+1].to : null);
       if (hintLvl>=2) $('hintBtn').hidden = true;
       else $('hintBtn').textContent = 'Chỉ cho tôi ô cần đến';
     });
@@ -513,6 +514,7 @@ function viewLesson(id){
     stage.querySelector('.qopts').addEventListener('click', e=>{
       const b = e.target.closest('.qopt'); if (!b || answered) return;
       answered = true; const i = +b.dataset.i, ok = i===s.correct; res[si] = ok;
+      if (ok) Fun.solved({first:true}); else Fun.wrong({});
       stage.querySelectorAll('.qopt').forEach(x=>{ x.disabled = true; if (+x.dataset.i===s.correct) x.classList.add('right'); });
       if (!ok) b.classList.add('wrong');
       fb(ok?'ok':'no', ok?'✓':'✗', '<p><b>'+(ok?PRAISE[si%PRAISE.length]:'Chưa đúng.')+'</b></p><p>'+esc(s.why)+'</p>');
@@ -523,7 +525,7 @@ function viewLesson(id){
   function finish(){
     const keys = Object.keys(res), pts = keys.filter(k=>res[k]).length, tot = keys.length;
     const pass = !L.test || !tot || pts/tot>=0.7;
-    Prog.setLesson(id, {done:pass, pts:pts, n:tot});
+    Prog.setLesson(id, {done:pass, pts:pts, n:tot}); Fun.lessonDone();
     const nu = units[ui+1], nh = nu && unitHref(nu);
     let rev = '';
     if (L.test) L.steps.forEach((s,i)=>{ if (res[i]===undefined) return; rev += '<li class="'+(res[i]?'ok':'no')+'"><b>'+(res[i]?'✓':'✗')+'</b><span>'+esc(s.q||s.text)+'</span></li>'; });
