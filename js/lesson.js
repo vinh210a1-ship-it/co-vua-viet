@@ -175,6 +175,7 @@ function viewLesson(id){
       if (!ok) b.classList.add('wrong');
       fb(ok?'ok':'no', ok?'✓':'✗', '<p><b>'+(ok?PRAISE[si%PRAISE.length]:'Chưa đúng.')+'</b></p><p>'+esc(s.why)+'</p>');
       if (ok) $('fb').classList.add('celebrate');
+      if (ok) Fun.solved({first:true}); else Fun.wrong({});
       nextBtn();
     });
   }
@@ -201,9 +202,9 @@ function viewLesson(id){
         solved = true; res[si] = tries===0; board.lock(true); board.setFlash(m.to,'ok',800); board.setHint(null);
         const extra = s.want || s.escape ? 'Bạn đã '+KIND_TEXT[moveKind(m)]+'. ' : '';
         fb('ok','✓','<p><b>'+(tries===0 ? PRAISE[si%PRAISE.length] : 'Đúng rồi! Lần này bạn đã tìm ra.')+'</b> '+esc(extra+(s.why||''))+'</p>');
-        $('fb').classList.add('celebrate'); $('hintBtn').hidden = true; nextBtn();
+        $('fb').classList.add('celebrate'); $('hintBtn').hidden = true; Fun.solved({first:tries===0, game:board.game}); nextBtn();
       } else {
-        tries++; board.lock(true); board.setFlash(m.to,'no',700);
+        tries++; board.lock(true); board.setFlash(m.to,'no',700); Fun.wrong({game:board.game, move:m, fenBefore:s.fen});
         let msg = s.wrong && s.wrong[uci];
         if (!msg && s.mate){
           msg = board.game.in_stalemate() ? 'Bế tắc! Bên kia không còn nước nào nhưng chưa bị chiếu, nên ván hòa. Hãy tìm nước chiếu hết thật sự.' :
@@ -281,7 +282,7 @@ function viewLesson(id){
     if (L.placement) return finishPlacement(pts, tot, byLv);
     const need = L.pass || 0.8;
     const pass = !L.test || !tot || pts/tot >= need;
-    Prog.setLesson(id, {done:pass, pts:pts, n:tot});
+    Prog.setLesson(id, {done:pass, pts:pts, n:tot}); Fun.lessonDone();
     if (L.test && pass && L.level !== undefined) Prog.setLevel(L.level, {passed:true, pts:pts, n:tot, d:Prog.dayKey()});
     let nu = units[ui+1], nh = nu && unitHref(nu);
     if (!nu && lu && pass){ const nl = LEVELS[lu.lv.n+1], f = nl && nl.units.find(u=>unitHref(u)); if (f){ nu = f; nh = unitHref(f); } }

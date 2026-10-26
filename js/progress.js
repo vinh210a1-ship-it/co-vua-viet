@@ -40,9 +40,11 @@ const Prog = (function(){
     markDay(){ const k = dayKey(), days = mem.days || []; if (days.indexOf(k) < 0) { days.push(k); mem.days = days.slice(-400); save(); } },
     doneToday(){ return (mem.days || []).indexOf(dayKey()) >= 0; },
     streak(){
-      const days = mem.days || []; if (!days.length) return 0;
-      const d = new Date(); if (days.indexOf(dayKey(d)) < 0) d.setDate(d.getDate()-1);
-      let n = 0; while (days.indexOf(dayKey(d)) >= 0) { n++; d.setDate(d.getDate()-1); }
+      /* Ngày dùng thẻ nghỉ (mem.frozen) giữ chuỗi nhưng không cộng thêm ngày. */
+      const days = mem.days || [], fz = mem.frozen || []; if (!days.length) return 0;
+      const has = k => days.indexOf(k) >= 0 || fz.indexOf(k) >= 0;
+      const d = new Date(); if (!has(dayKey(d))) d.setDate(d.getDate()-1);
+      let n = 0; while (has(dayKey(d))) { if (days.indexOf(dayKey(d)) >= 0) n++; d.setDate(d.getDate()-1); }
       return n;
     }
   };
