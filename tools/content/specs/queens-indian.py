@@ -1,5 +1,6 @@
 # Phòng thủ Ấn Độ Hậu (Đen đáp 1.d4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'queens-indian', 'name_vi': 'Phòng thủ Ấn Độ Hậu', 'name_en': "Queen's Indian Defense", 'eco': 'E12-E19', 'side': 'b',
  'first_moves': '1. d4 Nf6 2. c4 e6 3. Nf3 b6', 'group': 'Đáp lại 1.d4', 'level': 2,
  'tagline': 'Fianchetto Tượng ô trắng ra b7 để kiểm soát ô e4: thế cờ vững, ít rủi ro, rất tốt để hiểu cấu trúc trung tâm.',

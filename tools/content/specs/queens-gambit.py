@@ -1,5 +1,6 @@
 # Gambit Hậu (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'queens-gambit', 'name_vi': 'Gambit Hậu', 'name_en': "Queen's Gambit", 'eco': 'D06-D69', 'side': 'w',
  'first_moves': '1. d4 d5 2. c4', 'group': 'Trò chơi tốt d4', 'level': 2,
  'tagline': 'Khai cuộc cổ điển: Trắng đề nghị đổi tốt c lấy tốt d của Đen để chiếm ưu thế ở trung tâm.',

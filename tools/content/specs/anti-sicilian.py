@@ -1,5 +1,6 @@
 # Các cách chống Phòng thủ Sicilian (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'anti-sicilian', 'name_vi': 'Chống Sicilian (Alapin, Morra, Grand Prix)', 'name_en': 'Anti-Sicilian Systems', 'eco': 'B20-B29', 'side': 'w',
  'first_moves': '1. e4 c5', 'group': 'Trò chơi tốt e4', 'level': 2,
  'tagline': 'Tránh biến thể Sicilian Mở đồ sộ: chọn một hệ thống ít lý thuyết hơn mà vẫn giữ trung tâm vững và có đòn tấn công.',

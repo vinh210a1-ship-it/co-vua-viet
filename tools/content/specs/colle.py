@@ -1,5 +1,6 @@
 # Hệ thống Colle (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'colle', 'name_vi': 'Hệ thống Colle', 'name_en': 'Colle System', 'eco': 'D04-D05', 'side': 'w',
  'first_moves': '1. d4 d5 2. Nf3 Nf6 3. e3', 'group': 'Trò chơi tốt d4', 'level': 1,
  'tagline': 'Bộ khung đơn giản cho Trắng: e3, Bd3, Nbd2, c3, O-O rồi đẩy e4 để mở thế cờ có lợi.',

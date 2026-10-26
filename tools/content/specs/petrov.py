@@ -1,5 +1,6 @@
 # Phòng thủ Petrov (Đen). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'petrov', 'name_vi': 'Phòng thủ Petrov', 'name_en': "Petrov's Defense", 'eco': 'C42-C43', 'side': 'b',
  'first_moves': '1. e4 e5 2. Nf3 Nf6', 'group': 'Đáp lại 1.e4', 'level': 1,
  'tagline': 'Phản công thay vì phòng thủ: Đen đánh ngược vào tốt e4 của Trắng. Thế cờ chắc, hòa hợp với mọi trình độ.',

@@ -1,6 +1,7 @@
 # Khai cuộc Ý (Italian Game). Mô tả: xem tools/content/README.md
 # Mỗi nước: (SAN, lời giải thích mục đích, [điều kiện kiểm bằng máy]).
 OPENING = {
+ 'reviewed': True,
  'id': 'italian', 'name_vi': 'Khai cuộc Ý', 'name_en': 'Italian Game', 'eco': 'C50-C54', 'side': 'w',
  'first_moves': '1. e4 e5 2. Nf3 Nc6 3. Bc4', 'group': 'Trò chơi tốt e4', 'level': 1,
  'tagline': 'Phát triển quân tự nhiên, nhắm thẳng vào điểm yếu f7. Rất hợp để học nguyên lý khai cuộc.',

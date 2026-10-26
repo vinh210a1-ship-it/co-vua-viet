@@ -1,5 +1,6 @@
 # Phòng thủ Slav (Đen đáp 1.d4 d5 2.c4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'slav', 'name_vi': 'Phòng thủ Slav', 'name_en': 'Slav Defense', 'eco': 'D10-D19', 'side': 'b',
  'first_moves': '1. d4 d5 2. c4 c6', 'group': 'Đáp lại 1.d4', 'level': 2,
  'tagline': 'Đáp lại Gambit Hậu bằng tốt c6: giữ vững d5 mà không nhốt Tượng c8. Chắc chắn và đáng tin cậy.',

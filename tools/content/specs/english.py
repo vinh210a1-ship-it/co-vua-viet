@@ -1,5 +1,6 @@
 # Khai cuộc Anh (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'english', 'name_vi': 'Khai cuộc Anh', 'name_en': 'English Opening', 'eco': 'A10-A39', 'side': 'w',
  'first_moves': '1. c4', 'group': 'Khai cuộc cánh Hậu', 'level': 2,
  'tagline': 'Mở đầu bằng tốt c: Trắng đánh vào trung tâm từ bên cạnh, giữ thế cờ linh hoạt và hay "đảo" Sicilian.',

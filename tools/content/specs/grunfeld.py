@@ -1,5 +1,6 @@
 # Phòng thủ Grünfeld (Đen đáp 1.d4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'grunfeld', 'name_vi': 'Phòng thủ Grünfeld', 'name_en': 'Grünfeld Defense', 'eco': 'D70-D99', 'side': 'b',
  'first_moves': '1. d4 Nf6 2. c4 g6 3. Nc3 d5', 'group': 'Đáp lại 1.d4', 'level': 3,
  'tagline': 'Để Trắng dựng trung tâm lớn rồi phá nó bằng Tượng g7, ...c5 và Hậu: lối chơi động, giàu đòn phản công.',

@@ -1,5 +1,6 @@
 # Phòng thủ Hà Lan (Đen đáp 1.d4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'dutch', 'name_vi': 'Phòng thủ Hà Lan', 'name_en': 'Dutch Defense', 'eco': 'A80-A99', 'side': 'b',
  'first_moves': '1. d4 f5', 'group': 'Đáp lại 1.d4', 'level': 2,
  'tagline': 'Đen đẩy tốt f lên f5 ngay từ đầu để kiểm soát ô e4 và tạo thế tấn công vào cánh vua.',

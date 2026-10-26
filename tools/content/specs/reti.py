@@ -1,5 +1,6 @@
 # Khai cuộc Réti (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'reti', 'name_vi': 'Khai cuộc Réti', 'name_en': 'Réti Opening', 'eco': 'A04-A09', 'side': 'w',
  'first_moves': '1. Nf3 d5 2. c4', 'group': 'Khai cuộc cánh Hậu', 'level': 2,
  'tagline': 'Kiểm soát trung tâm bằng quân từ xa: Mã f3, tốt c4 và Tượng fianchetto, thay vì chiếm trung tâm bằng tốt.',

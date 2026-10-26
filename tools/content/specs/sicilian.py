@@ -1,5 +1,6 @@
 # Phòng thủ Sicilian (Đen). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'sicilian', 'name_vi': 'Phòng thủ Sicilian', 'name_en': 'Sicilian Defense', 'eco': 'B20-B99', 'side': 'b',
  'first_moves': '1. e4 c5', 'group': 'Đáp lại 1.e4', 'level': 3,
  'tagline': 'Cách đáp 1.e4 sắc bén nhất của Đen: thế cờ bất đối xứng, cả hai bên đều có cơ hội tấn công.',

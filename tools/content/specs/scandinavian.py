@@ -1,5 +1,6 @@
 # Phòng thủ Scandinavian (Đen). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'scandinavian', 'name_vi': 'Phòng thủ Scandinavian', 'name_en': 'Scandinavian Defense', 'eco': 'B01', 'side': 'b',
  'first_moves': '1. e4 d5', 'group': 'Đáp lại 1.e4', 'level': 1,
  'tagline': 'Đen đánh thẳng vào tốt e4 ngay nước đầu. Đơn giản, ít lý thuyết, dễ học cho người mới.',

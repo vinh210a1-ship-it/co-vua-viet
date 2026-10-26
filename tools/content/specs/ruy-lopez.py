@@ -1,5 +1,6 @@
 # Khai cuộc Tây Ban Nha (Ruy Lopez). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'ruy-lopez', 'name_vi': 'Khai cuộc Tây Ban Nha (Ruy Lopez)', 'name_en': 'Ruy Lopez', 'eco': 'C60-C99', 'side': 'w',
  'first_moves': '1. e4 e5 2. Nf3 Nc6 3. Bb5', 'group': 'Trò chơi tốt e4', 'level': 2,
  'tagline': 'Khai cuộc kinh điển, Trắng gây sức ép lên Mã c6 để làm yếu tốt e5. Tính chiến lược cao, dùng được ở mọi trình độ.',

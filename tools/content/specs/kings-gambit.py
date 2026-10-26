@@ -1,5 +1,6 @@
 # Gambit Vua (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'kings-gambit', 'name_vi': 'Gambit Vua', 'name_en': "King's Gambit", 'eco': 'C30-C39', 'side': 'w',
  'first_moves': '1. e4 e5 2. f4', 'group': 'Trò chơi tốt e4', 'level': 3,
  'tagline': 'Hy sinh một tốt ở cánh vua để phá trung tâm Đen và mở cột f: khai cuộc của thời Lãng mạn, đầy đòn tấn công.',

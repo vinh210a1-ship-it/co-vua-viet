@@ -1,5 +1,6 @@
 # Phòng thủ Benoni và Gambit Benko (Đen đáp 1.d4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'benoni', 'name_vi': 'Phòng thủ Benoni và Gambit Benko', 'name_en': 'Benoni Defense and Benko Gambit', 'eco': 'A57-A79', 'side': 'b',
  'first_moves': '1. d4 Nf6 2. c4 c5 3. d5', 'group': 'Đáp lại 1.d4', 'level': 3,
  'tagline': 'Cấu trúc tốt không đối xứng: Đen chấp nhận chật ở trung tâm để đổi lấy hoạt động quân và tấn công cánh Hậu.',

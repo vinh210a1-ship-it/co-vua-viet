@@ -1,5 +1,6 @@
 # Chiếu hết sớm: các bẫy người mới hay gặp. Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'early-mates', 'name_vi': 'Chiếu hết sớm (bẫy cho người mới)', 'name_en': 'Early Checkmate Traps', 'eco': 'A00-C44', 'side': 'w',
  'first_moves': 'Scholar, Fool, Légal, Blackburne...', 'group': 'Bẫy cho người mới', 'level': 1,
  'tagline': 'Những cú chiếu hết chỉ sau vài nước. Biết để tự bảo vệ, và biết khi nào đối thủ sắp mắc bẫy.',

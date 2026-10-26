@@ -1,5 +1,6 @@
 # Phòng thủ Nimzo-Ấn Độ (Đen đáp 1.d4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'nimzo-indian', 'name_vi': 'Phòng thủ Nimzo-Ấn Độ', 'name_en': 'Nimzo-Indian Defense', 'eco': 'E20-E59', 'side': 'b',
  'first_moves': '1. d4 Nf6 2. c4 e6 3. Nc3 Bb4', 'group': 'Đáp lại 1.d4', 'level': 3,
  'tagline': 'Ghim Mã c3 bằng Tượng b4 để kiểm soát ô e4 và buộc Trắng phải trả giá nếu muốn dựng trung tâm lớn.',

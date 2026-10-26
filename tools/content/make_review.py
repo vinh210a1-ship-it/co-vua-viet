@@ -18,13 +18,13 @@ L = ['# Bản kiểm duyệt nội dung khai cuộc', '',
      'Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần sửa, ghi chú ngay dưới mục đó.', '']
 for d in data:
     o = d['opening']
-    L += [f"## {o['name_vi']} ({o['name_en']})", '', f"- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO {o['eco']} · {len(d['variations'])} biến thể · {len(d['puzzles'])} puzzle", '',
+    L += [f"## {o['name_vi']} ({o['name_en']})", '', f"- [{"x" if o.get("reviewed") else " "}] Đã duyệt toàn bộ khai cuộc này  · mã ECO {o['eco']} · {len(d['variations'])} biến thể · {len(d['puzzles'])} puzzle", '',
           f"**Câu giới thiệu:** {o['tagline']}", '', '**Ý tưởng:**']
     L += [f'- {x}' for x in o['idea']]
     L += ['', '**Điểm mạnh:**'] + [f'- {x}' for x in o['strengths']]
     L += ['', '**Điểm yếu:**'] + [f'- {x}' for x in o['weaknesses']] + ['']
     for v in d['variations']:
-        L += [f"### {v['name_vi']}", '', f"- [ ] Đã duyệt  · nước đi: `{v['moves']}` · tên Lichess: {v['lichess_name']} · máy chấm {v['eval_cp']:+d} centipawn (Trắng dương)", '',
+        L += [f"### {v['name_vi']}", '', f"- [{"x" if o.get("reviewed") else " "}] Đã duyệt  · nước đi: `{v['moves']}` · tên Lichess: {v['lichess_name']} · máy chấm {v['eval_cp']:+d} centipawn (Trắng dương)", '',
               f"**Ý tưởng:** {v['idea']}", '', '**Điểm mạnh:** ' + ' / '.join(v['strengths']), '', '**Điểm yếu:** ' + ' / '.join(v['weaknesses']), '',
               f"**Kế hoạch Trắng:** {v['plan_w']}", '', f"**Kế hoạch Đen:** {v['plan_b']}", '', f"**Lời khuyên:** {v['tip']}", '']
     L += ['---', '']
