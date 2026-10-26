@@ -142,3 +142,44 @@ h1,h2{letter-spacing:-.01em}
 .swp u{width:22px;height:22px;border-radius:50%;border:2px solid #000;display:block;margin-right:-7px;text-decoration:none}
 .sws{display:block;width:32px;text-align:center;font-weight:800;color:var(--accent);line-height:1}
 @media (max-width:420px){.sw{flex:1 1 calc(50% - 8px)}}
+
+/* ---------- Biểu tượng động trong danh sách bài (trang Học theo cấp) ---------- */
+.uico.is-done,.uico.is-soon,.uico.is-retry{width:34px;height:34px;font-size:1.05rem}
+.uico.is-retry{animation:uspin 3s linear infinite}
+.uico.is-done{animation:upop .5s cubic-bezier(.3,1.6,.5,1) backwards}
+.uico.pic{width:40px;height:40px;background:var(--sq-dark);overflow:visible;position:relative;box-shadow:0 2px 0 color-mix(in srgb,var(--sq-dark) 60%,#000)}
+.unit.st-open .uico.pic,.unit.st-retry .uico.pic{background:var(--sq-dark)}
+.uico.pic svg{width:28px;height:28px;display:block;animation-duration:3.2s;animation-timing-function:ease-in-out;animation-iteration-count:infinite;animation-delay:var(--d,0s)}
+.unit:nth-child(2) .uico{--d:.3s}.unit:nth-child(3) .uico{--d:.6s}.unit:nth-child(4) .uico{--d:.9s}.unit:nth-child(5) .uico{--d:1.2s}
+.unit:nth-child(6) .uico{--d:1.5s}.unit:nth-child(7) .uico{--d:1.8s}.unit:nth-child(8) .uico{--d:2.1s}.unit:nth-child(9) .uico{--d:2.4s}
+.unit.here .uico.pic{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent),0 2px 0 color-mix(in srgb,var(--sq-dark) 60%,#000)}
+.unit.here .uico.pic svg{animation-duration:1.8s}
+.mv-P svg{animation-name:mvP}
+.mv-R svg{animation-name:mvR}
+.mv-B svg{animation-name:mvB}
+.mv-N svg{animation-name:mvN}
+.mv-Q svg{animation-name:mvQ}
+.mv-K svg{animation-name:mvK}
+@keyframes mvP{0%,15%,85%,100%{transform:translateY(4px)}40%,60%{transform:translateY(-4px)}}
+@keyframes mvR{0%,10%,90%,100%{transform:translateX(-4px)}45%,55%{transform:translateX(4px)}}
+@keyframes mvB{0%,10%,90%,100%{transform:translate(-3.5px,3.5px)}45%,55%{transform:translate(3.5px,-3.5px)}}
+@keyframes mvN{0%,10%,100%{transform:translate(-3px,4px) rotate(0)}22%{transform:translate(-3px,-4px) rotate(-10deg)}40%{transform:translate(-3px,-4px) rotate(0)}58%{transform:translate(4px,-4px) rotate(10deg)}75%{transform:translate(4px,-4px) rotate(0)}88%{transform:translate(0,0) rotate(0)}}
+@keyframes mvQ{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.12)}}
+@keyframes mvK{0%,100%{transform:scale(.94)}50%{transform:scale(1.12)}}
+/* bàn cờ nhỏ nhấp nháy đổi ô */
+.mb{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;width:26px;height:26px;border-radius:3px;overflow:hidden;font-style:normal}
+.mb s{display:block;background:var(--sq-light);animation:mbA 2.4s steps(1) infinite}
+.mb s:nth-child(2),.mb s:nth-child(3){background:color-mix(in srgb,var(--sq-dark) 55%,#000);animation-name:mbB}
+@keyframes mbA{0%{background:var(--sq-light)}50%{background:color-mix(in srgb,var(--sq-dark) 55%,#000)}}
+@keyframes mbB{0%{background:color-mix(in srgb,var(--sq-dark) 55%,#000)}50%{background:var(--sq-light)}}
+/* giá trị quân: 1 đổi sang 3 rồi 9 */
+.nums{position:relative;display:block;width:30px;height:30px;font-style:normal}
+.nums b{position:absolute;inset:0;display:grid;place-items:center;font:800 1.3rem var(--font-display);color:#fff;opacity:0;animation:unum 3s ease-in-out infinite}
+.nums b:nth-child(2){animation-delay:1s}.nums b:nth-child(3){animation-delay:2s}
+@keyframes unum{0%{opacity:0;transform:scale(.6)}6%,30%{opacity:1;transform:scale(1)}36%,100%{opacity:0;transform:scale(1.3)}}
+/* bài kiểm tra: ngôi sao */
+.mv-star{color:var(--sun);font-size:1.5rem !important;animation:ustar 2.4s ease-in-out infinite}
+@keyframes ustar{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+@keyframes uspin{to{transform:rotate(360deg)}}
+@keyframes upop{from{transform:scale(0)}to{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.uico,.uico svg,.mb s,.nums b{animation:none !important}.nums b:first-child{opacity:1}}
