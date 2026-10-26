@@ -1,4 +1,4 @@
-/* Kiểm bài học Cấp 0 đến 2 và bài xếp lớp (data/level0.js, level1.js, level2.js, placement.js):
+/* Kiểm bài học Cấp 0 đến 5 và bài xếp lớp (data/level0.js ... level5.js, placement.js):
    - mọi thế cờ nạp được, bên không đến lượt không bị chiếu (thế cờ hợp lệ);
    - nước đáp án (answer) hợp lệ, nước mate:true có ít nhất một nước chiếu hết, want có ít nhất một nước đúng kiểu;
    - các nước trong demo đi được liên tiếp; các nước trong wrong là nước hợp lệ;
@@ -9,10 +9,14 @@ const fs = require('fs'), path = require('path'), vm = require('vm'), cp = requi
 const root = path.join(__dirname, '..');
 const src = fs.readFileSync(path.join(root, 'js/chess.js'), 'utf8').replace(/window\.Chess=Chess;/, 'globalThis.Chess=Chess;');
 const ctx = {}; vm.createContext(ctx); vm.runInContext(src, ctx);
-for (const f of ['level0', 'level1', 'level2', 'placement'])
-  vm.runInContext(fs.readFileSync(path.join(root, 'data/' + f + '.js'), 'utf8') + ';globalThis.' + {level0:'LV0', level1:'LV1', level2:'LV2', placement:'PLACEMENT'}[f] + '=' + {level0:'LV0', level1:'LV1', level2:'LV2', placement:'PLACEMENT'}[f] + ';', ctx);
+const VARS = {level0:'LV0', level1:'LV1', level2:'LV2', level3:'LV3', level4:'LV4', level5:'LV5', placement:'PLACEMENT'};
+for (const f of Object.keys(VARS)) {
+  const file = path.join(root, 'data/' + f + '.js');
+  if (!fs.existsSync(file)) continue;
+  vm.runInContext(fs.readFileSync(file, 'utf8') + ';globalThis.' + VARS[f] + '=' + VARS[f] + ';', ctx);
+}
 const Chess = ctx.Chess;
-const BANK = Object.assign({}, ctx.LV0, ctx.LV1, ctx.LV2, {'xep-lop': ctx.PLACEMENT});
+const BANK = Object.assign({}, ctx.LV0, ctx.LV1, ctx.LV2, ctx.LV3, ctx.LV4, ctx.LV5, {'xep-lop': ctx.PLACEMENT});
 const THEMES = fs.readFileSync(path.join(root, 'data/puz/index.js'), 'utf8').match(/"id": "(\w+)"/g).map(s => s.slice(7, -1));
 let bad = 0, nfind = 0, nmate = 0;
 const fail = (where, msg) => { bad++; console.log('SAI', where, msg); };
@@ -90,9 +94,12 @@ for (const [id, L] of Object.entries(BANK)) {
     if (s.type === 'explore' || s.type === 'reach' || s.type === 'capture') { /* đã kiểm bằng check_level0.js hoặc chỉ cần nạp được */ }
   });
   if (L.take && L.take > L.steps.length) fail(id, 'take lớn hơn số câu');
-  if (id === 'kiem-tra-2') {
-    const tot = L.steps.reduce((a, s) => a + s.n, 0);
-    console.log('kiem-tra-2: tổng', tot, 'câu, cần', Math.ceil(tot * (L.pass || 0.8)), 'để qua');
+  if (L.test) {
+    const tot = L.take || L.steps.reduce((a, s) => a + (s.type === 'run' ? s.n : 1), 0);
+    console.log(id + ': tổng', tot, 'câu, cần', Math.ceil(tot * (L.pass || 0.8)), 'để qua');
+    const m = (L.intro || []).join(' ').match(/có (\d+) câu/), m2 = (L.intro || []).join(' ').match(/ít nhất (\d+) câu trong (\d+)/);
+    if (m && +m[1] !== tot) fail(id, 'intro ghi ' + m[1] + ' câu nhưng bài có ' + tot);
+    if (m2 && (+m2[1] !== Math.ceil(tot * (L.pass || 0.8)) || +m2[2] !== tot)) fail(id, 'intro ghi ngưỡng ' + m2[1] + '/' + m2[2] + ' nhưng cần ' + Math.ceil(tot * (L.pass || 0.8)) + '/' + tot);
   }
 }
 console.log('Đã kiểm', Object.keys(BANK).length, 'bài, ' + nfind + ' câu tìm nước, ' + nmate + ' thế chiếu hết.');
