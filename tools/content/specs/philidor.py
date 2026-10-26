@@ -1,5 +1,6 @@
 # Phòng thủ Philidor (Đen đáp 1.e4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'philidor', 'name_vi': 'Phòng thủ Philidor', 'name_en': 'Philidor Defense', 'eco': 'C41', 'side': 'b',
  'first_moves': '1. e4 e5 2. Nf3 d6', 'group': 'Đáp lại 1.e4', 'level': 1,
  'tagline': 'Giữ chắc tốt e5 bằng tốt d6: thế cờ chật nhưng vững, dễ hiểu và ít phải học thuộc.',

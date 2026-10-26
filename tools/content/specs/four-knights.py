@@ -1,5 +1,6 @@
 # Khai cuộc Bốn Mã (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'four-knights', 'name_vi': 'Khai cuộc Bốn Mã', 'name_en': 'Four Knights Game', 'eco': 'C46-C49', 'side': 'w',
  'first_moves': '1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6', 'group': 'Trò chơi tốt e4', 'level': 1,
  'tagline': 'Cả hai bên phát triển cả hai Mã trước: thế cờ cân đối, dễ học, rất tốt để hiểu nguyên tắc khai cuộc.',

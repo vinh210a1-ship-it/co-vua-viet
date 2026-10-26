@@ -1,5 +1,6 @@
 # Phòng thủ Alekhine (Đen đáp 1.e4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'alekhine', 'name_vi': 'Phòng thủ Alekhine', 'name_en': "Alekhine's Defense", 'eco': 'B02-B05', 'side': 'b',
  'first_moves': '1. e4 Nf6', 'group': 'Đáp lại 1.e4', 'level': 3,
  'tagline': 'Mời Trắng đẩy tốt đuổi Mã: Đen cố tình để Trắng chiếm không gian, rồi tấn công vào trung tâm đã phình quá rộng.',

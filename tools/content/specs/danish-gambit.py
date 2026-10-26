@@ -1,5 +1,6 @@
 # Gambit Đan Mạch (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'danish-gambit', 'name_vi': 'Gambit Đan Mạch', 'name_en': 'Danish Gambit', 'eco': 'C21-C22', 'side': 'w',
  'first_moves': '1. e4 e5 2. d4 exd4 3. c3', 'group': 'Bẫy cho người mới', 'level': 2,
  'tagline': 'Hiến hai tốt để dựng trung tâm và hai Tượng chĩa thẳng vào Vua Đen: lối chơi tấn công cổ điển, rất sắc.',

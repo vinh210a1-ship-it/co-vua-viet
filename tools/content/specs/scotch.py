@@ -1,5 +1,6 @@
 # Khai cuộc Scotland (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'scotch', 'name_vi': 'Khai cuộc Scotland', 'name_en': 'Scotch Game', 'eco': 'C44-C45', 'side': 'w',
  'first_moves': '1. e4 e5 2. Nf3 Nc6 3. d4', 'group': 'Trò chơi tốt e4', 'level': 1,
  'tagline': 'Mở trung tâm ngay: Trắng đẩy d4 để quân phát triển nhanh và thế cờ mở, dễ hiểu.',

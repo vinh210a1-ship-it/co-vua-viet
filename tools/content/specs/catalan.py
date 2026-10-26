@@ -1,5 +1,6 @@
 # Khai cuộc Catalan (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'catalan', 'name_vi': 'Khai cuộc Catalan', 'name_en': 'Catalan Opening', 'eco': 'E01-E09', 'side': 'w',
  'first_moves': '1. d4 Nf6 2. c4 e6 3. g3', 'group': 'Trò chơi tốt d4', 'level': 3,
  'tagline': 'Gambit Hậu kết hợp fianchetto: Tượng g2 gây áp lực dài hạn lên ô d5 và cánh Hậu Đen.',

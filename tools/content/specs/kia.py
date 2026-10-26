@@ -1,5 +1,6 @@
 # Tấn công Ấn Độ Vua (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'kia', 'name_vi': 'Tấn công Ấn Độ Vua (KIA)', 'name_en': "King's Indian Attack", 'eco': 'A07-A08', 'side': 'w',
  'first_moves': '1. Nf3 d5 2. g3', 'group': 'Khai cuộc cánh Hậu', 'level': 1,
  'tagline': 'Một "bộ khung" dùng được chống nhiều cách đáp: Nf3, g3, Bg2, O-O, d3, Nbd2, e4, rồi tấn công cánh vua.',

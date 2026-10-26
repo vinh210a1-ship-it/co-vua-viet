@@ -1,5 +1,6 @@
 # Tấn công Trompowsky (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'trompowsky', 'name_vi': 'Tấn công Trompowsky', 'name_en': 'Trompowsky Attack', 'eco': 'A45', 'side': 'w',
  'first_moves': '1. d4 Nf6 2. Bg5', 'group': 'Trò chơi tốt d4', 'level': 2,
  'tagline': 'Đưa Tượng ra g5 ngay nước thứ hai để ghim Mã f6: tránh lý thuyết dày đặc và đặt câu hỏi sớm cho Đen.',

@@ -1,5 +1,6 @@
 # Phòng thủ Ấn Độ Vua (Đen đáp 1.d4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'kings-indian', 'name_vi': 'Phòng thủ Ấn Độ Vua', 'name_en': "King's Indian Defense", 'eco': 'E60-E99', 'side': 'b',
  'first_moves': '1. d4 Nf6 2. c4 g6 3. Nc3 Bg7 4. e4 d6', 'group': 'Đáp lại 1.d4', 'level': 3,
  'tagline': 'Cho Trắng dựng trung tâm lớn rồi phản công bằng ...e5 và tấn công cánh vua. Sắc bén, giàu cơ hội thắng cho Đen.',

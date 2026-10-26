@@ -6,7 +6,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Chiếu hết sớm (bẫy cho người mới) (Early Checkmate Traps)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO A00-C44 · 6 biến thể · 8 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO A00-C44 · 6 biến thể · 8 puzzle
 
 **Câu giới thiệu:** Những cú chiếu hết chỉ sau vài nước. Biết để tự bảo vệ, và biết khi nào đối thủ sắp mắc bẫy.
 
@@ -26,7 +26,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Chiếu hết 4 nước (Scholar's Mate)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Bc4 Nc6 Qh5 Nf6 Qxf7#` · tên Lichess: Bishop's Opening · máy chấm +10000 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Bc4 Nc6 Qh5 Nf6 Qxf7#` · tên Lichess: Bishop's Opening · máy chấm +10000 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đưa Tượng và Hậu cùng nhắm vào f7. Nếu Đen không chú ý, Hậu ăn f7 chiếu hết chỉ sau 4 nước.
 
@@ -42,7 +42,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Phòng thủ Scholar's Mate đúng cách
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Bc4 Nc6 Qh5 g6 Qf3 Nf6 Qb3 Qe7 Nc3 Na5` · tên Lichess: Bishop's Opening · máy chấm -77 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Bc4 Nc6 Qh5 g6 Qf3 Nf6 Qb3 Qe7 Nc3 Na5` · tên Lichess: Bishop's Opening · máy chấm -77 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đẩy g6 đuổi Hậu h5, phát triển quân nhẹ và Trắng mất thời gian vì Hậu ra sớm. Đây là cách hóa giải sạch nhất.
 
@@ -58,7 +58,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Chiếu hết kẻ ngốc (Fool's Mate)
 
-- [ ] Đã duyệt  · nước đi: `f3 e5 g4 Qh4#` · tên Lichess: Barnes Opening: Fool's Mate · máy chấm -10000 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `f3 e5 g4 Qh4#` · tên Lichess: Barnes Opening: Fool's Mate · máy chấm -10000 centipawn (Trắng dương)
 
 **Ý tưởng:** Chiếu hết nhanh nhất trong cờ vua: hai nước của Trắng làm yếu Vua nghiêm trọng, và Hậu Đen chiếu hết ngay ở nước thứ hai của mình.
 
@@ -74,7 +74,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Chiếu hết Légal (hy sinh Hậu)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 d6 Bc4 Bg4 Nc3 g6 Nxe5 Bxd1 Bxf7+ Ke7 Nd5#` · tên Lichess: Philidor Defense · máy chấm +10000 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 d6 Bc4 Bg4 Nc3 g6 Nxe5 Bxd1 Bxf7+ Ke7 Nd5#` · tên Lichess: Philidor Defense · máy chấm +10000 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng bỏ Hậu để lôi Vua Đen ra và chiếu hết bằng ba quân nhẹ (Mã, Mã và Tượng). Đen tham ăn Hậu sẽ mắc bẫy.
 
@@ -90,7 +90,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Bẫy Blackburne Shilling (Đen thắng nhanh)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Nd4 Nxe5 Qg5 Nxf7 Qxg2 Rf1 Qxe4+ Be2 Nf3#` · tên Lichess: Italian Game: Blackburne-Kostić Gambit · máy chấm -10000 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Nd4 Nxe5 Qg5 Nxf7 Qxg2 Rf1 Qxe4+ Be2 Nf3#` · tên Lichess: Italian Game: Blackburne-Kostić Gambit · máy chấm -10000 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen cố tình để Trắng ăn tốt, rồi dùng Hậu và Mã chiếu hết khi Trắng tham lam bỏ qua Vua.
 
@@ -106,7 +106,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Chiếu hết bằng Mã (bẫy Caro-Kann)
 
-- [ ] Đã duyệt  · nước đi: `e4 c6 d4 d5 Nc3 dxe4 Nxe4 Nd7 Qe2 Ngf6 Nd6#` · tên Lichess: Caro-Kann Defense: Karpov Variation · máy chấm +10000 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c6 d4 d5 Nc3 dxe4 Nxe4 Nd7 Qe2 Ngf6 Nd6#` · tên Lichess: Caro-Kann Defense: Karpov Variation · máy chấm +10000 centipawn (Trắng dương)
 
 **Ý tưởng:** Mã Trắng nhảy tới d6 chiếu hết khi Vua Đen bị chính quân mình chặn kín (Vua bị "ngạt"). Bẫy xuất hiện trong Caro-Kann khi Đen chơi sai thứ tự.
 
@@ -124,7 +124,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Hệ thống Colle (Colle System)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO D04-D05 · 3 biến thể · 10 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO D04-D05 · 3 biến thể · 10 puzzle
 
 **Câu giới thiệu:** Bộ khung đơn giản cho Trắng: e3, Bd3, Nbd2, c3, O-O rồi đẩy e4 để mở thế cờ có lợi.
 
@@ -144,7 +144,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Colle chính (c3 + Nbd2 + e4)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 Nf3 Nf6 e3 e6 Bd3 c5 c3 Nc6 Nbd2 Bd6 O-O O-O Re1 Qc7 dxc5 Bxc5 e4 dxe4 Nxe4 Nxe4 Bxe4` · tên Lichess: Queen's Pawn Game: Colle System, Traditional Colle · máy chấm +40 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 Nf3 Nf6 e3 e6 Bd3 c5 c3 Nc6 Nbd2 Bd6 O-O O-O Re1 Qc7 dxc5 Bxc5 e4 dxe4 Nxe4 Nxe4 Bxe4` · tên Lichess: Queen's Pawn Game: Colle System, Traditional Colle · máy chấm +40 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng dựng bộ khung c3, Bd3, Nbd2, nhập thành và Re1, rồi đẩy e4 khi Đen đã đổi tốt ở c5. Sau e4, Trắng có trung tâm tốt và Tượng d3 nhắm thẳng vào cánh vua Đen.
 
@@ -160,7 +160,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Colle-Zukertort (b3)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 Nf3 Nf6 e3 e6 Bd3 c5 b3 Nc6 O-O Bd6 Bb2 O-O Nbd2 Qe7 Ne5` · tên Lichess: Rubinstein Opening: Bogoljubow Defense · máy chấm +11 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 Nf3 Nf6 e3 e6 Bd3 c5 b3 Nc6 O-O Bd6 Bb2 O-O Nbd2 Qe7 Ne5` · tên Lichess: Rubinstein Opening: Bogoljubow Defense · máy chấm +11 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đặt Tượng c1 ra b2 (fianchetto) thay vì chơi c3, nhắm vào đường chéo dài tới h8. Mã d2 và Mã e5 phối hợp với Tượng d3, tạo áp lực lên cánh vua Đen.
 
@@ -176,7 +176,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp ...Bf5
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 Nf3 Nf6 e3 Bf5 Bd3 Bxd3 Qxd3 e6 O-O Bd6 c4 c6 Nc3 Nbd7` · tên Lichess: Queen's Pawn Game: Colle System, Anti-Colle · máy chấm +21 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 Nf3 Nf6 e3 Bf5 Bd3 Bxd3 Qxd3 e6 O-O Bd6 c4 c6 Nc3 Nbd7` · tên Lichess: Queen's Pawn Game: Colle System, Anti-Colle · máy chấm +21 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đưa Tượng c8 ra f5 sớm. Trắng đề nghị đổi Tượng bằng Bd3; sau khi đổi, Trắng có thế cờ vững và chuyển sang c4 để chiếm trung tâm kiểu Gambit Hậu.
 
@@ -194,7 +194,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Hệ thống London (London System)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO D00-D02 · 4 biến thể · 8 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO D00-D02 · 4 biến thể · 8 puzzle
 
 **Câu giới thiệu:** Một trong những hệ thống dễ học nhất cho Trắng: cùng một bộ nước đi dùng được gần như chống mọi cách đáp của Đen.
 
@@ -214,7 +214,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp ...c5 (cách phổ biến)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 Bf4 Nf6 e3 c5 c3 Nc6 Nd2 e6 Ngf3 Bd6 Bg3 O-O Bd3` · tên Lichess: Queen's Pawn Game: London System · máy chấm +20 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 Bf4 Nf6 e3 c5 c3 Nc6 Nd2 e6 Ngf3 Bd6 Bg3 O-O Bd3` · tên Lichess: Queen's Pawn Game: London System · máy chấm +20 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đánh vào d4 bằng ...c5. Trắng củng cố bằng c3 và e3, phát triển Mã ra d2 và f3, rồi chọn có đổi Tượng hay rút về g3.
 
@@ -230,7 +230,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp ...e6 và ...Bd6
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 Bf4 Nf6 e3 e6 Nf3 Bd6 Bg3 O-O Nbd2 c5 c3 Nc6 Bd3` · tên Lichess: Queen's Pawn Game: Accelerated London System · máy chấm +20 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 Bf4 Nf6 e3 e6 Nf3 Bd6 Bg3 O-O Nbd2 c5 c3 Nc6 Bd3` · tên Lichess: Queen's Pawn Game: Accelerated London System · máy chấm +20 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen chơi thế cờ vững: ...e6, ...Bd6 để đổi Tượng ô đen của Trắng. Đổi Tượng khiến London mất đi quân đặc trưng, nên Trắng thường rút Tượng về g3.
 
@@ -246,7 +246,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp ...g6 (thế Ấn Độ Vua)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 Bf4 Nf6 e3 g6 Nf3 Bg7 h3 O-O Be2 c5 c3 Nc6 Nbd2` · tên Lichess: Queen's Pawn Game: Accelerated London System · máy chấm +19 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 Bf4 Nf6 e3 g6 Nf3 Bg7 h3 O-O Be2 c5 c3 Nc6 Nbd2` · tên Lichess: Queen's Pawn Game: Accelerated London System · máy chấm +19 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen fianchetto Tượng f8 ra g7 để nhắm vào trung tâm Trắng. Trắng giữ bộ khung nhưng nên thêm h3 để Tượng f4 có ô lùi và tránh bị Mã Đen quấy rối.
 
@@ -262,7 +262,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp ...Bf5 (đối xứng)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 Bf4 Bf5 e3 e6 Nf3 Nf6 Bd3 Bxd3 Qxd3 Bd6 Bxd6 Qxd6 Nbd2` · tên Lichess: Queen's Pawn Game: Accelerated London System · máy chấm +10 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 Bf4 Bf5 e3 e6 Nf3 Nf6 Bd3 Bxd3 Qxd3 Bd6 Bxd6 Qxd6 Nbd2` · tên Lichess: Queen's Pawn Game: Accelerated London System · máy chấm +10 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen bắt chước Trắng bằng cách đưa Tượng c8 ra f5. Hai bên có thế cờ đối xứng và dễ đổi Tượng, dẫn tới thế cờ cân bằng.
 
@@ -280,7 +280,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Bốn Mã (Four Knights Game)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C46-C49 · 3 biến thể · 8 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C46-C49 · 3 biến thể · 8 puzzle
 
 **Câu giới thiệu:** Cả hai bên phát triển cả hai Mã trước: thế cờ cân đối, dễ học, rất tốt để hiểu nguyên tắc khai cuộc.
 
@@ -300,7 +300,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tây Ban Nha (Bb5)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Nc3 Nf6 Bb5 Bb4 O-O O-O d3 d6 Bg5 Bxc3 bxc3 Qe7 Re1 Nd8 d4 Ne6` · tên Lichess: Four Knights Game: Spanish Variation, Symmetrical Variation, Metger Unpin · máy chấm +40 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Nc3 Nf6 Bb5 Bb4 O-O O-O d3 d6 Bg5 Bxc3 bxc3 Qe7 Re1 Nd8 d4 Ne6` · tên Lichess: Four Knights Game: Spanish Variation, Symmetrical Variation, Metger Unpin · máy chấm +40 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng ghim Mã c6 bằng Tượng b5, Đen đáp lại bằng cách ghim Mã c3 bằng Tượng b4. Hai bên đều nhập thành rồi đổi Tượng lấy Mã; thế cờ rất cân bằng và hay dẫn đến hòa.
 
@@ -316,7 +316,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Scotland (d4)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Nc3 Nf6 d4 exd4 Nxd4 Bb4 Nxc6 bxc6 Bd3 d5 exd5 cxd5 O-O O-O Bg5 c6` · tên Lichess: Four Knights Game: Scotch Variation Accepted · máy chấm +9 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Nc3 Nf6 d4 exd4 Nxd4 Bb4 Nxc6 bxc6 Bd3 d5 exd5 cxd5 O-O O-O Bg5 c6` · tên Lichess: Four Knights Game: Scotch Variation Accepted · máy chấm +9 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng mở trung tâm bằng d4. Sau khi đổi tốt, Đen ghim Mã c3 bằng Bb4. Trắng đổi Mã d4 lấy Mã c6, tạo cấu trúc tốt đôi cho Đen. Thế cờ cân bằng nhưng Trắng có Tượng d3 mạnh.
 
@@ -332,7 +332,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Phản công Rubinstein (4...Nd4)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Nc3 Nf6 Bb5 Nd4 Nxd4 exd4 e5 dxc3 exf6 Qxf6 dxc3 Qe5+` · tên Lichess: Four Knights Game: Spanish Variation, Rubinstein Variation Accepted · máy chấm +16 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Nc3 Nf6 Bb5 Nd4 Nxd4 exd4 e5 dxc3 exf6 Qxf6 dxc3 Qe5+` · tên Lichess: Four Knights Game: Spanish Variation, Rubinstein Variation Accepted · máy chấm +16 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen không ghim lại mà phản công ngay bằng Mã d4. Trắng có thể ăn Mã d4 và đẩy e5 để thu lại Hậu. Thế cờ sắc bén và cần tính chính xác: cả hai bên đều có đòn tấn công.
 
@@ -350,7 +350,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Scotland (Scotch Game)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C44-C45 · 4 biến thể · 12 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C44-C45 · 4 biến thể · 12 puzzle
 
 **Câu giới thiệu:** Mở trung tâm ngay: Trắng đẩy d4 để quân phát triển nhanh và thế cờ mở, dễ hiểu.
 
@@ -370,7 +370,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Cổ điển (…Bc5)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Bc5 Be3 Qf6 c3 Nge7 Bc4 O-O O-O Bb6` · tên Lichess: Scotch Game: Classical Variation · máy chấm +32 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Bc5 Be3 Qf6 c3 Nge7 Bc4 O-O O-O Bb6` · tên Lichess: Scotch Game: Classical Variation · máy chấm +32 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đưa Tượng ra c5 để đánh vào Mã d4. Trắng củng cố bằng Be3 và c3, giữ Mã d4 ở trung tâm. Đây là cách chơi cổ điển và vững chắc.
 
@@ -386,7 +386,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Mieses (…Nf6)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nxc6 bxc6 e5 Qe7 Qe2 Nd5 c4 Ba6` · tên Lichess: Scotch Game: Mieses Variation · máy chấm +11 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nxc6 bxc6 e5 Qe7 Qe2 Nd5 c4 Ba6` · tên Lichess: Scotch Game: Mieses Variation · máy chấm +11 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen phản công bằng Mã f6. Trắng đổi Mã d4 lấy Mã c6, rồi đẩy e5 đuổi Mã f6 và dành được không gian. Thế cờ động và có nhiều cơ hội cho cả hai bên.
 
@@ -402,7 +402,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Bốn Mã Scotland
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nc3 Bb4 Nxc6 bxc6 Bd3 d5 exd5 cxd5 O-O O-O` · tên Lichess: Scotch Game: Schmidt Variation · máy chấm +10 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 d4 exd4 Nxd4 Nf6 Nc3 Bb4 Nxc6 bxc6 Bd3 d5 exd5 cxd5 O-O O-O` · tên Lichess: Scotch Game: Schmidt Variation · máy chấm +10 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng và Đen đều phát triển hai Mã. Sau khi đổi Mã d4 lấy Mã c6, Trắng có Tượng d3 mạnh và cấu trúc tốt vững. Thế cờ cân bằng và thiên về chiến lược.
 
@@ -418,7 +418,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Gambit Scotland
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 d4 exd4 Bc4 Nf6 e5 d5 Bb5 Ne4 Nxd4 Bd7 Bxc6 bxc6 O-O Be7` · tên Lichess: Italian Game: Scotch Gambit, Max Lange Attack · máy chấm +21 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 d4 exd4 Bc4 Nf6 e5 d5 Bb5 Ne4 Nxd4 Bd7 Bxc6 bxc6 O-O Be7` · tên Lichess: Italian Game: Scotch Gambit, Max Lange Attack · máy chấm +21 centipawn (Trắng dương)
 
 **Ý tưởng:** Thay vì ăn lại d4 ngay, Trắng phát triển Tượng ra c4 và để Đen giữ tốt thừa. Đổi lại Trắng dẫn trước về phát triển và có tấn công mạnh vào f7.
 
@@ -436,7 +436,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Tượng (Bishop's Opening)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C23-C24 · 2 biến thể · 7 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C23-C24 · 2 biến thể · 7 puzzle
 
 **Câu giới thiệu:** Đưa Tượng ra c4 ngay nước thứ hai, nhắm vào f7 và giữ cho mình nhiều lựa chọn: Ý, Vienna hay mở trung tâm.
 
@@ -456,7 +456,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Hệ thống yên tĩnh (d3 + c6)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Bc4 Nf6 d3 c6 Nf3 d5 Bb3 Bd6 Nc3 O-O` · tên Lichess: Bishop's Opening: Paulsen Defense · máy chấm +6 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Bc4 Nf6 d3 c6 Nf3 d5 Bb3 Bd6 Nc3 O-O` · tên Lichess: Bishop's Opening: Paulsen Defense · máy chấm +6 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen chơi chắc với ...Nf6, ...c6 và ...d5. Trắng đáp bằng d3, Nf3 và đưa Tượng về b3 khi cần; thế cờ yên tĩnh, trung tâm đóng nhiều hơn.
 
@@ -472,7 +472,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Mở trung tâm (d4)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Bc4 Nf6 d4 exd4 Nf3 Nc6 O-O Nxe4 Re1 d5 Bxd5 Qxd5 Nc3 Qa5` · tên Lichess: Italian Game: Scotch Gambit, Anderssen Attack · máy chấm +11 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Bc4 Nf6 d4 exd4 Nf3 Nc6 O-O Nxe4 Re1 d5 Bxd5 Qxd5 Nc3 Qa5` · tên Lichess: Italian Game: Scotch Gambit, Anderssen Attack · máy chấm +11 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng mở thế bằng d4 sau khi Đen ra Mã f6. Đen đổi tốt rồi ăn tốt e4; Trắng lấy lại bằng đòn Re1 và Nc3, tạo thế cờ sắc bén với nhiều bẫy.
 
@@ -490,7 +490,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Ý (Italian Game)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C50-C54 · 4 biến thể · 16 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C50-C54 · 4 biến thể · 16 puzzle
 
 **Câu giới thiệu:** Phát triển quân tự nhiên, nhắm thẳng vào điểm yếu f7. Rất hợp để học nguyên lý khai cuộc.
 
@@ -510,7 +510,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Giuoco Pianissimo (chơi chậm và chắc)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6 O-O O-O` · tên Lichess: Italian Game: Classical Variation, Giuoco Pianissimo · máy chấm +18 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6 O-O O-O` · tên Lichess: Italian Game: Classical Variation, Giuoco Pianissimo · máy chấm +18 centipawn (Trắng dương)
 
 **Ý tưởng:** Hai bên đưa Tượng ra đường chéo tốt nhất rồi củng cố trung tâm chậm rãi bằng c3 và d3. Đây là cách chơi phổ biến nhất của Khai cuộc Ý ở mọi trình độ.
 
@@ -526,7 +526,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Gambit Evans
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Bc5 b4 Bxb4 c3 Ba5 d4 exd4 O-O d6 cxd4 Bb6` · tên Lichess: Italian Game: Evans Gambit, McDonnell Defense, Main Line · máy chấm +16 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Bc5 b4 Bxb4 c3 Ba5 d4 exd4 O-O d6 cxd4 Bb6` · tên Lichess: Italian Game: Evans Gambit, McDonnell Defense, Main Line · máy chấm +16 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng hy sinh tốt b4 để mở đường cho tốt c3 và d4, giành trung tâm rộng và phát triển quân nhanh. Đây là gambit (hy sinh tốt đổi lấy thế cờ tốt) nổi tiếng từ thế kỷ 19.
 
@@ -542,7 +542,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Phòng thủ Hai Mã: Ng5 và d5
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5 Bb5+ c6 dxc6 bxc6 Be2 h6 Nf3 e4 Ne5 Bd6` · tên Lichess: Italian Game: Two Knights Defense, Polerio Defense, Suhle Defense · máy chấm +6 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Na5 Bb5+ c6 dxc6 bxc6 Be2 h6 Nf3 e4 Ne5 Bd6` · tên Lichess: Italian Game: Two Knights Defense, Polerio Defense, Suhle Defense · máy chấm +6 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đáp bằng Mã f6 thay vì Tượng, đòi phản công ngay. Trắng đáp Ng5 để đánh vào f7 hai quân, Đen đẩy d5 để chặn đường chéo của Tượng c4.
 
@@ -558,7 +558,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tấn công Gan Chiên (Fried Liver)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke6 Nc3 Nb4` · tên Lichess: Italian Game: Two Knights Defense, Fried Liver Attack · máy chấm +65 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5 Nxf7 Kxf7 Qf3+ Ke6 Nc3 Nb4` · tên Lichess: Italian Game: Two Knights Defense, Fried Liver Attack · máy chấm +65 centipawn (Trắng dương)
 
 **Ý tưởng:** Khi Đen ăn lại bằng Mã (…Nxd5), Trắng hy sinh Mã ở f7 để lôi Vua Đen ra giữa bàn cờ. Vua bị kéo ra trung tâm thường rất khó thoát khỏi đòn tấn công.
 
@@ -576,7 +576,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Petrov (Petrov's Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C42-C43 · 3 biến thể · 9 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C42-C43 · 3 biến thể · 9 puzzle
 
 **Câu giới thiệu:** Phản công thay vì phòng thủ: Đen đánh ngược vào tốt e4 của Trắng. Thế cờ chắc, hòa hợp với mọi trình độ.
 
@@ -596,7 +596,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Cổ điển (3.Nxe5)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 d4 d5 Bd3 Nc6 O-O Be7` · tên Lichess: Petrov's Defense: Classical Attack, Mason-Showalter Variation · máy chấm +42 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 d4 d5 Bd3 Nc6 O-O Be7` · tên Lichess: Petrov's Defense: Classical Attack, Mason-Showalter Variation · máy chấm +42 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng ăn tốt e5 bằng Mã. Đen phải đuổi Mã bằng ...d6 trước rồi mới ăn tốt e4. Sau đó Đen đẩy d5 lập thế cờ vững chắc.
 
@@ -612,7 +612,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tấn công Steinitz (3.d4)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nf6 d4 Nxe4 Bd3 d5 Nxe5 Nd7 Nxd7 Bxd7 O-O Bd6` · tên Lichess: Petrov's Defense: Modern Attack, Center Variation · máy chấm +35 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nf6 d4 Nxe4 Bd3 d5 Nxe5 Nd7 Nxd7 Bxd7 O-O Bd6` · tên Lichess: Petrov's Defense: Modern Attack, Center Variation · máy chấm +35 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng mở trung tâm ngay bằng d4, thay vì ăn e5. Sau khi Đen ăn e4, Trắng đẩy Tượng ra d3 rồi lấy lại tốt e5 bằng Mã.
 
@@ -628,7 +628,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Bốn Mã
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nf6 Nc3 Nc6 Bb5 Bb4 O-O O-O d3 d6 Bg5 Bxc3 bxc3 Qe7` · tên Lichess: Four Knights Game: Spanish Variation, Symmetrical Variation, Metger Unpin · máy chấm +28 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nf6 Nc3 Nc6 Bb5 Bb4 O-O O-O d3 d6 Bg5 Bxc3 bxc3 Qe7` · tên Lichess: Four Knights Game: Spanish Variation, Symmetrical Variation, Metger Unpin · máy chấm +28 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng phát triển Mã b1 ra c3 thay vì tấn công e5. Đen đáp lại đối xứng bằng Mã c6. Thế cờ cân bằng và dễ học, thường dẫn tới Bb5 hoặc Bb4.
 
@@ -646,7 +646,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Philidor (Philidor Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C41 · 3 biến thể · 8 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C41 · 3 biến thể · 8 puzzle
 
 **Câu giới thiệu:** Giữ chắc tốt e5 bằng tốt d6: thế cờ chật nhưng vững, dễ hiểu và ít phải học thuộc.
 
@@ -666,7 +666,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Hệ thống Hanham (Nbd7)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 d6 d4 Nf6 Nc3 Nbd7 Bc4 Be7 O-O O-O Qe2 c6 a4 Qc7` · tên Lichess: Philidor Defense: Lion Variation · máy chấm +58 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 d6 d4 Nf6 Nc3 Nbd7 Bc4 Be7 O-O O-O Qe2 c6 a4 Qc7` · tên Lichess: Philidor Defense: Lion Variation · máy chấm +58 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen dựng bộ khung chắc: Nf6, Nbd7, Be7, nhập thành và c6. Chuỗi tốt d6-e5 được Mã d7 hỗ trợ, và Đen chờ thời điểm phản công bằng ...exd4 hoặc ...d5.
 
@@ -682,7 +682,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đổi tốt (3...exd4)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 d6 d4 exd4 Nxd4 Nf6 Nc3 Be7 Be2 O-O O-O Re8` · tên Lichess: Philidor Defense: Exchange Variation · máy chấm +33 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 d6 d4 exd4 Nxd4 Nf6 Nc3 Be7 Be2 O-O O-O Re8` · tên Lichess: Philidor Defense: Exchange Variation · máy chấm +33 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đổi tốt ở trung tâm ngay: ...exd4. Cấu trúc trở nên mở hơn, Đen có thêm không gian và Tượng c8 mở đường, nhưng Trắng có Mã d4 rất mạnh ở trung tâm.
 
@@ -698,7 +698,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Trắng chơi Bc4
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 d6 Bc4 Be7 O-O Nf6 d4 Nbd7 Nc3 O-O` · tên Lichess: Philidor Defense · máy chấm +55 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 d6 Bc4 Be7 O-O Nf6 d4 Nbd7 Nc3 O-O` · tên Lichess: Philidor Defense · máy chấm +55 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng phát triển Tượng ra c4 và nhập thành trước khi dựng trung tâm bằng d4. Đen đáp bằng bộ khung quen thuộc Be7, Nf6, Nbd7 và nhập thành.
 
@@ -716,7 +716,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Scandinavian (Scandinavian Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO B01 · 3 biến thể · 8 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO B01 · 3 biến thể · 8 puzzle
 
 **Câu giới thiệu:** Đen đánh thẳng vào tốt e4 ngay nước đầu. Đơn giản, ít lý thuyết, dễ học cho người mới.
 
@@ -736,7 +736,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể chính (Qa5)
 
-- [ ] Đã duyệt  · nước đi: `e4 d5 exd5 Qxd5 Nc3 Qa5 d4 Nf6 Nf3 c6 Bc4 Bf5` · tên Lichess: Scandinavian Defense: Main Line, Mieses Variation · máy chấm +66 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 d5 exd5 Qxd5 Nc3 Qa5 d4 Nf6 Nf3 c6 Bc4 Bf5` · tên Lichess: Scandinavian Defense: Main Line, Mieses Variation · máy chấm +66 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ăn lại tốt bằng Hậu, khi bị Mã c3 đuổi thì rút Hậu về a5. Từ a5 Hậu vẫn nhìn vào Mã c3, và sau đó Đen dựng cấu trúc chắc với Nf6, c6, Bf5.
 
@@ -752,7 +752,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Qd8 (rút Hậu về nhà)
 
-- [ ] Đã duyệt  · nước đi: `e4 d5 exd5 Qxd5 Nc3 Qd8 d4 Nf6 Nf3 Bg4 h3 Bxf3 Qxf3 c6` · tên Lichess: Scandinavian Defense: Valencian Variation, Main Line · máy chấm +86 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 d5 exd5 Qxd5 Nc3 Qd8 d4 Nf6 Nf3 Bg4 h3 Bxf3 Qxf3 c6` · tên Lichess: Scandinavian Defense: Valencian Variation, Main Line · máy chấm +86 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen rút Hậu về d8 thay vì a5. Hậu an toàn và ở gần cánh vua, nhưng Đen mất một nước. Đổi lại thế cờ rất chắc, ít điểm yếu.
 
@@ -768,7 +768,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Hiện đại (…Nf6)
 
-- [ ] Đã duyệt  · nước đi: `e4 d5 exd5 Nf6 d4 Nxd5 c4 Nb6 Nf3 g6 Nc3 Bg7` · tên Lichess: Scandinavian Defense: Marshall Variation · máy chấm +92 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 d5 exd5 Nf6 d4 Nxd5 c4 Nb6 Nf3 g6 Nc3 Bg7` · tên Lichess: Scandinavian Defense: Marshall Variation · máy chấm +92 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen không ăn lại tốt ngay mà phát triển Mã f6 để đánh vào d5. Tốt thừa của Trắng sẽ bị lấy lại bằng Mã, nên Hậu không phải ra sớm.
 
@@ -786,7 +786,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Tấn công Ấn Độ Vua (KIA) (King's Indian Attack)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO A07-A08 · 2 biến thể · 5 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO A07-A08 · 2 biến thể · 5 puzzle
 
 **Câu giới thiệu:** Một "bộ khung" dùng được chống nhiều cách đáp: Nf3, g3, Bg2, O-O, d3, Nbd2, e4, rồi tấn công cánh vua.
 
@@ -806,7 +806,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### KIA chống ...e6
 
-- [ ] Đã duyệt  · nước đi: `Nf3 d5 g3 Nf6 Bg2 e6 O-O Be7 d3 O-O Nbd2 c5 e4 Nc6 Re1` · tên Lichess: King's Indian Attack: Sicilian Variation · máy chấm +0 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `Nf3 d5 g3 Nf6 Bg2 e6 O-O Be7 d3 O-O Nbd2 c5 e4 Nc6 Re1` · tên Lichess: King's Indian Attack: Sicilian Variation · máy chấm +0 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen chơi chắc với ...e6, ...Be7 và ...c5. Trắng dựng đủ bộ khung (Bg2, O-O, d3, Nbd2) rồi đẩy e4 để chiếm trung tâm và chuẩn bị tấn công cánh vua.
 
@@ -822,7 +822,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### KIA chống ...Bg4
 
-- [ ] Đã duyệt  · nước đi: `Nf3 d5 g3 Nf6 Bg2 Bg4 O-O Nbd7 d3 e6 Nbd2 Be7 e4 c6 h3 Bh5` · tên Lichess: King's Indian Attack · máy chấm +34 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `Nf3 d5 g3 Nf6 Bg2 Bg4 O-O Nbd7 d3 e6 Nbd2 Be7 e4 c6 h3 Bh5` · tên Lichess: King's Indian Attack · máy chấm +34 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ghim Mã f3 bằng Tượng c8 ngay, trước khi đóng bằng ...e6. Trắng vẫn dựng bộ khung bình thường rồi đuổi Tượng bằng h3.
 
@@ -840,7 +840,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Chống Sicilian (Alapin, Morra, Grand Prix) (Anti-Sicilian Systems)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO B20-B29 · 4 biến thể · 11 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO B20-B29 · 4 biến thể · 11 puzzle
 
 **Câu giới thiệu:** Tránh biến thể Sicilian Mở đồ sộ: chọn một hệ thống ít lý thuyết hơn mà vẫn giữ trung tâm vững và có đòn tấn công.
 
@@ -860,7 +860,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Alapin: Đen đáp ...Nf6
 
-- [ ] Đã duyệt  · nước đi: `e4 c5 c3 Nf6 e5 Nd5 d4 cxd4 Nf3 Nc6 cxd4 d6 Bc4 Nb6 Bb3 dxe5 Nxe5 Nxe5 dxe5` · tên Lichess: Sicilian Defense: Alapin Variation, Smith-Morra Declined · máy chấm +7 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c5 c3 Nf6 e5 Nd5 d4 cxd4 Nf3 Nc6 cxd4 d6 Bc4 Nb6 Bb3 dxe5 Nxe5 Nxe5 dxe5` · tên Lichess: Sicilian Defense: Alapin Variation, Smith-Morra Declined · máy chấm +7 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng chơi 2.c3 để chuẩn bị d4 với trung tâm hai tốt vững. Nếu Đen đuổi bằng ...Nf6, Trắng đẩy e5 lấy không gian rồi dựng trung tâm bằng d4.
 
@@ -876,7 +876,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Alapin: Đen đáp ...d5
 
-- [ ] Đã duyệt  · nước đi: `e4 c5 c3 d5 exd5 Qxd5 d4 Nf6 Nf3 e6 Be2 Nc6 O-O cxd4 cxd4 Be7` · tên Lichess: Sicilian Defense: Delayed Alapin Variation · máy chấm +26 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c5 c3 d5 exd5 Qxd5 d4 Nf6 Nf3 e6 Be2 Nc6 O-O cxd4 cxd4 Be7` · tên Lichess: Sicilian Defense: Delayed Alapin Variation · máy chấm +26 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen phản công trung tâm ngay bằng ...d5. Sau khi đổi tốt, Hậu đen ra d5 và Trắng đuổi nó bằng Nf3 và d4, dựng thế cờ với tốt cô lập tiềm năng.
 
@@ -892,7 +892,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Gambit Smith-Morra
 
-- [ ] Đã duyệt  · nước đi: `e4 c5 d4 cxd4 c3 dxc3 Nxc3 Nc6 Nf3 d6 Bc4 e6 O-O Nf6 Qe2 Be7 Rd1 e5` · tên Lichess: Sicilian Defense: Smith-Morra Gambit Accepted, Scheveningen Formation · máy chấm +12 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c5 d4 cxd4 c3 dxc3 Nxc3 Nc6 Nf3 d6 Bc4 e6 O-O Nf6 Qe2 Be7 Rd1 e5` · tên Lichess: Sicilian Defense: Smith-Morra Gambit Accepted, Scheveningen Formation · máy chấm +12 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng hiến tốt d để lấy nhịp phát triển nhanh: sau 2.d4 cxd4 3.c3 dxc3 4.Nxc3, Trắng có Mã, Tượng, Xe nhanh chóng vào trận và áp lực lớn lên cột d và c.
 
@@ -908,7 +908,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tấn công Grand Prix (f4)
 
-- [ ] Đã duyệt  · nước đi: `e4 c5 Nc3 Nc6 f4 g6 Nf3 Bg7 Bc4 e6 f5 Nge7 d3 d5` · tên Lichess: Sicilian Defense: Grand Prix Attack, Schofman Variation · máy chấm -122 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c5 Nc3 Nc6 f4 g6 Nf3 Bg7 Bc4 e6 f5 Nge7 d3 d5` · tên Lichess: Sicilian Defense: Grand Prix Attack, Schofman Variation · máy chấm -122 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đưa Mã ra c3, rồi đẩy f4 và phát triển Mã f3, Tượng c4 để tấn công cánh vua. Đen thường fianchetto Tượng ra g7 và phản công trung tâm bằng ...d5.
 
@@ -926,7 +926,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Gambit Budapest (Budapest Gambit)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO A51-A52 · 2 biến thể · 5 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO A51-A52 · 2 biến thể · 5 puzzle
 
 **Câu giới thiệu:** Hiến tốt e5 ngay nước thứ hai để Mã đen nhảy vào g4 và tấn công tốt e5: nhiều bẫy sắc, ít lý thuyết.
 
@@ -946,7 +946,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Trắng đáp Bf4
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e5 dxe5 Ng4 Bf4 Nc6 Nf3 Bb4+ Nbd2 Qe7 e3 Ngxe5 Nxe5 Nxe5` · tên Lichess: Indian Defense: Budapest Gambit Accepted, Main Line, Rubinstein Variation · máy chấm +39 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e5 dxe5 Ng4 Bf4 Nc6 Nf3 Bb4+ Nbd2 Qe7 e3 Ngxe5 Nxe5 Nxe5` · tên Lichess: Indian Defense: Budapest Gambit Accepted, Main Line, Rubinstein Variation · máy chấm +39 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng nhận tốt rồi bảo vệ bằng Bf4. Đen đáp Ng4, Nc6, Bb4+ và Qe7 để lấy lại tốt e5 bằng nhịp; sau đó đổi Mã, Đen có thế cờ thoải mái.
 
@@ -962,7 +962,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Trắng đáp e4
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e5 dxe5 Ng4 e4 Nxe5 f4 Nec6 Nf3 Bb4+ Nc3 Qe7` · tên Lichess: Indian Defense: Budapest Gambit Accepted, Main Line, Alekhine Variation, Abonyi Variation · máy chấm +64 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e5 dxe5 Ng4 e4 Nxe5 f4 Nec6 Nf3 Bb4+ Nc3 Qe7` · tên Lichess: Indian Defense: Budapest Gambit Accepted, Main Line, Alekhine Variation, Abonyi Variation · máy chấm +64 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng trả lại tốt bằng e4 để chiếm trung tâm; Đen ăn tốt e5 bằng Mã rồi chơi ...Nc6 và ...Bb4+ để có nhịp phát triển. Thế cờ sắc bén, Trắng có trung tâm lớn nhưng Đen có thế cờ hoạt động.
 
@@ -980,7 +980,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Gambit Hậu (Queen's Gambit)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO D06-D69 · 4 biến thể · 10 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO D06-D69 · 4 biến thể · 10 puzzle
 
 **Câu giới thiệu:** Khai cuộc cổ điển: Trắng đề nghị đổi tốt c lấy tốt d của Đen để chiếm ưu thế ở trung tâm.
 
@@ -1000,7 +1000,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Từ chối Gambit (Declined)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 e3 O-O Nf3 Nbd7` · tên Lichess: Queen's Gambit Declined: Orthodox Defense · máy chấm +24 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 e3 O-O Nf3 Nbd7` · tên Lichess: Queen's Gambit Declined: Orthodox Defense · máy chấm +24 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen giữ d5 bằng tốt e6 thay vì ăn c4. Thế cờ vững chắc nhưng làm Tượng c8 bị nhốt. Đây là một trong những hệ thống phòng thủ cổ điển và đáng tin cậy nhất.
 
@@ -1016,7 +1016,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Đổi (Exchange)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 c4 e6 Nc3 Nf6 cxd5 exd5 Bg5 Be7 e3 O-O Bd3 Nbd7` · tên Lichess: Queen's Gambit Declined: Exchange Variation, Positional Variation · máy chấm +39 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 c4 e6 Nc3 Nf6 cxd5 exd5 Bg5 Be7 e3 O-O Bd3 Nbd7` · tên Lichess: Queen's Gambit Declined: Exchange Variation, Positional Variation · máy chấm +39 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đổi tốt c lấy tốt d, tạo cấu trúc tốt đối xứng đặc biệt gọi là "Carlsbad". Kế hoạch kinh điển của Trắng là "tấn công thiểu số": đẩy tốt b và c ở cánh Hậu để phá cấu trúc tốt của Đen.
 
@@ -1032,7 +1032,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Nhận Gambit (Accepted)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 c4 dxc4 Nf3 Nf6 e3 e6 Bxc4 c5 O-O a6` · tên Lichess: Queen's Gambit Accepted: Classical Defense, Main Line · máy chấm +27 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 c4 dxc4 Nf3 Nf6 e3 e6 Bxc4 c5 O-O a6` · tên Lichess: Queen's Gambit Accepted: Classical Defense, Main Line · máy chấm +27 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ăn tốt c4. Trắng không vội lấy lại mà phát triển quân trước, sau đó dễ dàng lấy lại tốt bằng Bxc4. Đen có thể giải phóng thế cờ nhanh hơn.
 
@@ -1048,7 +1048,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Albin Countergambit
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 c4 e5 dxe5 d4 Nf3 Nc6 g3 Be6 Nbd2 Qd7` · tên Lichess: Queen's Gambit Declined: Albin Countergambit, Fianchetto Variation, Be6 Line · máy chấm +99 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 c4 e5 dxe5 d4 Nf3 Nc6 g3 Be6 Nbd2 Qd7` · tên Lichess: Queen's Gambit Declined: Albin Countergambit, Fianchetto Variation, Be6 Line · máy chấm +99 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen không ăn c4 mà phản gambit bằng ...e5: hy sinh tốt để đẩy d4 và chiếm không gian cánh Hậu của Trắng. Đây là khai cuộc táo bạo, có nhiều bẫy.
 
@@ -1066,7 +1066,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Gambit Đan Mạch (Danish Gambit)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C21-C22 · 3 biến thể · 8 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C21-C22 · 3 biến thể · 8 puzzle
 
 **Câu giới thiệu:** Hiến hai tốt để dựng trung tâm và hai Tượng chĩa thẳng vào Vua Đen: lối chơi tấn công cổ điển, rất sắc.
 
@@ -1086,7 +1086,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen nhận cả hai tốt
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 d4 exd4 c3 dxc3 Bc4 cxb2 Bxb2 Nf6 e5 Bb4+ Bc3` · tên Lichess: Danish Gambit Accepted: Classical Defense · máy chấm -59 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 d4 exd4 c3 dxc3 Bc4 cxb2 Bxb2 Nf6 e5 Bb4+ Bc3` · tên Lichess: Danish Gambit Accepted: Classical Defense · máy chấm -59 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ăn d4, c3 và b2. Trắng hiến hai tốt rồi lấy lại một tốt bằng Bxb2, có hai Tượng nhìn thẳng vào cánh vua Đen. Đen phải phòng thủ chính xác, nhất là ô f7.
 
@@ -1102,7 +1102,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen trả tốt (...d5)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 d4 exd4 c3 d5 exd5 Qxd5 cxd4 Nc6 Nf3 Bg4 Be2 Nf6` · tên Lichess: Danish Gambit Declined: Sörensen Defense · máy chấm +12 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 d4 exd4 c3 d5 exd5 Qxd5 cxd4 Nc6 Nf3 Bg4 Be2 Nf6` · tên Lichess: Danish Gambit Declined: Sörensen Defense · máy chấm +12 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen không ăn hết mà trả tốt bằng ...d5. Sau khi đổi tốt, Trắng lấy lại tốt d4 và có thế cờ cân bằng với tốt d4 được bảo vệ.
 
@@ -1118,7 +1118,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen trả tốt (...d6)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 d4 exd4 c3 dxc3 Bc4 d6 Nxc3 Nf6 Nf3 Be7 O-O O-O Qb3` · tên Lichess: Danish Gambit Accepted · máy chấm -56 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 d4 exd4 c3 dxc3 Bc4 d6 Nxc3 Nf6 Nf3 Be7 O-O O-O Qb3` · tên Lichess: Danish Gambit Accepted · máy chấm -56 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ăn hai tốt nhưng không ăn b2; thay vào đó đưa tốt d6 về để củng cố. Trắng phát triển Mã c3, Mã f3, nhập thành và Hậu b3, có thế cờ chủ động nhưng Đen vẫn hơn tốt.
 
@@ -1136,7 +1136,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Anh (English Opening)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO A10-A39 · 3 biến thể · 7 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO A10-A39 · 3 biến thể · 7 puzzle
 
 **Câu giới thiệu:** Mở đầu bằng tốt c: Trắng đánh vào trung tâm từ bên cạnh, giữ thế cờ linh hoạt và hay "đảo" Sicilian.
 
@@ -1156,7 +1156,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Sicilian đảo (1...e5)
 
-- [ ] Đã duyệt  · nước đi: `c4 e5 Nc3 Nf6 Nf3 Nc6 g3 d5 cxd5 Nxd5 Bg2 Nb6 O-O Be7` · tên Lichess: English Opening: King's English Variation, Four Knights Variation, Fianchetto Line, with Nb6 · máy chấm +18 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `c4 e5 Nc3 Nf6 Nf3 Nc6 g3 d5 cxd5 Nxd5 Bg2 Nb6 O-O Be7` · tên Lichess: English Opening: King's English Variation, Four Knights Variation, Fianchetto Line, with Nb6 · máy chấm +18 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đáp ...e5, chiếm trung tâm theo kiểu "Sicilian đảo": cấu trúc giống Sicilian nhưng Trắng có thêm một nước. Trắng phát triển Mã, đưa Tượng ra g2 rồi ép Đen đổi tốt ở d5.
 
@@ -1172,7 +1172,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể đối xứng (1...c5)
 
-- [ ] Đã duyệt  · nước đi: `c4 c5 Nc3 Nc6 g3 g6 Bg2 Bg7 Nf3 Nf6 O-O O-O d3 d6` · tên Lichess: English Opening: Symmetrical Variation, Duchamp Variation · máy chấm +21 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `c4 c5 Nc3 Nc6 g3 g6 Bg2 Bg7 Nf3 Nf6 O-O O-O d3 d6` · tên Lichess: English Opening: Symmetrical Variation, Duchamp Variation · máy chấm +21 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đáp bằng cách chơi y hệt: ...c5, Nc6, g6, Bg7. Cả hai bên fianchetto Tượng ở cánh vua. Thế cờ thiên về chiến lược và đổi quân hơn là đòn chiến thuật.
 
@@ -1188,7 +1188,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Hệ thống Botvinnik (e4 + g3)
 
-- [ ] Đã duyệt  · nước đi: `c4 e5 Nc3 Nc6 g3 g6 Bg2 Bg7 e4 d6 Nge2 Nge7 O-O O-O d3` · tên Lichess: English Opening: King's English Variation, Taimanov Variation · máy chấm +25 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `c4 e5 Nc3 Nc6 g3 g6 Bg2 Bg7 e4 d6 Nge2 Nge7 O-O O-O d3` · tên Lichess: English Opening: King's English Variation, Taimanov Variation · máy chấm +25 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng kết hợp cả hai ý tưởng: chiếm trung tâm bằng e4 (như Sicilian) và fianchetto Tượng g2. Cấu trúc tốt c4-e4-d3 khá chắc và cho Trắng không gian rộng.
 
@@ -1206,7 +1206,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Réti (Réti Opening)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO A04-A09 · 3 biến thể · 7 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO A04-A09 · 3 biến thể · 7 puzzle
 
 **Câu giới thiệu:** Kiểm soát trung tâm bằng quân từ xa: Mã f3, tốt c4 và Tượng fianchetto, thay vì chiếm trung tâm bằng tốt.
 
@@ -1226,7 +1226,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Réti chính (...e6 + g3)
 
-- [ ] Đã duyệt  · nước đi: `Nf3 d5 c4 e6 g3 Nf6 Bg2 Be7 O-O O-O b3 c5 Bb2 Nc6` · tên Lichess: English Opening: Agincourt Defense, Neo-Catalan Declined · máy chấm +23 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `Nf3 d5 c4 e6 g3 Nf6 Bg2 Be7 O-O O-O b3 c5 Bb2 Nc6` · tên Lichess: English Opening: Agincourt Defense, Neo-Catalan Declined · máy chấm +23 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen củng cố bằng ...e6 và ...Nf6; Trắng fianchetto Tượng g2, nhập thành rồi đẩy b3 và Tượng b2. Hai Tượng của Trắng nhìn thẳng vào trung tâm và cánh Hậu Đen.
 
@@ -1242,7 +1242,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp kiểu Slav (...c6)
 
-- [ ] Đã duyệt  · nước đi: `Nf3 d5 c4 c6 b3 Bf5 g3 e6 Bg2 Nf6 Bb2 Nbd7 O-O Be7` · tên Lichess: Réti Opening: Anglo-Slav Variation, London Defensive System · máy chấm -4 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `Nf3 d5 c4 c6 b3 Bf5 g3 e6 Bg2 Nf6 Bb2 Nbd7 O-O Be7` · tên Lichess: Réti Opening: Anglo-Slav Variation, London Defensive System · máy chấm -4 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen củng cố d5 bằng ...c6 và đưa Tượng c8 ra f5 trước khi đóng bằng ...e6. Trắng đáp bằng b3 và fianchetto cả hai Tượng, giữ thế cờ chắc và cân bằng.
 
@@ -1258,7 +1258,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đẩy ...d4 (Gambit Réti)
 
-- [ ] Đã duyệt  · nước đi: `Nf3 d5 c4 d4 b4 c5 bxc5 e6 e3 Bxc5 exd4 Bxd4 Nxd4 Qxd4` · tên Lichess: Réti Opening: Advance Variation, Michel Gambit · máy chấm +51 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `Nf3 d5 c4 d4 b4 c5 bxc5 e6 e3 Bxc5 exd4 Bxd4 Nxd4 Qxd4` · tên Lichess: Réti Opening: Advance Variation, Michel Gambit · máy chấm +51 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đẩy d4 để chiếm không gian. Trắng hiến tốt b4 để phá cấu trúc của Đen: sau ...c5 bxc5, Trắng có cơ hội phát triển nhanh và đánh vào trung tâm Đen. Thế cờ sắc bén, đòi hỏi tính toán chính xác.
 
@@ -1276,7 +1276,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Tây Ban Nha (Ruy Lopez) (Ruy Lopez)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C60-C99 · 5 biến thể · 13 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C60-C99 · 5 biến thể · 13 puzzle
 
 **Câu giới thiệu:** Khai cuộc kinh điển, Trắng gây sức ép lên Mã c6 để làm yếu tốt e5. Tính chiến lược cao, dùng được ở mọi trình độ.
 
@@ -1296,7 +1296,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Đóng (Closed)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O` · tên Lichess: Ruy Lopez: Closed · máy chấm +50 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O` · tên Lichess: Ruy Lopez: Closed · máy chấm +50 centipawn (Trắng dương)
 
 **Ý tưởng:** Hai bên dựng thế cờ chắc chắn. Trắng chuẩn bị c3 và d4 để chiếm trung tâm, còn Đen giữ tốt e5 vững và chuẩn bị phản công cánh Hậu. Đây là hướng chơi chính của Ruy Lopez ở mọi cấp độ.
 
@@ -1312,7 +1312,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Đổi (Exchange)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 a6 Bxc6 dxc6 O-O f6 d4 exd4 Nxd4 c5 Nb3 Qxd1 Rxd1 Bg4` · tên Lichess: Ruy Lopez: Exchange Variation, Gligoric Variation · máy chấm +7 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 a6 Bxc6 dxc6 O-O f6 d4 exd4 Nxd4 c5 Nb3 Qxd1 Rxd1 Bg4` · tên Lichess: Ruy Lopez: Exchange Variation, Gligoric Variation · máy chấm +7 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đổi Tượng lấy Mã c6, buộc Đen có tốt chồng ở cột c. Đổi lại Đen có cặp Tượng. Kế hoạch của Trắng là tận dụng đa số tốt cánh vua (4 tốt đối 3) để thắng ở tàn cuộc.
 
@@ -1328,7 +1328,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Phòng thủ Berlin ("Bức tường Berlin")
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 Nf6 O-O Nxe4 d4 Nd6 Bxc6 dxc6 dxe5 Nf5 Qxd8+ Kxd8` · tên Lichess: Ruy Lopez: Berlin Defense, l'Hermet Variation, Berlin Wall Defense · máy chấm +21 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 Nf6 O-O Nxe4 d4 Nd6 Bxc6 dxc6 dxe5 Nf5 Qxd8+ Kxd8` · tên Lichess: Ruy Lopez: Berlin Defense, l'Hermet Variation, Berlin Wall Defense · máy chấm +21 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen không dùng ...a6 mà phản công ngay bằng ...Nf6, rồi ăn e4 và chấp nhận đổi Hậu sớm. Thế cờ sau đó rất chắc, được gọi là "Bức tường Berlin".
 
@@ -1344,7 +1344,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Mở (Open)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Nxe4 d4 b5 Bb3 d5 dxe5 Be6 c3 Be7` · tên Lichess: Ruy Lopez: Open, Classical Defense · máy chấm +32 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Nxe4 d4 b5 Bb3 d5 dxe5 Be6 c3 Be7` · tên Lichess: Ruy Lopez: Open, Classical Defense · máy chấm +32 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ăn tốt e4 sớm để mở trung tâm và phát triển quân nhanh. Trắng tạm mất tốt nhưng lấy lại bằng áp lực lên trung tâm, và thế cờ sắc bén hơn Closed.
 
@@ -1360,7 +1360,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tấn công Marshall
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 O-O c3 d5 exd5 Nxd5 Nxe5 Nxe5 Rxe5 c6` · tên Lichess: Ruy Lopez: Marshall Attack, Modern Variation · máy chấm +34 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 O-O c3 d5 exd5 Nxd5 Nxe5 Nxe5 Rxe5 c6` · tên Lichess: Ruy Lopez: Marshall Attack, Modern Variation · máy chấm +34 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen chủ động hy sinh một tốt (e5) để đổi lấy sự phát triển quân nhanh và đòn tấn công vào Vua Trắng. Đây là một trong những gambit nổi tiếng nhất lịch sử cờ vua.
 
@@ -1378,7 +1378,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Vienna (Vienna Game)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C25-C29 · 3 biến thể · 9 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C25-C29 · 3 biến thể · 9 puzzle
 
 **Câu giới thiệu:** Phát triển Mã c3 trước, giữ cả hai lựa chọn: tấn công bằng f4 (Gambit Vienna) hoặc chơi chắc với Tượng c4 và g3.
 
@@ -1398,7 +1398,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Gambit Vienna (3.f4)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nc3 Nf6 f4 d5 fxe5 Nxe4 Nf3 Be7 d4 O-O Bd3 f5` · tên Lichess: Vienna Game: Vienna Gambit, Breyer Variation · máy chấm +17 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nc3 Nf6 f4 d5 fxe5 Nxe4 Nf3 Be7 d4 O-O Bd3 f5` · tên Lichess: Vienna Game: Vienna Gambit, Breyer Variation · máy chấm +17 centipawn (Trắng dương)
 
 **Ý tưởng:** Sau 2...Nf6 3.f4 d5 4.fxe5 Nxe4 5.Nf3, Trắng mở cột f để tấn công và cho Đen một tốt thừa trung tâm tạm thời. Đen phản công bằng ...Be7 và ...f5; Trắng có Tượng d3 và Hậu mạnh.
 
@@ -1414,7 +1414,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Bc4
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nc3 Nf6 Bc4 Nxe4 Qh5 Nd6 Bb3 Be7 Nf3 Nc6 Nxe5 g6 Qf3 f5 d4` · tên Lichess: Vienna Game: Stanley Variation, Alekhine Variation · máy chấm +43 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nc3 Nf6 Bc4 Nxe4 Qh5 Nd6 Bb3 Be7 Nf3 Nc6 Nxe5 g6 Qf3 f5 d4` · tên Lichess: Vienna Game: Stanley Variation, Alekhine Variation · máy chấm +43 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đưa Tượng ra c4 nhắm vào f7, rồi sau khi Đen ăn e4 thì tấn công bằng Hậu h5. Đen phải phòng thủ chính xác nhưng có thể chống đỡ nhờ Mã d6 và ...g6.
 
@@ -1430,7 +1430,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể g3 (Fianchetto)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 Nc3 Nf6 g3 d5 exd5 Nxd5 Bg2 Nxc3 bxc3 Bd6 Nf3 O-O` · tên Lichess: Vienna Game: Mieses Variation · máy chấm +3 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 Nc3 Nf6 g3 d5 exd5 Nxd5 Bg2 Nxc3 bxc3 Bd6 Nf3 O-O` · tên Lichess: Vienna Game: Mieses Variation · máy chấm +3 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng không tấn công mà fianchetto Tượng ra g2 để canh đường chéo dài a8-h1. Thế cờ yên tĩnh, Trắng có ưu thế rất nhỏ về không gian và cấu trúc.
 
@@ -1448,7 +1448,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Hà Lan (Dutch Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO A80-A99 · 3 biến thể · 10 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO A80-A99 · 3 biến thể · 10 puzzle
 
 **Câu giới thiệu:** Đen đẩy tốt f lên f5 ngay từ đầu để kiểm soát ô e4 và tạo thế tấn công vào cánh vua.
 
@@ -1468,7 +1468,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Leningrad (...g6)
 
-- [ ] Đã duyệt  · nước đi: `d4 f5 g3 Nf6 Bg2 g6 Nf3 Bg7 O-O O-O c4 d6 Nc3 Qe8` · tên Lichess: Dutch Defense: Semi-Leningrad Variation · máy chấm +80 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 f5 g3 Nf6 Bg2 g6 Nf3 Bg7 O-O O-O c4 d6 Nc3 Qe8` · tên Lichess: Dutch Defense: Semi-Leningrad Variation · máy chấm +80 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen fianchetto Tượng f8 ra g7, kết hợp tốt f5 và d6 để có thế cờ linh hoạt. Tượng g7 bảo vệ cánh vua và chuẩn bị ...e5 để mở thế cờ.
 
@@ -1484,7 +1484,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Cổ điển (...e6)
 
-- [ ] Đã duyệt  · nước đi: `d4 f5 g3 Nf6 Bg2 e6 Nf3 Be7 O-O O-O c4 d6 Nc3 Qe8` · tên Lichess: Dutch Defense: Classical Variation, Ilyin-Zhenevsky Variation · máy chấm +81 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 f5 g3 Nf6 Bg2 e6 Nf3 Be7 O-O O-O c4 d6 Nc3 Qe8` · tên Lichess: Dutch Defense: Classical Variation, Ilyin-Zhenevsky Variation · máy chấm +81 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen củng cố trung tâm bằng ...e6 và đưa Tượng f8 ra e7. Hậu cũng thường ra e8 để chuẩn bị ...Qh5 hoặc ...Ne4. Đây là cách chơi chắc chắn nhưng hơi bị động.
 
@@ -1500,7 +1500,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Stonewall (...d5)
 
-- [ ] Đã duyệt  · nước đi: `d4 f5 c4 Nf6 Nc3 e6 Nf3 d5 e3 c6 Bd3 Bd6` · tên Lichess: Dutch Defense: Queen's Knight Variation · máy chấm +48 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 f5 c4 Nf6 Nc3 e6 Nf3 d5 e3 c6 Bd3 Bd6` · tên Lichess: Dutch Defense: Queen's Knight Variation · máy chấm +48 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen dựng "bức tường đá" bằng tốt c6, d5, e6, f5. Cấu trúc rất chắc nhưng ô e5 trở thành ô yếu của Trắng (Mã) và Tượng c8 bị chắn bên trong. Đen thường chơi ...Bd6 và tấn công cánh vua.
 
@@ -1518,7 +1518,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Pháp (French Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C00-C19 · 5 biến thể · 16 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C00-C19 · 5 biến thể · 16 puzzle
 
 **Câu giới thiệu:** Cấu trúc tốt chắc chắn, kế hoạch phản công rõ ràng: đánh vào chân chuỗi tốt của Trắng.
 
@@ -1538,7 +1538,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Tiến lên (Advance)
 
-- [ ] Đã duyệt  · nước đi: `e4 e6 d4 d5 e5 c5 c3 Nc6 Nf3 Qb6 a3 c4` · tên Lichess: French Defense: Advance Variation, Main Line · máy chấm +39 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e6 d4 d5 e5 c5 c3 Nc6 Nf3 Qb6 a3 c4` · tên Lichess: French Defense: Advance Variation, Main Line · máy chấm +39 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đẩy e5 để khóa trung tâm và lấy không gian. Đen đáp bằng ...c5 để đánh vào chân chuỗi tốt Trắng (d4), và nhanh chóng đặt áp lực lên đó.
 
@@ -1554,7 +1554,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Tarrasch
 
-- [ ] Đã duyệt  · nước đi: `e4 e6 d4 d5 Nd2 Nf6 e5 Nfd7 Bd3 c5 c3 Nc6 Ne2 cxd4 cxd4 f6` · tên Lichess: French Defense: Tarrasch Variation, Closed Variation, Main Line · máy chấm +38 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e6 d4 d5 Nd2 Nf6 e5 Nfd7 Bd3 c5 c3 Nc6 Ne2 cxd4 cxd4 f6` · tên Lichess: French Defense: Tarrasch Variation, Closed Variation, Main Line · máy chấm +38 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đưa Mã ra d2 thay vì c3 để không bị Tượng b4 của Đen ghim (như trong Winawer) và giữ tốt c2 để hỗ trợ d4 bằng c3.
 
@@ -1570,7 +1570,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Cổ điển (Classical)
 
-- [ ] Đã duyệt  · nước đi: `e4 e6 d4 d5 Nc3 Nf6 Bg5 Be7 e5 Nfd7 Bxe7 Qxe7 f4 O-O Nf3 c5` · tên Lichess: French Defense: Classical Variation, Steinitz Variation · máy chấm +38 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e6 d4 d5 Nc3 Nf6 Bg5 Be7 e5 Nfd7 Bxe7 Qxe7 f4 O-O Nf3 c5` · tên Lichess: French Defense: Classical Variation, Steinitz Variation · máy chấm +38 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng phát triển Mã c3 và Tượng g5 theo nguyên lý khai cuộc. Đen đáp bằng thế cờ chắc chắn với ...Be7 và phản công vào tốt e5 hoặc d4.
 
@@ -1586,7 +1586,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Winawer
 
-- [ ] Đã duyệt  · nước đi: `e4 e6 d4 d5 Nc3 Bb4 e5 c5 a3 Bxc3+ bxc3 Ne7 Qg4 Qc7` · tên Lichess: French Defense: Winawer Variation, Poisoned Pawn Variation · máy chấm +72 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e6 d4 d5 Nc3 Bb4 e5 c5 a3 Bxc3+ bxc3 Ne7 Qg4 Qc7` · tên Lichess: French Defense: Winawer Variation, Poisoned Pawn Variation · máy chấm +72 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ghim Mã c3 bằng Tượng b4, tăng áp lực lên e4 và d4. Trắng thường đẩy e5 và để Đen đổi Tượng lấy Mã, tạo tốt đôi ở cột c. Đổi lại Trắng có cặp Tượng và tấn công cánh vua.
 
@@ -1602,7 +1602,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Đổi (Exchange)
 
-- [ ] Đã duyệt  · nước đi: `e4 e6 d4 d5 exd5 exd5 Nf3 Nf6 Bd3 Bd6 O-O O-O` · tên Lichess: French Defense: Exchange Variation · máy chấm +24 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e6 d4 d5 exd5 exd5 Nf3 Nf6 Bd3 Bd6 O-O O-O` · tên Lichess: French Defense: Exchange Variation · máy chấm +24 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đổi tốt e4 lấy d5 để có cấu trúc đối xứng. Thế cờ đơn giản, ít rủi ro cho cả hai bên, nhưng cũng ít cơ hội thắng nhanh.
 
@@ -1620,7 +1620,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Slav (Slav Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO D10-D19 · 3 biến thể · 11 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO D10-D19 · 3 biến thể · 11 puzzle
 
 **Câu giới thiệu:** Đáp lại Gambit Hậu bằng tốt c6: giữ vững d5 mà không nhốt Tượng c8. Chắc chắn và đáng tin cậy.
 
@@ -1640,7 +1640,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Slav chuẩn (Tượng ra f5)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 c4 c6 Nf3 Nf6 Nc3 dxc4 a4 Bf5 e3 e6 Bxc4 Bb4 O-O Nbd7` · tên Lichess: Slav Defense: Czech Variation, Dutch Variation · máy chấm +46 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 c4 c6 Nf3 Nf6 Nc3 dxc4 a4 Bf5 e3 e6 Bxc4 Bb4 O-O Nbd7` · tên Lichess: Slav Defense: Czech Variation, Dutch Variation · máy chấm +46 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ăn tốt c4, đưa Tượng c8 ra f5 rồi đóng cửa bằng ...e6. Đen tạm giữ tốt thừa nhưng thường phải trả lại. Mục tiêu chính là có thế cờ vững và Tượng đẹp.
 
@@ -1656,7 +1656,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Semi-Slav Meran
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 c4 c6 Nf3 Nf6 Nc3 e6 e3 Nbd7 Bd3 dxc4 Bxc4 b5 Bd3 a6 e4 c5` · tên Lichess: Semi-Slav Defense: Meran Variation · máy chấm +24 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 c4 c6 Nf3 Nf6 Nc3 e6 e3 Nbd7 Bd3 dxc4 Bxc4 b5 Bd3 a6 e4 c5` · tên Lichess: Semi-Slav Defense: Meran Variation · máy chấm +24 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đi ...e6 sớm (nhốt Tượng c8) để đổi lấy cấu trúc tốt chắc và đòn phản công ở cánh Hậu bằng ...b5 và ...c5. Là hệ thống sắc bén và phức tạp.
 
@@ -1672,7 +1672,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Slav Đổi (Exchange)
 
-- [ ] Đã duyệt  · nước đi: `d4 d5 c4 c6 cxd5 cxd5 Nc3 Nf6 Bf4 Nc6 e3 Bf5 Nf3 e6` · tên Lichess: Slav Defense: Exchange Variation · máy chấm +25 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 d5 c4 c6 cxd5 cxd5 Nc3 Nf6 Bf4 Nc6 e3 Bf5 Nf3 e6` · tên Lichess: Slav Defense: Exchange Variation · máy chấm +25 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đổi tốt c4 lấy d5 để có cấu trúc đối xứng đơn giản. Thế cờ ít rủi ro nhưng Đen phải chủ động để không bị chật.
 
@@ -1690,7 +1690,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Ấn Độ Hậu (Queen's Indian Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO E12-E19 · 3 biến thể · 9 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO E12-E19 · 3 biến thể · 9 puzzle
 
 **Câu giới thiệu:** Fianchetto Tượng ô trắng ra b7 để kiểm soát ô e4: thế cờ vững, ít rủi ro, rất tốt để hiểu cấu trúc trung tâm.
 
@@ -1710,7 +1710,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Fianchetto (g3)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nf3 b6 g3 Bb7 Bg2 Be7 O-O O-O Nc3 Ne4 Qc2 Nxc3 Qxc3 c5` · tên Lichess: Queen's Indian Defense: Classical Variation, Traditional Variation, Main Line · máy chấm +40 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nf3 b6 g3 Bb7 Bg2 Be7 O-O O-O Nc3 Ne4 Qc2 Nxc3 Qxc3 c5` · tên Lichess: Queen's Indian Defense: Classical Variation, Traditional Variation, Main Line · máy chấm +40 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đưa Tượng ra g2 để đối mặt Tượng b7. Hai bên đều có Tượng nhìn thẳng xuống đường chéo dài, nên cuộc chiến xoay quanh ô e4 và d5. Đen thường đổi Mã c3 bằng ...Ne4 để giải tỏa.
 
@@ -1726,7 +1726,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Petrosian (a3)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nf3 b6 a3 Bb7 Nc3 d5 cxd5 Nxd5 e3 Be7 Bb5+ c6 Bd3 Nxc3 bxc3 Nd7` · tên Lichess: Queen's Indian Defense: Kasparov-Petrosian Variation, Petrosian Attack · máy chấm +17 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nf3 b6 a3 Bb7 Nc3 d5 cxd5 Nxd5 e3 Be7 Bb5+ c6 Bd3 Nxc3 bxc3 Nd7` · tên Lichess: Queen's Indian Defense: Kasparov-Petrosian Variation, Petrosian Attack · máy chấm +17 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng chơi a3 để ngăn Tượng đen ra b4 và chuẩn bị Nc3 với trung tâm mở rộng hơn. Đen thường đáp bằng ...d5, mở thế cờ ngay và Tượng b7 hoạt động mạnh trên đường chéo dài.
 
@@ -1742,7 +1742,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Cổ điển (e3)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nf3 b6 e3 Bb7 Bd3 d5 O-O Bd6 b3 O-O Bb2 Nbd7 Nbd2` · tên Lichess: Queen's Indian Defense, with e3 · máy chấm +0 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nf3 b6 e3 Bb7 Bd3 d5 O-O Bd6 b3 O-O Bb2 Nbd7 Nbd2` · tên Lichess: Queen's Indian Defense, with e3 · máy chấm +0 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng chơi vững với e3, Bd3, nhập thành, b3 và Bb2 (kiểu Colle-Zukertort). Đen đáp bằng ...d5 và ...Bd6 hoặc ...Be7, chuẩn bị nhập thành và phản công.
 
@@ -1760,7 +1760,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Tấn công Trompowsky (Trompowsky Attack)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO A45 · 3 biến thể · 7 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO A45 · 3 biến thể · 7 puzzle
 
 **Câu giới thiệu:** Đưa Tượng ra g5 ngay nước thứ hai để ghim Mã f6: tránh lý thuyết dày đặc và đặt câu hỏi sớm cho Đen.
 
@@ -1780,7 +1780,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp ...Ne4
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 Bg5 Ne4 Bf4 d5 e3 Bf5 Bd3 Nd7 Nd2 e6 Ngf3 Bd6` · tên Lichess: Trompowsky Attack · máy chấm -6 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 Bg5 Ne4 Bf4 d5 e3 Bf5 Bd3 Nd7 Nd2 e6 Ngf3 Bd6` · tên Lichess: Trompowsky Attack · máy chấm -6 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đưa Mã vào e4 để đánh vào Tượng g5. Trắng lùi Tượng về f4, Đen dựng thế cờ vững bằng ...d5 và ...Bf5. Thế cờ cân bằng, cả hai bên phát triển tự nhiên.
 
@@ -1796,7 +1796,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp ...e6 (Bxf6)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 Bg5 e6 e4 h6 Bxf6 Qxf6 Nc3 d6 Nf3 Nd7 Qd2 c5` · tên Lichess: Trompowsky Attack: Classical Defense, Big Center Variation · máy chấm +47 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 Bg5 e6 e4 h6 Bxf6 Qxf6 Nc3 d6 Nf3 Nd7 Qd2 c5` · tên Lichess: Trompowsky Attack: Classical Defense, Big Center Variation · máy chấm +47 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đáp ...e6 để Hậu d8 nhắm vào g5; sau e4 và h6, Trắng ăn Mã f6 và Hậu đen ăn lại. Cả hai bên đổi Tượng lấy Mã, Trắng có trung tâm e4-d4 nhưng Đen có thế cờ vững.
 
@@ -1812,7 +1812,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen đáp ...d5
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 Bg5 d5 Bxf6 exf6 e3 Be6 Bd3 Bd6 Qh5 g6` · tên Lichess: Trompowsky Attack · máy chấm -36 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 Bg5 d5 Bxf6 exf6 e3 Be6 Bd3 Bd6 Qh5 g6` · tên Lichess: Trompowsky Attack · máy chấm -36 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen chiếm trung tâm bằng d5. Trắng ăn Mã f6, Đen ăn lại bằng tốt tạo cấu trúc tốt f6 hơi yếu. Trắng có Tượng d3, Hậu h5 nhắm vào h7 và cánh vua Đen.
 
@@ -1830,7 +1830,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Gambit Vua (King's Gambit)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO C30-C39 · 5 biến thể · 11 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO C30-C39 · 5 biến thể · 11 puzzle
 
 **Câu giới thiệu:** Hy sinh một tốt ở cánh vua để phá trung tâm Đen và mở cột f: khai cuộc của thời Lãng mạn, đầy đòn tấn công.
 
@@ -1850,7 +1850,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Gambit Kieseritzky (3.Nf3 g5 4.h4)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 f4 exf4 Nf3 g5 h4 g4 Ne5 Nf6 Nxg4` · tên Lichess: King's Gambit Accepted: Kieseritzky Gambit, Berlin Defense · máy chấm -37 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 f4 exf4 Nf3 g5 h4 g4 Ne5 Nf6 Nxg4` · tên Lichess: King's Gambit Accepted: Kieseritzky Gambit, Berlin Defense · máy chấm -37 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen nhận tốt gambit rồi giữ tốt thừa bằng ...g5. Trắng tấn công chuỗi tốt g5 bằng h4 và đưa Mã vào e5. Đây là thế cờ rất sắc, cả hai bên đều có đòn tấn công.
 
@@ -1866,7 +1866,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Phòng thủ Cunningham (3...Be7)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 f4 exf4 Nf3 Be7 Bc4 Nf6 e5 Ng4 O-O` · tên Lichess: King's Gambit Accepted: Cunningham Defense, McCormick Defense · máy chấm -12 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 f4 exf4 Nf3 Be7 Bc4 Nf6 e5 Ng4 O-O` · tên Lichess: King's Gambit Accepted: Cunningham Defense, McCormick Defense · máy chấm -12 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen nhận tốt nhưng không giữ tốt thừa bằng ...g5; thay vào đó đưa Tượng ra e7 để ngăn các đòn tấn công và chờ cơ hội chiếu bằng ...Bh4+. Nếu Trắng đi Bc4, thế cờ trở nên linh hoạt cho cả hai bên.
 
@@ -1882,7 +1882,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Gambit Tượng (3.Bc4)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 f4 exf4 Bc4 Nf6 Nc3 c6 Nf3 d5 exd5 cxd5 Bb3` · tên Lichess: King's Gambit Accepted: Bishop's Gambit, Bogoljubow Defense · máy chấm -78 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 f4 exf4 Bc4 Nf6 Nc3 c6 Nf3 d5 exd5 cxd5 Bb3` · tên Lichess: King's Gambit Accepted: Bishop's Gambit, Bogoljubow Defense · máy chấm -78 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng phát triển Tượng c4 ngay lập tức, nhắm vào f7 và đe dọa chiếu ...Qh4+ bị chặn. Đen thường đáp bằng ...Nf6, ...c6 và ...d5 để phá trung tâm Trắng.
 
@@ -1898,7 +1898,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Từ chối gambit (2...Bc5)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 f4 Bc5 Nf3 d6 c3 Nf6 d4 exd4 cxd4 Bb6` · tên Lichess: King's Gambit Declined: Classical Variation · máy chấm +6 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 f4 Bc5 Nf3 d6 c3 Nf6 d4 exd4 cxd4 Bb6` · tên Lichess: King's Gambit Declined: Classical Variation · máy chấm +6 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen không nhận tốt mà phát triển Tượng ra c5, nhắm vào f2 và g1. Thế cờ hay chuyển sang kiểu Ý hoặc Vienna. Trắng phát triển tự nhiên, dựng trung tâm bằng c3 và d4.
 
@@ -1914,7 +1914,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Phản gambit Falkbeer (2...d5)
 
-- [ ] Đã duyệt  · nước đi: `e4 e5 f4 d5 exd5 e4 d3 Nf6 dxe4 Nxe4 Nf3 Bc5` · tên Lichess: King's Gambit Declined: Falkbeer Countergambit, Charousek Gambit Accepted · máy chấm +81 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 e5 f4 d5 exd5 e4 d3 Nf6 dxe4 Nxe4 Nf3 Bc5` · tên Lichess: King's Gambit Declined: Falkbeer Countergambit, Charousek Gambit Accepted · máy chấm +81 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen không nhận mà phản công ngay vào trung tâm bằng ...d5. Nếu Trắng ăn d5 thì Đen đẩy ...e4, giành nhịp và không gian. Trắng phải chính xác để giữ tốt thừa mà không mất thế chủ động.
 
@@ -1932,7 +1932,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Khai cuộc Catalan (Catalan Opening)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO E01-E09 · 3 biến thể · 8 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO E01-E09 · 3 biến thể · 8 puzzle
 
 **Câu giới thiệu:** Gambit Hậu kết hợp fianchetto: Tượng g2 gây áp lực dài hạn lên ô d5 và cánh Hậu Đen.
 
@@ -1952,7 +1952,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Catalan mở (...dxc4)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 g3 d5 Bg2 Be7 Nf3 O-O O-O dxc4 Qc2 a6 Qxc4 b5 Qc2 Bb7 Bd2 Be4` · tên Lichess: Catalan Opening: Open Defense, Classical Line · máy chấm +24 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 g3 d5 Bg2 Be7 Nf3 O-O O-O dxc4 Qc2 a6 Qxc4 b5 Qc2 Bb7 Bd2 Be4` · tên Lichess: Catalan Opening: Open Defense, Classical Line · máy chấm +24 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen ăn tốt c4 và cố giữ lại tốt thừa bằng ...b5. Trắng không vội ăn lại tốt, thay vào đó cho Tượng g2 và quân khác làm việc; cuối cùng lấy lại tốt bằng Hậu.
 
@@ -1968,7 +1968,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Catalan đóng (...c6)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 g3 d5 Bg2 Be7 Nf3 O-O O-O c6 Qc2 Nbd7 Nbd2 b6 b3 Bb7` · tên Lichess: Catalan Opening: Closed Variation, Traditional Variation · máy chấm +11 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 g3 d5 Bg2 Be7 Nf3 O-O O-O c6 Qc2 Nbd7 Nbd2 b6 b3 Bb7` · tên Lichess: Catalan Opening: Closed Variation, Traditional Variation · máy chấm +11 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen không ăn tốt c4 mà dựng thế vững chắc bằng ...c6, ...Nbd7. Trắng giữ không gian và thường chuẩn bị e4 để phá thế phòng thủ của Đen.
 
@@ -1984,7 +1984,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Đen chiếu ...Bb4+
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 g3 d5 Bg2 Bb4+ Bd2 Be7 Nf3 O-O O-O c6` · tên Lichess: Bogo-Indian Defense: Retreat Variation · máy chấm +28 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 g3 d5 Bg2 Bb4+ Bd2 Be7 Nf3 O-O O-O c6` · tên Lichess: Bogo-Indian Defense: Retreat Variation · máy chấm +28 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen chiếu Vua bằng Tượng b4 để buộc Trắng đi Bd2 hoặc Nc3. Sau Bd2, Đen thường lui Tượng về e7 và quay lại thế Catalan thông thường, nhưng Tượng d2 đã ở vị trí hơi lạ so với bình thường.
 
@@ -2002,7 +2002,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Alekhine (Alekhine's Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO B02-B05 · 3 biến thể · 9 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO B02-B05 · 3 biến thể · 9 puzzle
 
 **Câu giới thiệu:** Mời Trắng đẩy tốt đuổi Mã: Đen cố tình để Trắng chiếm không gian, rồi tấn công vào trung tâm đã phình quá rộng.
 
@@ -2022,7 +2022,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Hiện đại (Nf3)
 
-- [ ] Đã duyệt  · nước đi: `e4 Nf6 e5 Nd5 d4 d6 Nf3 Bg4 Be2 e6 O-O Be7 c4 Nb6` · tên Lichess: Alekhine Defense: Modern Variation, Main Line · máy chấm +88 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 Nf6 e5 Nd5 d4 d6 Nf3 Bg4 Be2 e6 O-O Be7 c4 Nb6` · tên Lichess: Alekhine Defense: Modern Variation, Main Line · máy chấm +88 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng phát triển Mã f3 để bảo vệ tốt e5 rồi nhập thành. Đen ghim Mã f3 bằng ...Bg4 và tìm cơ hội đổi Tượng lấy Mã để giảm áp lực không gian.
 
@@ -2038,7 +2038,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tấn công Bốn Tốt
 
-- [ ] Đã duyệt  · nước đi: `e4 Nf6 e5 Nd5 d4 d6 c4 Nb6 f4 dxe5 fxe5 Nc6 Be3 Bf5 Nc3 e6 Nf3 Be7` · tên Lichess: Alekhine Defense: Four Pawns Attack, Main Line · máy chấm +88 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 Nf6 e5 Nd5 d4 d6 c4 Nb6 f4 dxe5 fxe5 Nc6 Be3 Bf5 Nc3 e6 Nf3 Be7` · tên Lichess: Alekhine Defense: Four Pawns Attack, Main Line · máy chấm +88 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đẩy c4 và f4 để có bốn tốt cùng chiếm hàng 4-5: c4, d4, e5, f4. Đây là kiểu chiếm không gian cực đoan; Đen phải nhanh chóng phá bằng ...dxe5 và ...Nc6.
 
@@ -2054,7 +2054,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Đổi tốt (exd6)
 
-- [ ] Đã duyệt  · nước đi: `e4 Nf6 e5 Nd5 d4 d6 c4 Nb6 exd6 cxd6 Nc3 g6 Be3 Bg7 Rc1 O-O b3` · tên Lichess: Alekhine Defense: Exchange Variation, Voronezh Variation · máy chấm +45 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 Nf6 e5 Nd5 d4 d6 c4 Nb6 exd6 cxd6 Nc3 g6 Be3 Bg7 Rc1 O-O b3` · tên Lichess: Alekhine Defense: Exchange Variation, Voronezh Variation · máy chấm +45 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đổi tốt e5 lấy d6 để giải tỏa căng thẳng và phá cấu trúc Đen. Đen nhận lấy tốt c6 thành d6 rồi fianchetto Tượng g7 và nhập thành.
 
@@ -2072,7 +2072,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Benoni và Gambit Benko (Benoni Defense and Benko Gambit)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO A57-A79 · 2 biến thể · 8 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO A57-A79 · 2 biến thể · 8 puzzle
 
 **Câu giới thiệu:** Cấu trúc tốt không đối xứng: Đen chấp nhận chật ở trung tâm để đổi lấy hoạt động quân và tấn công cánh Hậu.
 
@@ -2092,7 +2092,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Benoni hiện đại (...e6)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 e4 g6 Nf3 Bg7 Be2 O-O O-O Re8` · tên Lichess: Benoni Defense: Classical Variation, Czerniak Defense · máy chấm +67 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 c5 d5 e6 Nc3 exd5 cxd5 d6 e4 g6 Nf3 Bg7 Be2 O-O O-O Re8` · tên Lichess: Benoni Defense: Classical Variation, Czerniak Defense · máy chấm +67 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đánh vào d5 bằng ...e6, đổi tốt rồi dựng thế cờ ...d6, ...g6 và ...Bg7. Tượng g7 là quân mạnh nhất của Đen, nhắm vào d4 và b2. Đen phản công bằng ...b5 hoặc ...Re8 và ...Nbd7.
 
@@ -2108,7 +2108,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Gambit Benko (...b5)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 c5 d5 b5 cxb5 a6 bxa6 Bxa6 Nc3 d6 e4 Bxf1 Kxf1 g6` · tên Lichess: Benko Gambit Accepted: Yugoslav · máy chấm +89 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 c5 d5 b5 cxb5 a6 bxa6 Bxa6 Nc3 d6 e4 Bxf1 Kxf1 g6` · tên Lichess: Benko Gambit Accepted: Yugoslav · máy chấm +89 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen hiến tốt b để mở cột a và b cho Xe, rồi đánh vào cánh Hậu Trắng. Sau khi Trắng nhận tốt, Đen đổi Tượng ô trắng ở a6 và có thế cờ thoải mái, dù thiếu tốt.
 
@@ -2126,7 +2126,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Grünfeld (Grünfeld Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO D70-D99 · 3 biến thể · 10 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO D70-D99 · 3 biến thể · 10 puzzle
 
 **Câu giới thiệu:** Để Trắng dựng trung tâm lớn rồi phá nó bằng Tượng g7, ...c5 và Hậu: lối chơi động, giàu đòn phản công.
 
@@ -2146,7 +2146,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Đổi (cxd5, e4)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 d5 cxd5 Nxd5 e4 Nxc3 bxc3 Bg7 Nf3 c5 Rb1 O-O Be2 cxd4 cxd4 Qa5+` · tên Lichess: Grünfeld Defense: Exchange Variation, Modern Exchange Variation · máy chấm +40 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 d5 cxd5 Nxd5 e4 Nxc3 bxc3 Bg7 Nf3 c5 Rb1 O-O Be2 cxd4 cxd4 Qa5+` · tên Lichess: Grünfeld Defense: Exchange Variation, Modern Exchange Variation · máy chấm +40 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng ăn d5, rồi dựng trung tâm e4 đuổi Mã. Đen đổi Mã lấy Mã c3 để phá cấu trúc tốt của Trắng, sau đó dùng Tượng g7, tốt c5 và Hậu a5+ để tấn công tốt d4.
 
@@ -2162,7 +2162,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Tượng f4
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 d5 Bf4 Bg7 e3 O-O Rc1 c5 dxc5 Be6` · tên Lichess: Grünfeld Defense: Brinckmann Attack, Grünfeld Gambit, Botvinnik Variation · máy chấm +32 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 d5 Bf4 Bg7 e3 O-O Rc1 c5 dxc5 Be6` · tên Lichess: Grünfeld Defense: Brinckmann Attack, Grünfeld Gambit, Botvinnik Variation · máy chấm +32 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng phát triển Tượng ra f4 trước, chuẩn bị Rc1 và e3 một cách chắc chắn. Đen chống bằng ...c5, phá thế trung tâm của Trắng và tìm đổi tốt.
 
@@ -2178,7 +2178,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Nga (Qb3)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 Qb3 dxc4 Qxc4 O-O e4 Bg4 Be3 Nfd7` · tên Lichess: Grünfeld Defense: Russian Variation, Smyslov Variation · máy chấm +59 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 d5 Nf3 Bg7 Qb3 dxc4 Qxc4 O-O e4 Bg4 Be3 Nfd7` · tên Lichess: Grünfeld Defense: Russian Variation, Smyslov Variation · máy chấm +59 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đưa Hậu ra b3 để đánh vào d5 và Mã f6 trước khi dựng trung tâm. Đen ăn c4 rồi sau khi Trắng lấy lại tốt, Đen đánh vào trung tâm bằng ...Bg4 và ...Nfd7.
 
@@ -2196,7 +2196,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Nimzo-Ấn Độ (Nimzo-Indian Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO E20-E59 · 3 biến thể · 9 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO E20-E59 · 3 biến thể · 9 puzzle
 
 **Câu giới thiệu:** Ghim Mã c3 bằng Tượng b4 để kiểm soát ô e4 và buộc Trắng phải trả giá nếu muốn dựng trung tâm lớn.
 
@@ -2216,7 +2216,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Rubinstein (4.e3)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Bd3 d5 Nf3 c5 O-O Nc6 a3 Bxc3 bxc3 dxc4 Bxc4 Qc7` · tên Lichess: Nimzo-Indian Defense: Normal Variation, Bernstein Defense · máy chấm +23 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nc3 Bb4 e3 O-O Bd3 d5 Nf3 c5 O-O Nc6 a3 Bxc3 bxc3 dxc4 Bxc4 Qc7` · tên Lichess: Nimzo-Indian Defense: Normal Variation, Bernstein Defense · máy chấm +23 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng chơi chắc chắn: e3, Bd3, Nf3, nhập thành. Đen dựng thế bằng ...O-O, ...d5, ...c5 và ...Nc6 rồi chờ lúc đổi Tượng lấy Mã khi Trắng đi a3.
 
@@ -2232,7 +2232,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Cổ điển (4.Qc2)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nc3 Bb4 Qc2 O-O a3 Bxc3+ Qxc3 b6 Bg5 Bb7 e3 d6` · tên Lichess: Nimzo-Indian Defense: Classical Variation, Keres Defense · máy chấm +14 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nc3 Bb4 Qc2 O-O a3 Bxc3+ Qxc3 b6 Bg5 Bb7 e3 d6` · tên Lichess: Nimzo-Indian Defense: Classical Variation, Keres Defense · máy chấm +14 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng đưa Hậu ra c2 để nếu Tượng b4 ăn Mã c3 thì Hậu ăn lại bằng Qxc3 mà không làm hỏng cấu trúc tốt. Đen thường nhập thành rồi đổi Tượng lấy Mã và đưa Tượng c8 ra b7.
 
@@ -2248,7 +2248,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Sämisch (4.a3)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nc3 Bb4 a3 Bxc3+ bxc3 c5 e3 Nc6 Bd3 O-O Ne2 b6 e4 Ne8` · tên Lichess: Nimzo-Indian Defense: Sämisch Variation, Capablanca Variation · máy chấm +3 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 e6 Nc3 Bb4 a3 Bxc3+ bxc3 c5 e3 Nc6 Bd3 O-O Ne2 b6 e4 Ne8` · tên Lichess: Nimzo-Indian Defense: Sämisch Variation, Capablanca Variation · máy chấm +3 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng buộc Đen hỏi ngay: a3 hỏi Tượng b4, Đen đổi Tượng lấy Mã c3 và Trắng ăn lại bằng tốt b tạo tốt đôi c3-c4. Đổi lại Trắng có cặp Tượng và trung tâm lớn.
 
@@ -2266,7 +2266,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Pirc (Pirc Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO B07-B09 · 3 biến thể · 9 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO B07-B09 · 3 biến thể · 9 puzzle
 
 **Câu giới thiệu:** Cho Trắng dựng trung tâm lớn rồi phản công: Đen đưa Tượng ra g7 và đánh vào trung tâm từ bên ngoài.
 
@@ -2286,7 +2286,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tấn công Áo (f4)
 
-- [ ] Đã duyệt  · nước đi: `e4 d6 d4 Nf6 Nc3 g6 f4 Bg7 Nf3 O-O Bd3 Na6 O-O c5` · tên Lichess: Pirc Defense: Austrian Attack, Weiss Variation · máy chấm +81 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 d6 d4 Nf6 Nc3 g6 f4 Bg7 Nf3 O-O Bd3 Na6 O-O c5` · tên Lichess: Pirc Defense: Austrian Attack, Weiss Variation · máy chấm +81 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng lập ba tốt ở trung tâm (e4, d4, f4) để lấy nhiều không gian và tấn công. Đen phải phản công nhanh vào trung tâm, đặc biệt là nước ...c5.
 
@@ -2302,7 +2302,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Cổ điển (Nf3 + Be2)
 
-- [ ] Đã duyệt  · nước đi: `e4 d6 d4 Nf6 Nc3 g6 Nf3 Bg7 Be2 O-O O-O c6 a4 Nbd7` · tên Lichess: Pirc Defense: Classical Variation, Quiet System, Czech Defense · máy chấm +60 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 d6 d4 Nf6 Nc3 g6 Nf3 Bg7 Be2 O-O O-O c6 a4 Nbd7` · tên Lichess: Pirc Defense: Classical Variation, Quiet System, Czech Defense · máy chấm +60 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng chơi chắc chắn: Nf3, Be2, nhập thành. Đen dựng thế cờ vững với ...Bg7, ...O-O, ...c6 và chờ phản công bằng ...e5 hoặc ...b5.
 
@@ -2318,7 +2318,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tấn công 150 (Be3 + Qd2)
 
-- [ ] Đã duyệt  · nước đi: `e4 d6 d4 Nf6 Nc3 g6 Be3 Bg7 Qd2 c6 f3 b5 Nge2 Nbd7` · tên Lichess: Pirc Defense · máy chấm +32 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 d6 d4 Nf6 Nc3 g6 Be3 Bg7 Qd2 c6 f3 b5 Nge2 Nbd7` · tên Lichess: Pirc Defense · máy chấm +32 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng bố trí Be3, Qd2, f3 và nhập thành dài để tấn công cánh vua bằng h4-h5. Đen phản công cánh Hậu bằng ...c6 và ...b5.
 
@@ -2336,7 +2336,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Sicilian (Sicilian Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO B20-B99 · 4 biến thể · 14 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO B20-B99 · 4 biến thể · 14 puzzle
 
 **Câu giới thiệu:** Cách đáp 1.e4 sắc bén nhất của Đen: thế cờ bất đối xứng, cả hai bên đều có cơ hội tấn công.
 
@@ -2356,7 +2356,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Najdorf
 
-- [ ] Đã duyệt  · nước đi: `e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3 e5 Nb3 Be6` · tên Lichess: Sicilian Defense: Najdorf Variation, English Attack · máy chấm +32 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6 Be3 e5 Nb3 Be6` · tên Lichess: Sicilian Defense: Najdorf Variation, English Attack · máy chấm +32 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đi ...a6 để cấm Mã hoặc Tượng Trắng nhảy vào b5, và chuẩn bị ...b5 lấy không gian cánh Hậu. Đây là biến thể tham vọng, rất được ưa chuộng ở mọi cấp độ.
 
@@ -2372,7 +2372,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Dragon (Rồng)
 
-- [ ] Đã duyệt  · nước đi: `e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6` · tên Lichess: Sicilian Defense: Dragon Variation, Yugoslav Attack · máy chấm +64 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 g6 Be3 Bg7 f3 O-O Qd2 Nc6` · tên Lichess: Sicilian Defense: Dragon Variation, Yugoslav Attack · máy chấm +64 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen đi ...g6 và đưa Tượng ra g7 (fianchetto, tức đặt Tượng trên đường chéo dài a1-h8). Hình dáng các tốt đen giống con rồng nên có tên Dragon.
 
@@ -2388,7 +2388,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Scheveningen
 
-- [ ] Đã duyệt  · nước đi: `e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 e6 Be2 Be7 O-O O-O f4 Nc6` · tên Lichess: Sicilian Defense: Scheveningen Variation, Classical Variation · máy chấm +31 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 e6 Be2 Be7 O-O O-O f4 Nc6` · tên Lichess: Sicilian Defense: Scheveningen Variation, Classical Variation · máy chấm +31 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen dựng "tổ tốt" d6 và e6 vững chắc, giữ các quân linh hoạt phía sau. Kế hoạch là chờ đợi, rồi phản công vào đúng lúc.
 
@@ -2404,7 +2404,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Sveshnikov
 
-- [ ] Đã duyệt  · nước đi: `e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 Nf6 Nc3 e5 Ndb5 d6 Bg5 a6 Na3 b5 Nd5 Be7` · tên Lichess: Sicilian Defense: Lasker-Pelikan Variation, Sveshnikov Variation, Chelyabinsk Variation · máy chấm +27 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `e4 c5 Nf3 Nc6 d4 cxd4 Nxd4 Nf6 Nc3 e5 Ndb5 d6 Bg5 a6 Na3 b5 Nd5 Be7` · tên Lichess: Sicilian Defense: Lasker-Pelikan Variation, Sveshnikov Variation, Chelyabinsk Variation · máy chấm +27 centipawn (Trắng dương)
 
 **Ý tưởng:** Đen chấp nhận ô d5 yếu (không còn tốt Đen nào canh được) để đổi lấy trung tâm rộng với e5 và thế cờ năng động. Trắng đặt Mã vào d5, Đen tấn công cánh Hậu và cột c.
 
@@ -2422,7 +2422,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ## Phòng thủ Ấn Độ Vua (King's Indian Defense)
 
-- [ ] Đã duyệt toàn bộ khai cuộc này  · mã ECO E60-E99 · 4 biến thể · 12 puzzle
+- [x] Đã duyệt toàn bộ khai cuộc này  · mã ECO E60-E99 · 4 biến thể · 12 puzzle
 
 **Câu giới thiệu:** Cho Trắng dựng trung tâm lớn rồi phản công bằng ...e5 và tấn công cánh vua. Sắc bén, giàu cơ hội thắng cho Đen.
 
@@ -2442,7 +2442,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Cổ điển (Mar del Plata)
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5 O-O Nc6 d5 Ne7 Ne1 Nd7` · tên Lichess: King's Indian Defense: Orthodox Variation, Classical System · máy chấm +72 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O Be2 e5 O-O Nc6 d5 Ne7 Ne1 Nd7` · tên Lichess: King's Indian Defense: Orthodox Variation, Classical System · máy chấm +72 centipawn (Trắng dương)
 
 **Ý tưởng:** Hai bên phát triển quân tự nhiên. Trắng khóa trung tâm bằng d5, Đen mở cuộc tấn công cánh vua bằng ...f5. Cuộc đua nổi tiếng nhất của Ấn Độ Vua.
 
@@ -2458,7 +2458,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Sämisch
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f3 O-O Be3 e5 Nge2 c6 Qd2 Nbd7` · tên Lichess: King's Indian Defense: Sämisch Variation · máy chấm +81 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f3 O-O Be3 e5 Nge2 c6 Qd2 Nbd7` · tên Lichess: King's Indian Defense: Sämisch Variation · máy chấm +81 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng củng cố e4 bằng f3 và phát triển Tượng e3, chuẩn bị nhập thành dài rồi tấn công cánh vua. Đen thường đáp bằng ...e5 hoặc ...c5.
 
@@ -2474,7 +2474,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Tấn công Bốn Tốt
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f4 O-O Nf3 c5 d5 e6 Be2 exd5 cxd5 Bg4 O-O Nbd7` · tên Lichess: Benoni Defense: Four Pawns Attack · máy chấm +43 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 f4 O-O Nf3 c5 d5 e6 Be2 exd5 cxd5 Bg4 O-O Nbd7` · tên Lichess: Benoni Defense: Four Pawns Attack · máy chấm +43 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng lập bốn tốt c4, d4, e4, f4 để chiếm không gian rộng nhất. Đen phản công ngay bằng ...c5 và phá trung tâm khổng lồ này.
 
@@ -2490,7 +2490,7 @@ Cách duyệt: đọc từng mục, tích `[x]` nếu đồng ý; nếu cần s�
 
 ### Biến thể Averbakh
 
-- [ ] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Be2 O-O Bg5 c5 d5 e6 Qd2 exd5 exd5 Re8 Nf3 Bg4 O-O Nbd7` · tên Lichess: King's Indian Defense: Averbakh Variation, Main Line · máy chấm +51 centipawn (Trắng dương)
+- [x] Đã duyệt  · nước đi: `d4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Be2 O-O Bg5 c5 d5 e6 Qd2 exd5 exd5 Re8 Nf3 Bg4 O-O Nbd7` · tên Lichess: King's Indian Defense: Averbakh Variation, Main Line · máy chấm +51 centipawn (Trắng dương)
 
 **Ý tưởng:** Trắng phát triển Tượng ô đen ra g5, ghim Mã f6 và giữ thế cờ linh hoạt. Đen đáp bằng ...c5 để phản công, và hai bên cùng tranh nhau thế cờ trung tâm.
 

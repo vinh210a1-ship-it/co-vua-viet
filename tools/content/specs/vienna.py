@@ -1,5 +1,6 @@
 # Khai cuộc Vienna (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'vienna', 'name_vi': 'Khai cuộc Vienna', 'name_en': 'Vienna Game', 'eco': 'C25-C29', 'side': 'w',
  'first_moves': '1. e4 e5 2. Nc3', 'group': 'Trò chơi tốt e4', 'level': 2,
  'tagline': 'Phát triển Mã c3 trước, giữ cả hai lựa chọn: tấn công bằng f4 (Gambit Vienna) hoặc chơi chắc với Tượng c4 và g3.',

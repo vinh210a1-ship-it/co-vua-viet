@@ -1,5 +1,6 @@
 # Gambit Budapest (Đen đáp 1.d4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'budapest', 'name_vi': 'Gambit Budapest', 'name_en': 'Budapest Gambit', 'eco': 'A51-A52', 'side': 'b',
  'first_moves': '1. d4 Nf6 2. c4 e5', 'group': 'Bẫy cho người mới', 'level': 2,
  'tagline': 'Hiến tốt e5 ngay nước thứ hai để Mã đen nhảy vào g4 và tấn công tốt e5: nhiều bẫy sắc, ít lý thuyết.',

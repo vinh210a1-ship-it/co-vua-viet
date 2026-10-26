@@ -1,5 +1,6 @@
 # Khai cuộc Tượng (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'bishops-opening', 'name_vi': 'Khai cuộc Tượng', 'name_en': "Bishop's Opening", 'eco': 'C23-C24', 'side': 'w',
  'first_moves': '1. e4 e5 2. Bc4', 'group': 'Trò chơi tốt e4', 'level': 1,
  'tagline': 'Đưa Tượng ra c4 ngay nước thứ hai, nhắm vào f7 và giữ cho mình nhiều lựa chọn: Ý, Vienna hay mở trung tâm.',

@@ -1,5 +1,6 @@
 # Phòng thủ Pirc (Đen đáp 1.e4). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'pirc', 'name_vi': 'Phòng thủ Pirc', 'name_en': 'Pirc Defense', 'eco': 'B07-B09', 'side': 'b',
  'first_moves': '1. e4 d6 2. d4 Nf6 3. Nc3 g6', 'group': 'Đáp lại 1.e4', 'level': 3,
  'tagline': 'Cho Trắng dựng trung tâm lớn rồi phản công: Đen đưa Tượng ra g7 và đánh vào trung tâm từ bên ngoài.',

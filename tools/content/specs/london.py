@@ -1,5 +1,6 @@
 # Hệ thống London (Trắng). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'london', 'name_vi': 'Hệ thống London', 'name_en': 'London System', 'eco': 'D00-D02', 'side': 'w',
  'first_moves': '1. d4 d5 2. Bf4', 'group': 'Trò chơi tốt d4', 'level': 1,
  'tagline': 'Một trong những hệ thống dễ học nhất cho Trắng: cùng một bộ nước đi dùng được gần như chống mọi cách đáp của Đen.',

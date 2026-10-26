@@ -1,5 +1,6 @@
 # Phòng thủ Pháp (Đen). Mô tả định dạng: xem tools/content/README.md
 OPENING = {
+ 'reviewed': True,
  'id': 'french', 'name_vi': 'Phòng thủ Pháp', 'name_en': 'French Defense', 'eco': 'C00-C19', 'side': 'b',
  'first_moves': '1. e4 e6', 'group': 'Đáp lại 1.e4', 'level': 2,
  'tagline': 'Cấu trúc tốt chắc chắn, kế hoạch phản công rõ ràng: đánh vào chân chuỗi tốt của Trắng.',
