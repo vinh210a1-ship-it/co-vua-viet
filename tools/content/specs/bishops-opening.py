@@ -1,0 +1,73 @@
+# Khai cuộc Tượng (Trắng). Mô tả định dạng: xem tools/content/README.md
+OPENING = {
+ 'id': 'bishops-opening', 'name_vi': 'Khai cuộc Tượng', 'name_en': "Bishop's Opening", 'eco': 'C23-C24', 'side': 'w',
+ 'first_moves': '1. e4 e5 2. Bc4', 'group': 'Trò chơi tốt e4', 'level': 1,
+ 'tagline': 'Đưa Tượng ra c4 ngay nước thứ hai, nhắm vào f7 và giữ cho mình nhiều lựa chọn: Ý, Vienna hay mở trung tâm.',
+ 'idea': [
+  'Trắng phát triển Tượng f1 ra c4 trước cả Mã. Từ c4 Tượng nhắm thẳng vào ô f7, điểm yếu nhất của Đen ở khai cuộc, và vẫn để ngỏ lựa chọn Mã nào ra, tốt nào đẩy. Khai cuộc này dễ dẫn đến các thế cờ quen thuộc của Khai cuộc Ý hoặc Vienna.',
+  'Ưu điểm lớn là sự linh hoạt và tránh được vài biến thể sắc bén mà Đen đã chuẩn bị (ví dụ Phòng thủ Berlin). Đổi lại, Đen có thể chiếm trung tâm bằng ...Nf6 và ...d5 sớm, nên Trắng phải biết cách đáp lại bằng d3 hoặc d4.'],
+ 'strengths': ['Linh hoạt: chuyển được sang Ý, Vienna, Gambit Tượng.',
+               'Tượng c4 nhắm vào f7 ngay từ đầu.',
+               'Đối thủ thường chuẩn bị ít chống lại khai cuộc này.'],
+ 'weaknesses': ['Đen có thể chiếm trung tâm sớm bằng ...Nf6, ...d5.',
+                'Tượng c4 có thể bị ...Na5 hoặc ...d5 đuổi nếu Trắng chơi chậm.',
+                'Máy tính cho rằng Trắng chỉ có ưu thế rất nhỏ.'],
+}
+BASE = [
+ ('e4', 'Chiếm trung tâm và mở đường cho Tượng f1 và Hậu d1.', [('mob_gt', 'f1', 0), ('mob_gt', 'd1', 0)]),
+ ('e5', 'Đen chiếm trung tâm đối xứng.', [('att', 'e5', 'd4'), ('att', 'e5', 'f4')]),
+ ('Bc4', 'Tượng ra c4 nhắm vào f7 và canh d5.', [('att', 'c4', 'f7')]),
+]
+VARS = [
+ {'id': 'quiet', 'name_vi': 'Hệ thống yên tĩnh (d3 + c6)', 'name_en': 'Quiet System',
+  'idea': 'Đen chơi chắc với ...Nf6, ...c6 và ...d5. Trắng đáp bằng d3, Nf3 và đưa Tượng về b3 khi cần; thế cờ yên tĩnh, trung tâm đóng nhiều hơn.',
+  'strengths': ['Trắng chơi chắc chắn, ít rủi ro.', 'Tượng b3 giữ đường chéo a2-g8 an toàn.'],
+  'weaknesses': ['Trắng không tạo ưu thế rõ rệt.', 'Đen có trung tâm tốt với c6, d5 và e5.'],
+  'plan_w': 'Nhập thành, Nbd2/Nc3, rồi chuẩn bị mở trung tâm bằng exd5 hoặc f4.',
+  'plan_b': 'Dựng trung tâm c6-d5-e5, phát triển Bd6, nhập thành và đẩy ...d4 khi thuận lợi.',
+  'tip': 'Khi Tượng c4 bị đuổi bằng ...d5, hãy rút về b3 thay vì đổi quân.',
+  'steps': [
+   ('Nf6', 'Đen phát triển Mã, đánh vào e4.', [('att', 'f6', 'e4')]),
+   ('d3', 'Củng cố e4 và mở đường cho Tượng c1.', [('mob_gt', 'c1', 0)]),
+   ('c6', 'Đen chuẩn bị ...d5.', [('att', 'c6', 'd5')]),
+   ('Nf3', 'Phát triển Mã, đánh vào e5.', [('att', 'f3', 'e5')]),
+   ('d5', 'Đen đánh vào Tượng c4 và e4.', [('att', 'd5', 'c4'), ('att', 'd5', 'e4')]),
+   ('Bb3', 'Tượng rút về b3 giữ đường chéo a2-g8.', [('att', 'b3', 'd5')]),
+   ('Bd6', 'Đen phát triển Tượng.', [('sym', 'd6', 'b')]),
+   ('Nc3', 'Phát triển Mã, đánh vào d5 và e4.', [('att', 'c3', 'd5')]),
+   ('O-O', 'Đen nhập thành.', [('castled',)]),
+  ]},
+ {'id': 'urusov', 'name_vi': 'Mở trung tâm (d4)', 'name_en': 'Bishop\'s Opening: Urusov Gambit Line',
+  'idea': 'Trắng mở thế bằng d4 sau khi Đen ra Mã f6. Đen đổi tốt rồi ăn tốt e4; Trắng lấy lại bằng đòn Re1 và Nc3, tạo thế cờ sắc bén với nhiều bẫy.',
+  'strengths': ['Trắng có Xe e1 gây áp lực lên cột e.', 'Đen có nhiều cơ hội mắc lỗi nếu không quen.'],
+  'weaknesses': ['Đen có thể phòng thủ chính xác và giữ tốt thừa.', 'Máy tính đánh giá thế cờ gần cân bằng.'],
+  'plan_w': 'Tấn công Mã e4 và cột e, phát triển Nc3 và đổi quân để lấy lại tốt.',
+  'plan_b': 'Giữ Mã e4 vững bằng ...d5, phát triển quân và đổi quân để giảm áp lực.',
+  'tip': 'Khi hiến tốt để mở cột, hãy chắc chắn Xe của bạn lên cột đó ngay.',
+  'steps': [
+   ('Nf6', 'Đen phát triển Mã, đánh vào e4.', [('att', 'f6', 'e4')]),
+   ('d4', 'Trắng mở trung tâm, đánh vào e5.', [('att', 'd4', 'e5')]),
+   ('exd4', 'Đen đổi tốt.', [('capture',)]),
+   ('Nf3', 'Phát triển Mã, đánh vào tốt d4.', [('att', 'f3', 'd4')]),
+   ('Nc6', 'Đen bảo vệ d4 và phát triển Mã.', [('att', 'c6', 'd4')]),
+   ('O-O', 'Trắng nhập thành.', [('castled',)]),
+   ('Nxe4', 'Đen ăn tốt e4.', [('capture',)]),
+   ('Re1', 'Xe lên cột e, đánh vào Mã e4.', [('att', 'e1', 'e4')]),
+   ('d5', 'Đen bảo vệ Mã e4 bằng tốt d5, đánh vào Tượng c4.', [('att', 'd5', 'c4')]),
+   ('Bxd5', 'Trắng ăn tốt d5.', [('capture',)]),
+   ('Qxd5', 'Hậu đen ăn lại.', [('capture',)]),
+   ('Nc3', 'Mã đánh vào Mã e4 và Hậu d5.', [('att', 'c3', 'd5')]),
+   ('Qa5', 'Hậu đen ra a5, đánh vào Mã c3 và ghim nó vào Xe e1.', [('att', 'a5', 'c3')]),
+  ]},
+]
+TRAPS = []
+PUZZLES = [
+ dict(at=('quiet', 3), san='Bc4', multi_ok=True, max_loss=60, tag='Ý tưởng Khai cuộc Tượng', hint='Tượng f1 ra c4, nhắm vào f7.',
+  tip='Tượng c4 nhắm vào f7, điểm yếu của Đen ở khai cuộc.'),
+ dict(at=('quiet', 5), san='d3', multi_ok=True, tag='Khai cuộc Tượng: d3', hint='Tốt d tiến một ô, củng cố e4.'),
+ dict(at=('quiet', 8), san='d5', multi_ok=True, tag='Khai cuộc Tượng: ...d5', hint='Tốt d tiến hai ô, đánh vào Tượng c4.'),
+ dict(at=('quiet', 9), san='Bb3', multi_ok=True, tag='Khai cuộc Tượng: Bb3', hint='Tượng rút về b3 giữ đường chéo.'),
+ dict(at=('urusov', 5), san='d4', multi_ok=True, tag='Khai cuộc Tượng: d4', hint='Tốt d tiến hai ô, mở trung tâm.'),
+ dict(at=('urusov', 11), san='Re1', multi_ok=True, tag='Khai cuộc Tượng: Xe e1', hint='Xe lên cột e, đánh vào Mã e4.'),
+ dict(at=('urusov', 15), san='Nc3', multi_ok=True, tag='Khai cuộc Tượng: Mã c3', hint='Mã b1 ra c3, đánh vào Hậu d5.'),
+]

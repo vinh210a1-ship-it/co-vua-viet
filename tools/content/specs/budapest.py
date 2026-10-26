@@ -1,0 +1,71 @@
+# Gambit Budapest (Đen đáp 1.d4). Mô tả định dạng: xem tools/content/README.md
+OPENING = {
+ 'id': 'budapest', 'name_vi': 'Gambit Budapest', 'name_en': 'Budapest Gambit', 'eco': 'A51-A52', 'side': 'b',
+ 'first_moves': '1. d4 Nf6 2. c4 e5', 'group': 'Bẫy cho người mới', 'level': 2,
+ 'tagline': 'Hiến tốt e5 ngay nước thứ hai để Mã đen nhảy vào g4 và tấn công tốt e5: nhiều bẫy sắc, ít lý thuyết.',
+ 'idea': [
+  'Sau 1.d4 Nf6 2.c4, thay vì ...e6 hay ...g6 quen thuộc, Đen đẩy ...e5 hiến tốt. Nếu Trắng ăn tốt e5, Mã f6 nhảy vào g4 và đánh vào tốt e5 để lấy lại tốt; Tượng đen có thể chiếu b4+ và Hậu e7 tiếp tục gây áp lực lên tốt e5.',
+  'Thế cờ giống một "bẫy cờ": nếu Trắng bảo vệ tốt e5 không chính xác, Đen có nhiều đòn chiến thuật (ví dụ hy sinh Tượng, Hậu e7 và Mã). Tuy vậy, máy tính hiện đại đánh giá Trắng có lợi thế nhỏ nếu chơi đúng, nên đây là khai cuộc "cạm bẫy" hơn là khai cuộc chắc chắn.'],
+ 'strengths': ['Ít phải học thuộc lý thuyết, nhiều bẫy chiến thuật.',
+               'Đen luôn có thế cờ hoạt động, Tượng b4+ và Mã g4 gây khó chịu.',
+               'Phù hợp với người thích tấn công và tính toán ngắn.'],
+ 'weaknesses': ['Máy tính đánh giá Trắng có lợi thế nhỏ (khoảng nửa tốt hoặc hơn).',
+                'Đen hiến tốt và phải lấy lại bằng nhịp, nếu Trắng phòng thủ đúng thì Đen thiếu tốt.',
+                'Trắng có hai cách đáp chính (Bf4 và e4), mỗi cách khác biệt đáng kể.'],
+}
+BASE = [
+ ('d4', 'Chiếm trung tâm, mở đường cho Tượng c1 và Hậu d1.', [('mob_gt', 'c1', 0), ('mob_gt', 'd1', 0)]),
+ ('Nf6', 'Đen phát triển Mã, canh e4 và d5.', [('att', 'f6', 'e4'), ('att', 'f6', 'd5')]),
+ ('c4', 'Trắng mở rộng không gian trung tâm.', [('att', 'c4', 'd5')]),
+ ('e5', 'Gambit Budapest: Đen hiến tốt e5 để lấy nhịp tấn công.', [('att', 'e5', 'd4')]),
+]
+VARS = [
+ {'id': 'bf4', 'name_vi': 'Trắng đáp Bf4', 'name_en': 'Budapest: 4.Bf4',
+  'idea': 'Trắng nhận tốt rồi bảo vệ bằng Bf4. Đen đáp Ng4, Nc6, Bb4+ và Qe7 để lấy lại tốt e5 bằng nhịp; sau đó đổi Mã, Đen có thế cờ thoải mái.',
+  'strengths': ['Đen lấy lại tốt dễ dàng và phát triển nhanh.', 'Có nhiều bẫy nếu Trắng chơi không chính xác.'],
+  'weaknesses': ['Trắng có Tượng f4 mạnh và cặp Tượng.', 'Máy tính đánh giá Trắng nhỉnh nếu chơi đúng.'],
+  'plan_w': 'Phát triển Nf3, Nbd2, e3 và giữ cặp Tượng, lấy lại tốt khi cần.',
+  'plan_b': 'Lấy lại tốt e5 bằng ...Ngxe5, đổi Mã và chơi ...d6, ...O-O.',
+  'tip': 'Trong Budapest, đừng vội bỏ Mã g4: nó đánh vào e5 và giữ nhịp tấn công.',
+  'steps': [
+   ('dxe5', 'Trắng nhận tốt.', [('capture',)]),
+   ('Ng4', 'Mã nhảy vào g4, đánh vào tốt e5.', [('att', 'g4', 'e5')]),
+   ('Bf4', 'Tượng bảo vệ tốt e5, nhắm vào c7.', [('att', 'f4', 'e5')]),
+   ('Nc6', 'Đen phát triển Mã, đánh vào tốt e5.', [('att', 'c6', 'e5')]),
+   ('Nf3', 'Phát triển Mã, bảo vệ e5.', [('att', 'f3', 'e5')]),
+   ('Bb4+', 'Tượng chiếu Vua, buộc Trắng chặn.', [('check',)]),
+   ('Nbd2', 'Mã chặn chiếu, canh e4.', [('att', 'd2', 'e4')]),
+   ('Qe7', 'Hậu đánh vào tốt e5 và ghim Mã d2 gián tiếp.', [('att', 'e7', 'e5')]),
+   ('e3', 'Củng cố d4, mở đường cho Tượng f1.', [('mob_gt', 'f1', 0)]),
+   ('Ngxe5', 'Đen lấy lại tốt e5 bằng Mã.', [('capture',)]),
+   ('Nxe5', 'Trắng đổi Mã.', [('capture',)]),
+   ('Nxe5', 'Đen ăn lại, Mã đứng vững ở trung tâm.', [('capture',)]),
+  ]},
+ {'id': 'e4', 'name_vi': 'Trắng đáp e4', 'name_en': 'Budapest: 4.e4',
+  'idea': 'Trắng trả lại tốt bằng e4 để chiếm trung tâm; Đen ăn tốt e5 bằng Mã rồi chơi ...Nc6 và ...Bb4+ để có nhịp phát triển. Thế cờ sắc bén, Trắng có trung tâm lớn nhưng Đen có thế cờ hoạt động.',
+  'strengths': ['Trắng có trung tâm lớn, hoạt động.', 'Đen có nhịp phát triển nhanh.'],
+  'weaknesses': ['Máy tính đánh giá Trắng nhỉnh khoảng nửa tốt hoặc hơn.', 'Đen phải cẩn thận không để trung tâm Trắng nghiền nát.'],
+  'plan_w': 'Phát triển Nf3, Nc3 và Bd3, nhập thành; dựng trung tâm e4-f4.',
+  'plan_b': 'Đổi Tượng ô đen bằng ...Bxc3+, dùng Hậu e7 và ...d6 để củng cố.',
+  'tip': 'Khi hiến tốt, hãy nhanh chóng phát triển để lấy lại thế chủ động.',
+  'steps': [
+   ('dxe5', 'Trắng nhận tốt.', [('capture',)]),
+   ('Ng4', 'Mã nhảy vào g4, đánh vào tốt e5.', [('att', 'g4', 'e5')]),
+   ('e4', 'Trắng chiếm trung tâm, củng cố e5 bằng tốt.', [('att', 'e4', 'd5')]),
+   ('Nxe5', 'Đen ăn tốt e5 bằng Mã.', [('capture',)]),
+   ('f4', 'Trắng đánh vào Mã e5.', [('att', 'f4', 'e5')]),
+   ('Nec6', 'Mã lùi về c6, giữ vững thế phòng thủ.', [('att', 'c6', 'e5')]),
+   ('Nf3', 'Phát triển Mã.', [('att', 'f3', 'e5')]),
+   ('Bb4+', 'Tượng chiếu Vua.', [('check',)]),
+   ('Nc3', 'Mã chặn chiếu.', [('att', 'c3', 'e4')]),
+   ('Qe7', 'Hậu ra e7, đánh vào tốt e4.', [('att', 'e7', 'e4')]),
+  ]},
+]
+TRAPS = []
+PUZZLES = [
+ dict(at=('bf4', 6), san='Ng4', multi_ok=True, tag='Budapest: Mã g4', hint='Mã f6 nhảy vào g4, đánh vào tốt e5.'),
+ dict(at=('bf4', 10), san='Bb4+', multi_ok=True, tag='Budapest: Bb4+', hint='Tượng f8 chiếu Vua từ b4.'),
+ dict(at=('bf4', 14), san='Ngxe5', multi_ok=True, tag='Budapest: lấy lại tốt', hint='Mã g4 ăn tốt e5.'),
+ dict(at=('e4', 8), san='Nxe5', multi_ok=True, tag='Budapest e4: lấy lại tốt', hint='Mã g4 ăn tốt e5.'),
+ dict(at=('e4', 12), san='Bb4+', multi_ok=True, tag='Budapest e4: Bb4+', hint='Tượng f8 chiếu Vua từ b4.'),
+]
