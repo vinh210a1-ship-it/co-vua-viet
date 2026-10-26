@@ -8,7 +8,7 @@ const TILES = [
   {href:'#/cau-do', title:'Câu đố', sub:'Mỗi ngày một câu, và nhiều bộ khác', fen:'1k6/8/8/8/6K1/3r4/8/Q7 w - - 0 1', sans:'Qb1+ Kc7 Qxd3'},
   {href:'#/khai-cuoc', title:'Khai cuộc', sub:'Tìm khai cuộc, xem điểm mạnh và yếu', sans:'e4 c6 d4 d5 Nc3 dxe4 Nxe4', flip:1},
   {href:'#/cau-do/tan-cuoc', title:'Tàn cuộc', sub:'Luyện thắng khi còn ít quân', fen:'8/4P3/8/8/8/k7/8/4K3 w - - 0 1', sans:'e8=Q Kb3 Qe3+ Kb2'},
-  {href:'#/may', title:'Đánh với máy', sub:'Chọn mức dễ đến khó', sans:'e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6', soon:true},
+  {href:'#/may', title:'Đánh với máy', sub:'Chọn mức dễ đến khó', sans:'e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6'},
   {href:'#/tam-nhin', title:'Luyện tầm nhìn', sub:'Nhìn ô cờ không cần bàn', fen:'4k3/8/8/8/8/8/8/R3K3 w - - 0 1', sans:'Ra8+ Kd7 Rh8 Ke7', soon:true}
 ];
 
@@ -16,7 +16,7 @@ const TILES = [
 function unitHref(u){
   if (u.soon) return null;
   if (u.href) return u.href;
-  if (typeof LV0 !== 'undefined' && u.id && LV0[u.id]) return '#/hoc/'+u.id;
+  if (u.id && LESSON_BANK[u.id]) return '#/hoc/'+u.id;
   return null;
 }
 /* k: soon (đang soạn), open (chưa làm), retry (làm rồi nhưng chưa đạt), done (xong) */
@@ -28,13 +28,19 @@ function unitState(u){
   if (l.done) return {k:'done', note:l.n ? l.pts+'/'+l.n : ''};
   return {k:'retry', note:l.pts+'/'+l.n};
 }
+/* Bài tiếp theo: bắt đầu từ cấp mà bài xếp lớp gợi ý (nếu đã làm), không có thì tìm từ cấp 0. */
 function nextUnit(){
-  for (const lv of LEVELS) for (const u of lv.units){
-    const st = unitState(u);
-    if (st.k==='open' || st.k==='retry') return {lv:lv, u:u, href:unitHref(u), st:st};
+  const from = Prog.placed() || 0;
+  for (const pass of [from, 0]) for (const lv of LEVELS){
+    if (lv.n < pass) continue;
+    for (const u of lv.units){
+      const st = unitState(u);
+      if (st.k==='open' || st.k==='retry') return {lv:lv, u:u, href:unitHref(u), st:st};
+    }
   }
   return null;
 }
+function dueCount(){ return Prog.reviewDue(999).length; }
 function levelProgress(lv){
   let done = 0, ready = 0;
   lv.units.forEach(u=>{ const k = unitState(u).k; if (k!=='soon') ready++; if (k==='done') done++; });
@@ -55,6 +61,9 @@ function tileHTML(t){
     foot = '<span class="pill">'+all.d+'/'+all.r+' bài đã làm</span>';
   } else if (t.href==='#/cau-do'){
     foot = '<span class="pill'+(Prog.doneToday()?' ok':'')+'">'+(Prog.doneToday()?'Hôm nay xong ✓':'Câu hôm nay chưa làm')+'</span>';
+  } else if (t.href==='#/may'){
+    let w = 0; for (const lv of ENGINE_LEVELS) if (mayStats(lv.n).w) w = lv.n;
+    foot = '<span class="pill'+(w?' ok':'')+'">'+(w ? 'Đã thắng tới mức '+w : '8 mức, dễ đến khó')+'</span>';
   } else if (t.href==='#/khai-cuoc'){
     foot = '<span class="pill">'+ALL.length.toLocaleString('vi-VN')+' dòng</span>';
   } else if (t.href==='#/cau-do/tan-cuoc'){
@@ -70,6 +79,9 @@ function viewHome(){
     ? '<a class="goon" href="'+nx.href+'"><span class="vnum" aria-hidden="true">▶</span><div><b>'+(anyProgress()?'Tiếp tục học':'Bắt đầu học')+'</b><span class="muted">Cấp '+nx.lv.n+' · '+esc(nx.u.title)+'</span></div><span class="go" aria-hidden="true">›</span></a>'
     : '<a class="goon" href="#/hoc"><span class="vnum" aria-hidden="true">★</span><div><b>Bạn đã làm hết các bài hiện có</b><span class="muted">Xem lại lộ trình</span></div><span class="go" aria-hidden="true">›</span></a>';
   const daily = '<a class="goon daily'+(today?' done':'')+'" href="#/cau-do/hom-nay"><span class="vnum" aria-hidden="true">'+(today?'✓':'?')+'</span><div><b>Câu đố hôm nay</b><span class="muted">'+(today?'Hôm nay bạn đã xong':'Một câu, vài phút')+(st?' · chuỗi '+st+' ngày':'')+'</span></div><span class="go" aria-hidden="true">›</span></a>';
+  const due = dueCount(), nRev = Prog.reviewCount();
+  const review = nRev ? '<a class="goon" href="#/on-tap"><span class="vnum" aria-hidden="true">↻</span><div><b>Ôn hôm nay</b><span class="muted">'+(due ? due+' câu đến hạn ôn' : 'Chưa có câu nào đến hạn')+'</span></div><span class="go" aria-hidden="true">›</span></a>' : '';
+  const place = Prog.placed()===null && !anyProgress() ? '<a class="goon" href="#/xep-lop"><span class="vnum" aria-hidden="true">?</span><div><b>Bài xếp lớp</b><span class="muted">15 câu, biết nên bắt đầu từ cấp nào</span></div><span class="go" aria-hidden="true">›</span></a>' : '';
   const nPuz = window.LESSON_LIST.reduce((a,m)=>a+m.puzzles,0) + PUZ_END.length + PUZ_THEMES.reduce((a,t)=>a+t.n,0);
   stage.innerHTML =
     '<section class="hero"><div><h2>Học cờ vua từng bước, dễ hiểu, miễn phí</h2>'+
@@ -78,7 +90,7 @@ function viewHome(){
       '<div class="stats"><span><strong>'+LEVELS.length+'</strong>cấp học</span>'+
       '<span><strong>'+ALL.length.toLocaleString('vi-VN')+'</strong>dòng khai cuộc</span><span><strong>'+nPuz+'</strong>câu đố</span></div></div>'+
       '<div class="herobox"><div class="boardbox" id="heroBoard"></div><a class="herocap" id="heroCap" href="#/"><b id="heroName"></b><span id="heroMoves"></span></a></div></section>'+
-    '<div class="goons">'+cont+daily+'</div>'+
+    '<div class="goons">'+cont+daily+place+review+'</div>'+
     '<h3 class="sec">Chọn một khu</h3>'+
     '<div class="tiles">'+TILES.map(tileHTML).join('')+'</div>'+
     '<a class="classbar" href="#/lop"><span class="vnum" aria-hidden="true">♜</span><div><b>Lớp của thầy</b><span class="muted">Khu riêng cho học sinh của thầy. Sắp có.</span></div><span class="go" aria-hidden="true">›</span></a>'+
@@ -185,16 +197,18 @@ function startPuzzleRun(pool, theme, po){
     clearTimeout(timer); if (board){ board.destroy(); board = null; }
     renderDots();
     const pz = list[idx], ucis = pz[2].split(' '), pos = replayUci(pz[1], ucis), last = pos.length-1;
+    const th = po.themeOf ? po.themeOf(pz) : theme;
     const me = pos[1].fen.split(' ')[1];   // bên đi sau nước đầu của đối thủ
     stage.innerHTML =
-      '<section class="card"><div class="meta"><span class="tag">'+(list.length>1?'Câu '+(idx+1)+'/'+list.length+' · ':'')+esc(theme.name)+'</span>'+
+      '<section class="card"><div class="meta"><span class="tag">'+(list.length>1?'Câu '+(idx+1)+'/'+list.length+' · ':'')+esc(th.name)+'</span>'+
       '<span class="turn"><i class="'+me+'"></i>'+(me==='w'?'Trắng':'Đen')+' đi</span></div>'+
-      '<h2>'+esc(theme.desc)+'</h2>'+
+      '<h2>'+esc(th.desc)+'</h2>'+
       '<div class="boardbox" id="qbox"></div>'+
       '<div class="boardtools"><button class="btn ghost small" id="hintBtn" type="button">Gợi ý</button><button class="btn ghost small" id="showBtn" type="button">Xem đáp án</button></div>'+
       '<div class="status info" id="fb" aria-live="polite"></div><div class="next" id="next"></div>'+
       '<p class="muted small">Độ khó '+pz[3]+' (Lichess). Mã câu '+esc(pz[0])+'.</p></section>';
     let k = 0, attempts = 0, solved = false, hintLvl = 0;
+    if (po.noHelp) $('hintBtn').hidden = true;
     const fb = (kind, ico, html)=>{ const el = $('fb'); el.hidden = false; el.className = 'status '+kind; el.innerHTML = '<span class="ico" aria-hidden="true">'+ico+'</span><div>'+html+'</div>'; };
     const b = new Board($('qbox'), {fen:pos[0].fen, flip:me==='b', interactive:true, intro:true, canMove:c=>c===me, onMove});
     board = b; b.lock(true);
@@ -204,10 +218,11 @@ function startPuzzleRun(pool, theme, po){
     function finish(kind){
       solved = true; b.lock(true); b.setHint(null);
       if (answers[idx]===undefined) answers[idx] = kind==='first';
+      Prog.reviewResult('th:'+th.id+':'+pz[0], kind==='first');
       renderDots();
       const sol = pos.slice(2).map((p,i)=>p.san).join(' ');
       fb(kind==='show'?'info':'ok', kind==='show'?'→':'✓',
-        '<p><b>'+(kind==='first' ? PRAISE[idx%PRAISE.length] : kind==='retry' ? 'Đúng rồi! Lần này bạn đã tìm ra.' : 'Đáp án')+'</b></p><p>Các nước: <b>'+esc(movesTextFrom(pos, 1))+'</b></p><p class="tip">Mẹo: '+esc(theme.tip)+'</p>');
+        '<p><b>'+(kind==='first' ? PRAISE[idx%PRAISE.length] : kind==='retry' ? 'Đúng rồi! Lần này bạn đã tìm ra.' : 'Đáp án')+'</b></p><p>Các nước: <b>'+esc(movesTextFrom(pos, 1))+'</b></p><p class="tip">Mẹo: '+esc(th.tip)+'</p>');
       if (kind!=='show') $('fb').classList.add('celebrate');
       $('hintBtn').hidden = $('showBtn').hidden = true;
       const lastQ = idx===list.length-1;
@@ -258,6 +273,12 @@ function startPuzzleRun(pool, theme, po){
     const msg = po.single ? (pts ? 'Xong câu đố hôm nay, đúng ngay lần đầu!' : 'Xong câu đố hôm nay!') : pts===n ? 'Tuyệt vời, trọn điểm!' : ratio>=0.8 ? 'Rất xuất sắc!' : ratio>=0.5 ? 'Khá lắm, luyện thêm chút nữa nhé!' : 'Đừng lo, câu khó cần luyện nhiều. Thử lại nào!';
     const stars = ratio>=0.9 ? 3 : ratio>=0.6 ? 2 : ratio>=0.3 ? 1 : 0;
     let st = ''; for (let i=0;i<3;i++) st += '<span'+(i<stars?'':' style="opacity:.3"')+'>★</span>';
+    if (po.after){
+      stage.innerHTML = '<section class="card end"><h2>Xong phần này</h2><div class="big">'+pts+'/'+n+'</div><p class="muted small">Số câu đúng ngay lần đầu.</p>'+
+        '<div class="actions"><button class="btn" id="cont" type="button">Tiếp tục</button></div></section>';
+      $('cont').addEventListener('click', ()=>{ window.scrollTo({top:0}); po.after(pts, n); });
+      return;
+    }
     stage.innerHTML = '<section class="card end"><h2>'+msg+'</h2>'+
       (po.single ? '' : '<div class="big">'+pts+'/'+n+'</div><div class="stars" aria-hidden="true">'+st+'</div><p class="muted small">Điểm chỉ tính khi bạn đi đúng ngay lần đầu.</p>')+(po.endHTML ? po.endHTML() : '')+
       '<div class="actions"><button class="btn" id="again" type="button">Chơi lại</button> <a class="btn ghost" href="'+po.backHref+'">'+esc(po.backText)+'</a></div></section>';
@@ -294,6 +315,29 @@ function viewDaily(){
     });
   });
 }
+/* ---------- Ôn hôm nay: các câu đố đến hạn ôn lặp ----------
+   Mỗi câu đố đã làm có một "hộp" 0 đến 3 (Prog.reviewResult): đúng ngay lần đầu thì quay lại sau 3, 7, 21 ngày; sai thì quay lại hôm sau. */
+function viewReview(){
+  setCrumbs([['Trang chủ','#/'],['Ôn hôm nay']]);
+  const keys = Prog.reviewDue(10), total = Prog.reviewCount();
+  const empty = why => { stage.innerHTML = '<section class="card center"><h2>Ôn hôm nay</h2><p>'+why+'</p>'+
+    '<p class="muted small">Câu đố nào bạn làm đúng ngay lần đầu sẽ quay lại sau 3 ngày, rồi 7 ngày, rồi 21 ngày. Câu làm sai sẽ quay lại vào ngày mai. Ôn đúng lúc sắp quên là cách nhớ lâu nhất.</p>'+
+    '<div class="actions"><a class="btn" href="#/cau-do">Làm câu đố</a><a class="btn ghost" href="#/">Về trang chủ</a></div></section>'; };
+  if (!keys.length) return empty(total ? 'Hôm nay không còn câu nào cần ôn. Giỏi lắm!' : 'Bạn chưa làm câu đố nào nên chưa có gì để ôn. Hãy làm vài câu đố trước.');
+  stage.innerHTML = '<section class="card center"><p class="muted">Đang tải câu đố cần ôn...</p></section>';
+  let alive = true; onLeave(()=>{ alive = false; });
+  const want = {}, themes = [];
+  keys.forEach(k=>{ const m = /^th:(\w+):(.+)$/.exec(k); if (!m) return; (want[m[1]] || (want[m[1]] = (themes.push(m[1]), {})))[m[2]] = 1; });
+  const pool = [], tmap = {}; let left = themes.length;
+  themes.forEach(id=>loadTheme(id, rows=>{
+    const th = PUZ_THEMES.find(t=>t.id===id);
+    if (rows && th) rows.forEach(r=>{ if (want[id][r[0]]){ pool.push(r); tmap[r[0]] = th; } });
+    if (--left || !alive) return;
+    if (!pool.length) return empty('Không tải được các câu cần ôn. Kiểm tra mạng rồi thử lại.');
+    startPuzzleRun(pool, null, {count:pool.length, themeOf:r=>tmap[r[0]], backHref:'#/', backText:'Về trang chủ', title:'Ôn hôm nay',
+      endHTML:()=>'<p class="muted small">Câu đúng sẽ quay lại sau 3, 7 hoặc 21 ngày. Câu sai sẽ quay lại vào ngày mai.</p>'});
+  }));
+}
 function viewEndgameQuiz(){
   startQuiz(PUZ_END, '#/cau-do', 'Tàn cuộc', {
     crumbs:[['Trang chủ','#/'],['Câu đố','#/cau-do'],['Tàn cuộc']], setId:'end', backText:'Về khu Câu đố'
@@ -301,18 +345,26 @@ function viewEndgameQuiz(){
 }
 
 /* ---------- Lộ trình 6 cấp ---------- */
+/* Huy hiệu cấp: đã qua (bài kiểm tra đạt 80%), hoặc gợi ý bỏ qua nhờ bài xếp lớp. */
+function badgeOf(lv){
+  const g = Prog.level(lv.n), pl = Prog.placed();
+  if (g && g.passed) return '<p><span class="lvbadge">★ Đã qua cấp '+lv.n+(g.n ? ' · '+g.pts+'/'+g.n : '')+'</span></p>';
+  if (pl !== null && lv.n < pl) return '<p><span class="lvbadge hint">Bài xếp lớp: bạn đã biết cấp này</span></p>';
+  return '';
+}
 function viewRoadmap(){
   setCrumbs([['Trang chủ','#/'],['Học theo cấp']]);
   const nx = nextUnit();
   let h = '<section class="card"><h2>Lộ trình 6 cấp</h2>'+
-    '<p>Đi từ cấp 0 lên cấp 5. Học xong bài nào, bài đó được đánh dấu ✓ (lưu ngay trên máy của bạn). Bài ghi "Đang soạn" sẽ có sau.</p>'+
+    '<p>Đi từ cấp 0 lên cấp 5. Học xong bài nào, bài đó được đánh dấu ✓ (lưu ngay trên máy của bạn). Cuối mỗi cấp có bài kiểm tra: đúng từ 80% là qua cấp. Bài ghi "Đang soạn" sẽ có sau.</p>'+
+    '<div class="placebar"><p>'+(Prog.placed()===null ? 'Chưa biết bắt đầu từ cấp nào? Làm bài xếp lớp 15 câu để được gợi ý.' : 'Bài xếp lớp gợi ý bạn bắt đầu từ <b>Cấp '+Prog.placed()+'</b>. Bạn vẫn học lại cấp nào cũng được.')+'</p><a class="btn small'+(Prog.placed()===null?'':' ghost')+'" href="#/xep-lop">'+(Prog.placed()===null ? 'Làm bài xếp lớp' : 'Làm lại')+'</a></div>'+
     (nx ? '<a class="goon" href="'+nx.href+'"><span class="vnum" aria-hidden="true">▶</span><div><b>'+(anyProgress()?'Tiếp tục':'Bắt đầu')+'</b><span class="muted">Cấp '+nx.lv.n+' · '+esc(nx.u.title)+'</span></div><span class="go" aria-hidden="true">›</span></a>' : '')+
     '</section>';
   LEVELS.forEach(lv=>{
     const p = levelProgress(lv), soonN = p.total-p.ready;
     h += '<section class="card level"><div class="lvhead"><span class="lvnum" aria-hidden="true">'+lv.n+'</span><div><h2>Cấp '+lv.n+': '+esc(lv.name)+'</h2><p class="muted small">'+esc(lv.desc)+'</p></div></div>'+
       '<div class="progress" aria-hidden="true"><i style="width:'+(p.total ? p.done/p.total*100 : 0)+'%"></i></div>'+
-      '<p class="muted small">'+p.done+'/'+p.total+' bài đã xong'+(soonN?' · '+soonN+' bài đang soạn':'')+'</p>'+
+      '<p class="muted small">'+p.done+'/'+p.total+' bài đã xong'+(soonN?' · '+soonN+' bài đang soạn':'')+'</p>'+badgeOf(lv)+
       '<ol class="units">'+lv.units.map(u=>{
         const st = unitState(u), href = unitHref(u), here = nx && nx.u===u;
         const ico = st.k==='done' ? '✓' : st.k==='soon' ? '·' : st.k==='retry' ? '↻' : '●';
@@ -326,7 +378,6 @@ function viewRoadmap(){
 
 /* ---------- Trang "sắp có" ---------- */
 const SOON = {
-  may:{title:'Đánh với máy', crumb:'Đánh với máy', text:['Bạn sẽ đánh một ván với máy cờ Stockfish, chọn mức từ dễ đến khó, có gợi ý và xem lại ván.','Tính năng này đang được chuẩn bị. Trong lúc chờ, hãy thử các câu đố.'], to:['#/cau-do','Làm câu đố']},
   'tam-nhin':{title:'Luyện tầm nhìn', crumb:'Luyện tầm nhìn', text:['Bài luyện nhìn ô cờ không cần bàn: máy đọc một tọa độ, bạn chạm đúng ô. Giúp đọc nhanh tọa độ và hình dung đường đi của quân.','Đang chuẩn bị. Bài "Bàn cờ và tọa độ" ở cấp 0 là bước đầu tiên.'], to:['#/hoc/ban-co','Học tọa độ']},
   lop:{title:'Lớp của thầy', crumb:'Lớp của thầy', text:['Đây sẽ là khu riêng dành cho học sinh của thầy: thầy giao bài, học sinh làm bài, thầy xem tiến độ từng em.','Phần còn lại của web luôn mở cho mọi người, không cần đăng nhập. Chỉ khu này cần tài khoản do thầy cấp.','Khu này đang được thiết kế, sẽ làm sau khi phần học và câu đố đã ổn.'], to:['#/hoc','Xem lộ trình']}
 };
@@ -335,149 +386,4 @@ function viewSoon(k){
   setCrumbs([['Trang chủ','#/'],[s.crumb]]);
   stage.innerHTML = '<section class="card center"><span class="pill soon">Sắp có</span><h2>'+esc(s.title)+'</h2>'+s.text.map(t=>'<p>'+esc(t)+'</p>').join('')+
     '<div class="actions"><a class="btn" href="'+s.to[0]+'">'+esc(s.to[1])+'</a><a class="btn ghost" href="#/">Về trang chủ</a></div></section>';
-}
-
-/* ---------- Bài học cấp 0 ---------- */
-function viewLesson(id){
-  const L = typeof LV0 !== 'undefined' ? LV0[id] : null;
-  if (!L){ go('#/hoc'); return; }
-  const units = LEVELS[0].units, ui = units.findIndex(u=>u.id===id), n = L.steps.length;
-  setCrumbs([['Trang chủ','#/'],['Học theo cấp','#/hoc'],[L.title]]);
-  const $ = x => document.getElementById(x);
-  let si = -1, res = {}, board = null;
-  onLeave(()=>{ if (board) board.destroy(); });
-  function kill(){ if (board){ board.destroy(); board = null; } }
-  function fb(kind, ico, html){ const el = $('fb'); el.hidden = false; el.className = 'status '+kind; el.innerHTML = '<span class="ico" aria-hidden="true">'+ico+'</span><div>'+html+'</div>'; }
-  function nextBtn(label){
-    $('next').innerHTML = '<button class="btn" id="nb" type="button">'+label+'</button>';
-    $('nb').addEventListener('click', ()=>{ si++; show(); });
-    $('nb').focus({preventScroll:true});
-  }
-  function card(body){
-    stage.innerHTML = '<section class="card"><div class="meta"><span class="tag">'+esc(L.title)+' · '+(si+1)+'/'+n+'</span></div>'+
-      '<div class="progress" aria-hidden="true"><i style="width:'+(si/n*100)+'%"></i></div>'+body+
-      '<div class="status info" id="fb" aria-live="polite" hidden></div><div class="next" id="next"></div></section>';
-  }
-  function show(){
-    kill(); window.scrollTo({top:0});
-    if (si<0) return intro();
-    if (si>=n) return finish();
-    const s = L.steps[si];
-    if (s.type==='show') return stShow(s);
-    if (s.type==='tap') return stTap(s);
-    if (s.type==='quiz') return stQuiz(s);
-    return stPlay(s);
-  }
-  function intro(){
-    const first = L.steps.find(s=>s.fen);
-    stage.innerHTML = '<section class="card"><div class="meta"><span class="tag">Cấp 0 · '+(L.test?'Kiểm tra':'Bài học')+'</span></div><h2>'+esc(L.title)+'</h2>'+
-      (first ? '<div class="boardbox" id="bx"></div>' : '')+L.intro.map(t=>'<p>'+esc(t)+'</p>').join('')+
-      '<p class="muted small">Bài này có '+n+' phần'+(L.test?'. Cần đúng ít nhất 70% để đạt.':'.')+'</p>'+
-      '<div class="next"><button class="btn" id="go" type="button">'+(L.test?'Bắt đầu kiểm tra':'Bắt đầu')+'</button></div></section>';
-    if (first) board = new Board($('bx'), {fen:first.fen, intro:true});
-    $('go').addEventListener('click', ()=>{ si = 0; res = {}; show(); });
-  }
-  function stShow(s){
-    card('<div class="boardbox" id="bx"></div><p>'+esc(s.text)+'</p>');
-    board = new Board($('bx'), {fen:s.fen, intro:true});
-    nextBtn(si===n-1 ? 'Xong' : 'Tiếp tục');
-  }
-  /* explore, reach, capture: đi quân thật; Vua Đen không có nên lượt luôn ở bên Trắng (solo). */
-  function stPlay(s){
-    const side = s.fen.split(' ')[1], blackLeft = ()=>board.game.board().reduce((a,r)=>a+r.filter(p=>p&&p.color==='b').length, 0);
-    card('<p class="q">'+esc(s.text)+'</p><div class="boardbox" id="bx"></div>'+
-      '<div class="boardtools"><button class="btn ghost small" id="redo" type="button">Làm lại</button><span class="cnt" id="cnt"></span></div>');
-    let moves = 0, done = false;
-    const test = !!L.test;
-    function cnt(){ $('cnt').textContent = 'Số nước đã đi: '+moves; }
-    board = new Board($('bx'), {fen:s.fen, interactive:true, solo:side, canMove:c=>c===side, intro:true, onMove});
-    cnt();
-    if (s.type==='reach') fb('info','♟','<p>Ô cần tới: <b>'+esc(s.target)+'</b>.</p>');
-    if (s.type==='capture') fb('info','♟','<p>Còn <b>'+blackLeft()+'</b> quân Đen cần ăn.</p>');
-    function win(){
-      done = true; board.lock(true);
-      const best = moves <= s.best; res[si] = best;
-      fb(best?'ok':'info', best?'✓':'→',
-        best ? '<p><b>Chính xác!</b> Bạn làm trong '+moves+' nước, đây là số nước ít nhất.</p>' :
-        '<p><b>Hoàn thành, nhưng có cách ngắn hơn.</b> Bạn đi '+moves+' nước, còn cách chỉ cần '+s.best+' nước.</p>'+(test?'<p>Câu này không được tính điểm.</p>':'<p>Bấm Làm lại để thử tìm đường ngắn hơn, hoặc Tiếp tục.</p>'));
-      if (best){ $('fb').classList.add('celebrate'); }
-      nextBtn(si===n-1 ? 'Xong' : 'Tiếp tục');
-    }
-    function onMove(){
-      moves++; cnt();
-      if (s.type==='explore'){
-        if (moves>=s.min){ if (!done){ done = true; fb('ok','✓','<p><b>Tốt lắm!</b> Bạn đã thử '+moves+' nước. Có thể đi thêm cho quen, rồi bấm Tiếp tục.</p>'); nextBtn(si===n-1 ? 'Xong' : 'Tiếp tục'); } }
-        else fb('info','♟','<p>Đã đi '+moves+' nước. Thử thêm '+(s.min-moves)+' nước nữa.</p>');
-        return;
-      }
-      if (done) return;
-      if (s.type==='reach' && board.last && board.last[1]===s.target) return win();
-      if (s.type==='capture' && blackLeft()===0) return win();
-      if (!board.game.moves().length){ board.lock(true); fb('no','✗','<p>Không còn nước đi nào. Bấm Làm lại để thử cách khác.</p>'); return; }
-      if (s.type==='reach') fb('info','♟','<p>Chưa tới ô <b>'+esc(s.target)+'</b>. Đã đi '+moves+' nước.</p>');
-      else fb('info','♟','<p>Còn <b>'+blackLeft()+'</b> quân Đen cần ăn. Đã đi '+moves+' nước.</p>');
-    }
-    $('redo').addEventListener('click', ()=>{
-      moves = 0; done = false; delete res[si]; $('next').innerHTML = ''; board.lock(false); board.setFen(s.fen); cnt();
-      if (s.type==='reach') fb('info','♟','<p>Ô cần tới: <b>'+esc(s.target)+'</b>.</p>');
-      else if (s.type==='capture') fb('info','♟','<p>Còn <b>'+blackLeft()+'</b> quân Đen cần ăn.</p>');
-      else $('fb').hidden = true;
-    });
-  }
-  /* tap: chạm đúng ô được hỏi trên bàn trống. */
-  function stTap(s){
-    card('<p class="q">'+esc(s.text)+'</p><p class="ask" id="ask"></p><div class="boardbox" id="bx"></div>');
-    board = new Board($('bx'), {fen:'8/8/8/8/8/8/8/8 w - - 0 1'});
-    board.root.classList.add('tapact'); if (L.test) board.root.classList.add('nocoord');
-    board.root.setAttribute('role','application'); board.root.setAttribute('aria-label','Bàn cờ trống. Chạm vào ô được hỏi.');
-    let k = 0, wrong = 0;
-    const ask = ()=>{ $('ask').innerHTML = 'Chạm vào ô <b>'+esc(s.squares[k])+'</b> <span class="muted">('+(k+1)+'/'+s.squares.length+')</span>'; };
-    ask();
-    board.root.addEventListener('pointerdown', e=>{
-      if (k>=s.squares.length) return;
-      const sq = board.sqAt(e.clientX, e.clientY); if (!sq) return;
-      const want = s.squares[k];
-      if (sq===want){
-        board.setFlash(sq,'ok',600); k++;
-        if (k>=s.squares.length){
-          res[si] = wrong===0; $('ask').innerHTML = '<b>Xong!</b>';
-          fb(wrong===0?'ok':'info', wrong===0?'✓':'→', wrong===0 ? '<p><b>Chính xác cả '+k+' ô!</b></p>' : '<p>Bạn đã tìm đúng cả '+k+' ô, có '+wrong+' lần chạm nhầm.</p>');
-          nextBtn(si===n-1 ? 'Xong' : 'Tiếp tục');
-        } else { fb('ok','✓','<p>Đúng, ô '+esc(sq)+'.</p>'); ask(); }
-      } else {
-        wrong++; board.setFlash(sq,'no',600);
-        fb('no','✗','<p>Bạn chạm ô <b>'+esc(sq)+'</b>. Ô cần tìm là <b>'+esc(want)+'</b>: cột <b>'+esc(want[0])+'</b>, hàng <b>'+esc(want[1])+'</b>.</p>');
-      }
-    });
-  }
-  function stQuiz(s){
-    card('<h2 class="qh">'+esc(s.q)+'</h2><div class="qopts">'+s.opts.map((o,i)=>'<button class="qopt" type="button" data-i="'+i+'">'+esc(o)+'</button>').join('')+'</div>');
-    let answered = false;
-    stage.querySelector('.qopts').addEventListener('click', e=>{
-      const b = e.target.closest('.qopt'); if (!b || answered) return;
-      answered = true; const i = +b.dataset.i, ok = i===s.correct; res[si] = ok;
-      stage.querySelectorAll('.qopt').forEach(x=>{ x.disabled = true; if (+x.dataset.i===s.correct) x.classList.add('right'); });
-      if (!ok) b.classList.add('wrong');
-      fb(ok?'ok':'no', ok?'✓':'✗', '<p><b>'+(ok?PRAISE[si%PRAISE.length]:'Chưa đúng.')+'</b></p><p>'+esc(s.why)+'</p>');
-      if (ok) $('fb').classList.add('celebrate');
-      nextBtn(si===n-1 ? 'Xong' : 'Tiếp tục');
-    });
-  }
-  function finish(){
-    const keys = Object.keys(res), pts = keys.filter(k=>res[k]).length, tot = keys.length;
-    const pass = !L.test || !tot || pts/tot>=0.7;
-    Prog.setLesson(id, {done:pass, pts:pts, n:tot});
-    const nu = units[ui+1], nh = nu && unitHref(nu);
-    let rev = '';
-    if (L.test) L.steps.forEach((s,i)=>{ if (res[i]===undefined) return; rev += '<li class="'+(res[i]?'ok':'no')+'"><b>'+(res[i]?'✓':'✗')+'</b><span>'+esc(s.q||s.text)+'</span></li>'; });
-    stage.innerHTML = '<section class="card end"><h2>'+(L.test ? (pass ? 'Bạn đã đạt!' : 'Chưa đạt, thử lại nhé') : 'Hoàn thành bài '+esc(L.title)+'!')+'</h2>'+
-      (tot ? '<div class="big">'+pts+'/'+tot+'</div><p class="muted small">'+(L.test ? 'Cần đúng ít nhất 70% để đạt.' : 'Số câu bạn làm đúng ngay lần đầu.')+'</p>' : '')+
-      (L.test ? '<ul class="review">'+rev+'</ul>' : '')+
-      '<div class="actions">'+
-        (L.test && !pass ? '<button class="btn" id="again" type="button">Làm lại bài kiểm tra</button>' : (nh ? '<a class="btn" href="'+nh+'">Bài tiếp theo: '+esc(nu.title)+'</a>' : '<a class="btn" href="#/hoc">Về lộ trình</a>'))+
-        '<a class="btn ghost" href="#/hoc">Xem lộ trình</a></div></section>';
-    if (pass) confetti();
-    const ag = $('again'); if (ag) ag.addEventListener('click', ()=>{ si = -1; res = {}; show(); });
-  }
-  show();
 }
