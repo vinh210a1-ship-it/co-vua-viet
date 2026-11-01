@@ -139,10 +139,11 @@ function bandOf(r){ return r < 1100 ? 'de' : r < 1600 ? 'vua' : 'kho'; }
 function viewThemes(){
   setCrumbs([['Trang chủ','#/'],['Câu đố','#/cau-do'],['Theo chủ đề']]);
   stage.innerHTML = '<section class="card"><h2>Câu đố theo chủ đề</h2><p class="muted">Chọn một chủ đề, rồi chọn mức. Điểm Dễ, Vừa, Khó theo độ khó do Lichess tính từ hàng triệu lượt giải.</p></section>'+
-    '<section class="card"><div class="vlist">'+PUZ_THEMES.map(t=>{
-      const best = ['de','vua','kho'].map(b=>Prog.best('th:'+t.id+':'+b)).filter(Boolean).length;
-      return '<a class="vcard" href="#/cau-do/chu-de/'+t.id+'"><div><h3>'+esc(t.name)+'</h3><p class="muted">'+esc(t.desc)+'</p><p><span class="pill'+(best?' ok':'')+'">'+(best?best+'/3 mức đã làm':'Chưa làm')+'</span></p></div><span class="go" aria-hidden="true">›</span></a>';
-    }).join('')+'</div></section>';
+    [...new Set(PUZ_THEMES.map(t=>t.group||'Chủ đề'))].map(g=>
+      '<section class="card"><h3 class="sec">'+esc(g)+'</h3><div class="vlist">'+PUZ_THEMES.filter(t=>(t.group||'Chủ đề')===g).map(t=>{
+        const best = ['de','vua','kho'].map(b=>Prog.best('th:'+t.id+':'+b)).filter(Boolean).length;
+        return '<a class="vcard" href="#/cau-do/chu-de/'+t.id+'"><div><h3>'+esc(t.name)+'</h3><p class="muted">'+esc(t.desc)+'</p><p><span class="pill'+(best?' ok':'')+'">'+(best?best+'/3 mức đã làm':'Chưa làm')+'</span></p></div><span class="go" aria-hidden="true">›</span></a>';
+      }).join('')+'</div></section>').join('');
 }
 function viewTheme(id){
   const t = PUZ_THEMES.find(x=>x.id===id);
